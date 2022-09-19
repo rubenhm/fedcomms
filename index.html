@@ -631,201 +631,6 @@ the <strong>Summary of Economic Projections</strong>.</li>
 </section>
 <section id="process-ocr-results-python-1" class="slide level2">
 <h2>Process OCR results (<code>python</code>)</h2>
-<div class="column-page">
-
-<!--
-Highlight line numbers in code blocks (non-executable)
-https://www.pipinghotdata.com/posts/2022-05-12-code-line-highlighting-in-quarto-revealjs-presentations/ 
-```{.python code-line-numbers="2"}
--->
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Import required libraries</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="im">import</span> os</span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="im">import</span> re</span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="im">import</span> csv</span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="im">import</span> io</span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="im">import</span> tempfile</span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="im">import</span> json</span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="im">import</span> sys</span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="im">from</span> pprint <span class="im">import</span> pprint</span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="im">from</span> google.protobuf <span class="im">import</span> json_format</span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="im">import</span> jenkspy</span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="im">import</span> pickle</span>
-<span id="cb3-15"><a href="#cb3-15"></a></span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="co"># %%</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="co"># Define function to extract information from JSON file</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="co"># https://github.com/kazunori279/pdf2audiobook/blob/master/functions/app/main.py</span></span>
-<span id="cb3-19"><a href="#cb3-19"></a><span class="co"># https://stackoverflow.com/questions/51972479/get-lines-and-paragraphs-not-symbols-from-google-vision-api-ocr-on-pdf</span></span>
-<span id="cb3-20"><a href="#cb3-20"></a><span class="kw">def</span> extract_paragraph_feature(para_id, para):</span>
-<span id="cb3-21"><a href="#cb3-21"></a></span>
-<span id="cb3-22"><a href="#cb3-22"></a>    <span class="co"># collect text</span></span>
-<span id="cb3-23"><a href="#cb3-23"></a>    text <span class="op">=</span> <span class="st">""</span></span>
-<span id="cb3-24"><a href="#cb3-24"></a>    </span>
-<span id="cb3-25"><a href="#cb3-25"></a>    <span class="co"># Initialize list of character height of words in paragraph</span></span>
-<span id="cb3-26"><a href="#cb3-26"></a>    wcheight_list <span class="op">=</span> [] </span>
-<span id="cb3-27"><a href="#cb3-27"></a>    breaks <span class="op">=</span> vision.enums.TextAnnotation.DetectedBreak.BreakType</span>
-<span id="cb3-28"><a href="#cb3-28"></a>    <span class="cf">for</span> word <span class="kw">in</span> para.words:</span>
-<span id="cb3-29"><a href="#cb3-29"></a>        <span class="co"># Get bounding box coordinates to calculate height word</span></span>
-<span id="cb3-30"><a href="#cb3-30"></a>        cy_list <span class="op">=</span> []</span>
-<span id="cb3-31"><a href="#cb3-31"></a>        <span class="cf">for</span> v <span class="kw">in</span> word.bounding_box.normalized_vertices:</span>
-<span id="cb3-32"><a href="#cb3-32"></a>            cy_list.append(v.y)</span>
-<span id="cb3-33"><a href="#cb3-33"></a>        <span class="co"># Calculate height of character</span></span>
-<span id="cb3-34"><a href="#cb3-34"></a>        wcheight_list.append(<span class="bu">max</span>(cy_list) <span class="op">-</span> <span class="bu">min</span>(cy_list))</span>
-<span id="cb3-35"><a href="#cb3-35"></a>        <span class="cf">for</span> symbol <span class="kw">in</span> word.symbols:</span>
-<span id="cb3-36"><a href="#cb3-36"></a>            <span class="co"># Append characters to form text</span></span>
-<span id="cb3-37"><a href="#cb3-37"></a>            text <span class="op">+=</span> symbol.text</span>
-<span id="cb3-38"><a href="#cb3-38"></a>            <span class="co"># Add spaces or linebreaks to text string</span></span>
-<span id="cb3-39"><a href="#cb3-39"></a>            <span class="cf">if</span> <span class="bu">hasattr</span>(symbol.<span class="bu">property</span>, <span class="st">"detected_break"</span>):</span>
-<span id="cb3-40"><a href="#cb3-40"></a>                break_type <span class="op">=</span> symbol.<span class="bu">property</span>.detected_break.<span class="bu">type</span></span>
-<span id="cb3-41"><a href="#cb3-41"></a>                <span class="cf">if</span> break_type <span class="op">==</span> breaks.SPACE:</span>
-<span id="cb3-42"><a href="#cb3-42"></a>                    text <span class="op">+=</span> <span class="st">" "</span>  <span class="co"># if the break is SPACE</span></span>
-<span id="cb3-43"><a href="#cb3-43"></a>                <span class="cf">if</span> break_type <span class="op">==</span> breaks.EOL_SURE_SPACE:</span>
-<span id="cb3-44"><a href="#cb3-44"></a>                    text <span class="op">+=</span> <span class="st">" "</span>  <span class="co"># this is not a line break, why is there detected_break</span></span>
-<span id="cb3-45"><a href="#cb3-45"></a>                <span class="cf">if</span> break_type <span class="op">==</span> breaks.LINE_BREAK:</span>
-<span id="cb3-46"><a href="#cb3-46"></a>                    text <span class="op">+=</span> <span class="st">"</span><span class="ch">\r\n</span><span class="st">"</span> <span class="co"># if the break is a LINE_BREAK</span></span>
-<span id="cb3-47"><a href="#cb3-47"></a>                    </span>
-<span id="cb3-48"><a href="#cb3-48"></a>   <span class="co">#print(np.unique(breaks))</span></span>
-<span id="cb3-49"><a href="#cb3-49"></a>    </span>
-<span id="cb3-50"><a href="#cb3-50"></a>    <span class="co"># Average height of words in paragraph</span></span>
-<span id="cb3-51"><a href="#cb3-51"></a>    pcheight <span class="op">=</span> np.average(wcheight_list)</span>
-<span id="cb3-52"><a href="#cb3-52"></a>    </span>
-<span id="cb3-53"><a href="#cb3-53"></a>    <span class="co"># remove double quotes</span></span>
-<span id="cb3-54"><a href="#cb3-54"></a>    text <span class="op">=</span> text.replace(<span class="st">'"'</span>, <span class="st">""</span>)</span>
-<span id="cb3-55"><a href="#cb3-55"></a></span>
-<span id="cb3-56"><a href="#cb3-56"></a>    <span class="co"># remove URLs</span></span>
-<span id="cb3-57"><a href="#cb3-57"></a>    text <span class="op">=</span> re.sub(<span class="st">"https?://[\w/:%#\$&amp;\?\(\)~\.=\+\-]+"</span>, <span class="st">""</span>, text)</span>
-<span id="cb3-58"><a href="#cb3-58"></a></span>
-<span id="cb3-59"><a href="#cb3-59"></a>    <span class="co"># extract bounding box features of the paragraph</span></span>
-<span id="cb3-60"><a href="#cb3-60"></a>    x_list <span class="op">=</span> []</span>
-<span id="cb3-61"><a href="#cb3-61"></a>    y_list <span class="op">=</span> []</span>
-<span id="cb3-62"><a href="#cb3-62"></a>    <span class="cf">for</span> v <span class="kw">in</span> para.bounding_box.normalized_vertices:</span>
-<span id="cb3-63"><a href="#cb3-63"></a>        x_list.append(v.x)</span>
-<span id="cb3-64"><a href="#cb3-64"></a>        y_list.append(v.y)</span>
-<span id="cb3-65"><a href="#cb3-65"></a>    f <span class="op">=</span> {}</span>
-<span id="cb3-66"><a href="#cb3-66"></a>    f[<span class="st">"para_id"</span>] <span class="op">=</span> para_id</span>
-<span id="cb3-67"><a href="#cb3-67"></a>    f[<span class="st">"page"</span>] <span class="op">=</span> para_id[<span class="dv">9</span>:<span class="dv">12</span>]</span>
-<span id="cb3-68"><a href="#cb3-68"></a>    f[<span class="st">"text"</span>] <span class="op">=</span> text</span>
-<span id="cb3-69"><a href="#cb3-69"></a>    f[<span class="st">"avg_word_height"</span>] <span class="op">=</span> pcheight<span class="op">*</span><span class="dv">1000</span></span>
-<span id="cb3-70"><a href="#cb3-70"></a>    f[<span class="st">"width"</span>] <span class="op">=</span> <span class="bu">max</span>(x_list) <span class="op">-</span> <span class="bu">min</span>(x_list)</span>
-<span id="cb3-71"><a href="#cb3-71"></a>    f[<span class="st">"height"</span>] <span class="op">=</span> <span class="bu">max</span>(y_list) <span class="op">-</span> <span class="bu">min</span>(y_list)</span>
-<span id="cb3-72"><a href="#cb3-72"></a>    f[<span class="st">"area"</span>] <span class="op">=</span> f[<span class="st">"width"</span>] <span class="op">*</span> f[<span class="st">"height"</span>]</span>
-<span id="cb3-73"><a href="#cb3-73"></a>    f[<span class="st">"chars"</span>] <span class="op">=</span> <span class="bu">len</span>(text)</span>
-<span id="cb3-74"><a href="#cb3-74"></a>    f[<span class="st">"char_size"</span>] <span class="op">=</span> f[<span class="st">"area"</span>] <span class="op">/</span> f[<span class="st">"chars"</span>] <span class="cf">if</span> f[<span class="st">"chars"</span>] <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span></span>
-<span id="cb3-75"><a href="#cb3-75"></a>    f[<span class="st">"pos_x"</span>] <span class="op">=</span> (f[<span class="st">"width"</span>] <span class="op">/</span> <span class="fl">2.0</span>) <span class="op">+</span> <span class="bu">min</span>(x_list)</span>
-<span id="cb3-76"><a href="#cb3-76"></a>    f[<span class="st">"pos_y"</span>] <span class="op">=</span> (f[<span class="st">"height"</span>] <span class="op">/</span> <span class="fl">2.0</span>) <span class="op">+</span> <span class="bu">min</span>(y_list)</span>
-<span id="cb3-77"><a href="#cb3-77"></a>    f[<span class="st">"aspect"</span>] <span class="op">=</span> f[<span class="st">"width"</span>] <span class="op">/</span> f[<span class="st">"height"</span>] <span class="cf">if</span> f[<span class="st">"height"</span>] <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span></span>
-<span id="cb3-78"><a href="#cb3-78"></a>    f[<span class="st">"layout"</span>] <span class="op">=</span> <span class="st">"h"</span> <span class="cf">if</span> f[<span class="st">"aspect"</span>] <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> <span class="st">"v"</span></span>
-<span id="cb3-79"><a href="#cb3-79"></a></span>
-<span id="cb3-80"><a href="#cb3-80"></a>    <span class="cf">return</span> f</span>
-<span id="cb3-81"><a href="#cb3-81"></a></span>
-<span id="cb3-82"><a href="#cb3-82"></a><span class="co"># %%</span></span>
-<span id="cb3-83"><a href="#cb3-83"></a><span class="co"># Function to form csv file from json response</span></span>
-<span id="cb3-84"><a href="#cb3-84"></a><span class="kw">def</span> build_feature_csv(json_blob, pdf_id, first_page):</span>
-<span id="cb3-85"><a href="#cb3-85"></a></span>
-<span id="cb3-86"><a href="#cb3-86"></a>    <span class="co"># parse json</span></span>
-<span id="cb3-87"><a href="#cb3-87"></a>    json_string <span class="op">=</span> json_blob</span>
-<span id="cb3-88"><a href="#cb3-88"></a>    json_response <span class="op">=</span> json_format.Parse(json_string, vision.types.AnnotateFileResponse())</span>
-<span id="cb3-89"><a href="#cb3-89"></a></span>
-<span id="cb3-90"><a href="#cb3-90"></a>    <span class="co"># covert the json file to a bag of CSV lines</span></span>
-<span id="cb3-91"><a href="#cb3-91"></a>    csv <span class="op">=</span> <span class="st">""</span></span>
-<span id="cb3-92"><a href="#cb3-92"></a>    page_count <span class="op">=</span> first_page</span>
-<span id="cb3-93"><a href="#cb3-93"></a>    <span class="cf">for</span> resp <span class="kw">in</span> json_response.responses:</span>
-<span id="cb3-94"><a href="#cb3-94"></a>        para_count <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb3-95"><a href="#cb3-95"></a>        <span class="cf">for</span> page <span class="kw">in</span> resp.full_text_annotation.pages:</span>
-<span id="cb3-96"><a href="#cb3-96"></a></span>
-<span id="cb3-97"><a href="#cb3-97"></a>            <span class="co"># collect para features for the page</span></span>
-<span id="cb3-98"><a href="#cb3-98"></a>            page_features <span class="op">=</span> []</span>
-<span id="cb3-99"><a href="#cb3-99"></a>            <span class="cf">for</span> block <span class="kw">in</span> page.blocks:</span>
-<span id="cb3-100"><a href="#cb3-100"></a>                <span class="cf">if</span> <span class="bu">str</span>(block.block_type) <span class="op">!=</span> <span class="st">"1"</span>:  <span class="co"># process only TEXT blocks</span></span>
-<span id="cb3-101"><a href="#cb3-101"></a>                    <span class="cf">continue</span></span>
-<span id="cb3-102"><a href="#cb3-102"></a>                <span class="cf">for</span> para <span class="kw">in</span> block.paragraphs:</span>
-<span id="cb3-103"><a href="#cb3-103"></a>                    para_id <span class="op">=</span> <span class="st">"</span><span class="sc">{}</span><span class="st">-</span><span class="sc">{:03}</span><span class="st">-</span><span class="sc">{:03}</span><span class="st">"</span>.<span class="bu">format</span>(pdf_id, page_count, para_count)</span>
-<span id="cb3-104"><a href="#cb3-104"></a>                    f <span class="op">=</span> extract_paragraph_feature(para_id, para)</span>
-<span id="cb3-105"><a href="#cb3-105"></a>                    page_features.append(f)</span>
-<span id="cb3-106"><a href="#cb3-106"></a>                    para_count <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb3-107"><a href="#cb3-107"></a></span>
-<span id="cb3-108"><a href="#cb3-108"></a>            <span class="co"># output to csv</span></span>
-<span id="cb3-109"><a href="#cb3-109"></a>            <span class="cf">for</span> f <span class="kw">in</span> page_features:</span>
-<span id="cb3-110"><a href="#cb3-110"></a>                csv <span class="op">+=</span> <span class="st">'</span><span class="sc">{}</span><span class="st">,</span><span class="sc">{}</span><span class="st">,"</span><span class="sc">{}</span><span class="st">",</span><span class="sc">{}</span><span class="st">,</span><span class="sc">{:.6f}</span><span class="st">,</span><span class="sc">{:.6f}</span><span class="st">,</span><span class="sc">{:.6f}</span><span class="st">,</span><span class="sc">{:.6f}</span><span class="st">,</span><span class="sc">{:.6f}</span><span class="st">,</span><span class="sc">{:.6f}</span><span class="st">,</span><span class="sc">{:.6f}</span><span class="st">,</span><span class="sc">{:.6f}</span><span class="st">,</span><span class="sc">{}</span><span class="ch">\n</span><span class="st">'</span>.<span class="bu">format</span>(</span>
-<span id="cb3-111"><a href="#cb3-111"></a>                    f[<span class="st">"para_id"</span>],</span>
-<span id="cb3-112"><a href="#cb3-112"></a>                    f[<span class="st">"page"</span>],</span>
-<span id="cb3-113"><a href="#cb3-113"></a>                    f[<span class="st">"text"</span>],</span>
-<span id="cb3-114"><a href="#cb3-114"></a>                    f[<span class="st">"chars"</span>],</span>
-<span id="cb3-115"><a href="#cb3-115"></a>                    f[<span class="st">"avg_word_height"</span>],</span>
-<span id="cb3-116"><a href="#cb3-116"></a>                    f[<span class="st">"width"</span>],</span>
-<span id="cb3-117"><a href="#cb3-117"></a>                    f[<span class="st">"height"</span>],</span>
-<span id="cb3-118"><a href="#cb3-118"></a>                    f[<span class="st">"area"</span>],</span>
-<span id="cb3-119"><a href="#cb3-119"></a>                    f[<span class="st">"char_size"</span>],</span>
-<span id="cb3-120"><a href="#cb3-120"></a>                    f[<span class="st">"pos_x"</span>],</span>
-<span id="cb3-121"><a href="#cb3-121"></a>                    f[<span class="st">"pos_y"</span>],</span>
-<span id="cb3-122"><a href="#cb3-122"></a>                    f[<span class="st">"aspect"</span>],</span>
-<span id="cb3-123"><a href="#cb3-123"></a>                    f[<span class="st">"layout"</span>],</span>
-<span id="cb3-124"><a href="#cb3-124"></a>                )</span>
-<span id="cb3-125"><a href="#cb3-125"></a></span>
-<span id="cb3-126"><a href="#cb3-126"></a>        page_count <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb3-127"><a href="#cb3-127"></a>    <span class="cf">return</span> csv</span>
-<span id="cb3-128"><a href="#cb3-128"></a></span>
-<span id="cb3-129"><a href="#cb3-129"></a></span>
-<span id="cb3-130"><a href="#cb3-130"></a><span class="co"># %%</span></span>
-<span id="cb3-131"><a href="#cb3-131"></a><span class="co"># Define function to process all files and save csv to file</span></span>
-<span id="cb3-132"><a href="#cb3-132"></a><span class="kw">def</span> process_ocr_text(filename):</span>
-<span id="cb3-133"><a href="#cb3-133"></a>    </span>
-<span id="cb3-134"><a href="#cb3-134"></a>    <span class="co"># Get pdf id and first page number from file name</span></span>
-<span id="cb3-135"><a href="#cb3-135"></a>    m <span class="op">=</span> re.match(<span class="st">"out_([0-9]+)output-([0-9]+)-to-([0-9]+)\.json"</span>, filename)</span>
-<span id="cb3-136"><a href="#cb3-136"></a>    pdf_id <span class="op">=</span> m.group(<span class="dv">1</span>)</span>
-<span id="cb3-137"><a href="#cb3-137"></a>    first_page <span class="op">=</span> <span class="bu">int</span>(m.group(<span class="dv">2</span>))</span>
-<span id="cb3-138"><a href="#cb3-138"></a>    last_page  <span class="op">=</span> <span class="bu">int</span>(m.group(<span class="dv">3</span>))</span>
-<span id="cb3-139"><a href="#cb3-139"></a>    </span>
-<span id="cb3-140"><a href="#cb3-140"></a>    <span class="co"># Read json source </span></span>
-<span id="cb3-141"><a href="#cb3-141"></a>    data <span class="op">=</span> json.loads(<span class="bu">open</span>(<span class="st">'../data/data-gen/json/'</span> <span class="op">+</span> filename).read())</span>
-<span id="cb3-142"><a href="#cb3-142"></a>    </span>
-<span id="cb3-143"><a href="#cb3-143"></a>    <span class="co"># Convert json to string</span></span>
-<span id="cb3-144"><a href="#cb3-144"></a>    json_blob <span class="op">=</span> json.dumps(data)</span>
-<span id="cb3-145"><a href="#cb3-145"></a>    </span>
-<span id="cb3-146"><a href="#cb3-146"></a>    <span class="co"># Convert to csv string</span></span>
-<span id="cb3-147"><a href="#cb3-147"></a>    csv_out <span class="op">=</span> build_feature_csv(json_blob, pdf_id, first_page)</span>
-<span id="cb3-148"><a href="#cb3-148"></a>    </span>
-<span id="cb3-149"><a href="#cb3-149"></a>    <span class="cf">return</span> csv_out</span>
-<span id="cb3-150"><a href="#cb3-150"></a></span>
-<span id="cb3-151"><a href="#cb3-151"></a><span class="co"># %%</span></span>
-<span id="cb3-152"><a href="#cb3-152"></a><span class="co"># Read list of files to process</span></span>
-<span id="cb3-153"><a href="#cb3-153"></a>mypath <span class="op">=</span> <span class="st">'../data/data-gen/json'</span></span>
-<span id="cb3-154"><a href="#cb3-154"></a>f <span class="op">=</span> []</span>
-<span id="cb3-155"><a href="#cb3-155"></a><span class="cf">for</span> (dirpath, dirnames, filenames) <span class="kw">in</span> os.walk(mypath):</span>
-<span id="cb3-156"><a href="#cb3-156"></a>    f.extend(filenames)</span>
-<span id="cb3-157"><a href="#cb3-157"></a>    <span class="cf">break</span></span>
-<span id="cb3-158"><a href="#cb3-158"></a></span>
-<span id="cb3-159"><a href="#cb3-159"></a><span class="co"># %%</span></span>
-<span id="cb3-160"><a href="#cb3-160"></a><span class="co"># Process all json files</span></span>
-<span id="cb3-161"><a href="#cb3-161"></a>csv_txt <span class="op">=</span> <span class="st">""</span></span>
-<span id="cb3-162"><a href="#cb3-162"></a></span>
-<span id="cb3-163"><a href="#cb3-163"></a><span class="co"># Concatenate all files into a single string</span></span>
-<span id="cb3-164"><a href="#cb3-164"></a><span class="cf">for</span> fname <span class="kw">in</span> f:</span>
-<span id="cb3-165"><a href="#cb3-165"></a>    <span class="co"># Process file fname</span></span>
-<span id="cb3-166"><a href="#cb3-166"></a>    csv_out <span class="op">=</span> process_ocr_text(fname)</span>
-<span id="cb3-167"><a href="#cb3-167"></a>    <span class="co"># Concatenate strings</span></span>
-<span id="cb3-168"><a href="#cb3-168"></a>    csv_txt <span class="op">+=</span> csv_out</span>
-<span id="cb3-169"><a href="#cb3-169"></a>    </span>
-<span id="cb3-170"><a href="#cb3-170"></a><span class="co"># Convert to pandas df</span></span>
-<span id="cb3-171"><a href="#cb3-171"></a>colnames <span class="op">=</span> [<span class="st">'id'</span>,<span class="st">'page'</span>,<span class="st">'text'</span>,<span class="st">'chars'</span>,<span class="st">'avg_word_height'</span>,<span class="st">'width'</span>,<span class="st">'height'</span>,<span class="st">'area'</span>,<span class="st">'char_size'</span>,<span class="st">'pos_x'</span>,<span class="st">'pos_y'</span>,<span class="st">'aspect'</span>,<span class="st">'layout'</span>]</span>
-<span id="cb3-172"><a href="#cb3-172"></a>big_df <span class="op">=</span> pd.read_csv(io.StringIO(csv_txt), names<span class="op">=</span>colnames)</span>
-<span id="cb3-173"><a href="#cb3-173"></a></span>
-<span id="cb3-174"><a href="#cb3-174"></a></span>
-<span id="cb3-175"><a href="#cb3-175"></a></span>
-<span id="cb3-176"><a href="#cb3-176"></a><span class="co"># %%</span></span>
-<span id="cb3-177"><a href="#cb3-177"></a>big_df.shape</span>
-<span id="cb3-178"><a href="#cb3-178"></a></span>
-<span id="cb3-179"><a href="#cb3-179"></a><span class="co"># %%</span></span>
-<span id="cb3-180"><a href="#cb3-180"></a>big_df.tail(<span class="dv">5</span>)</span>
-<span id="cb3-181"><a href="#cb3-181"></a></span>
-<span id="cb3-182"><a href="#cb3-182"></a><span class="co"># %%</span></span>
-<span id="cb3-183"><a href="#cb3-183"></a><span class="co"># Save big data frame as pickle</span></span>
-<span id="cb3-184"><a href="#cb3-184"></a>big_df.to_pickle(<span class="st">'../data/data-gen/big_df.p'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="process-ocr-results-python-2" class="slide level2">
-<h2>Process OCR results (<code>python</code>)</h2>
 <style>
     #wrap { width: 1620px; height: 1000px; padding: 0; position:relative; left:-100px; top:0px; overflow: hidden; }
     #frame { width: 1620px; height: 375px; position:relative; left:-65px; top:0px; }
@@ -838,361 +643,361 @@ https://www.pipinghotdata.com/posts/2022-05-12-code-line-highlighting-in-quarto-
 </section>
 <section id="process-text-into-sentences-r" class="slide level2">
 <h2>Process text into sentences (<code>R</code>)</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Load libraries</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="fu">library</span>(tidytext)</span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="fu">library</span>(reticulate)</span>
-<span id="cb4-6"><a href="#cb4-6"></a></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co"># Select python environment</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#use_condaenv('py37_fomc')</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="fu">use_condaenv</span>(<span class="st">'gcloud'</span>)</span>
-<span id="cb4-10"><a href="#cb4-10"></a></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="co"># Read pickle file</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a>pd <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"pandas"</span>)</span>
-<span id="cb4-13"><a href="#cb4-13"></a>big_df <span class="ot">&lt;-</span> pd<span class="sc">$</span><span class="fu">read_pickle</span>(<span class="st">"data/data-gen/big_df.p"</span>)</span>
-<span id="cb4-14"><a href="#cb4-14"></a></span>
-<span id="cb4-15"><a href="#cb4-15"></a></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#' Goals:</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#' 1. Split into Minutes and SEPs</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#' 2. Extract relevant paragraphs from Minutes and SEPs.</span></span>
-<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#' - Minutes</span></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#'   + Strip the section on Participants' views on the outlook</span></span>
-<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#'   + Problem: earlier Minutes don't have headings.</span></span>
-<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#'   + The relevant section in later Minutes is:</span></span>
-<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#'   + "Participants' Views on Current Conditions and the Economic Outlook"</span></span>
-<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#'     This section appears after the staff comments and before the votes.</span></span>
-<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#'     Headings started in 2009. </span></span>
-<span id="cb4-26"><a href="#cb4-26"></a><span class="co">#'     Current version of headings started on November 2009 (the last meeting of 2009)</span></span>
-<span id="cb4-27"><a href="#cb4-27"></a><span class="co">#' - SEPs</span></span>
-<span id="cb4-28"><a href="#cb4-28"></a><span class="co">#'   + Strip the forecast summaries with the Participant's views</span></span>
-<span id="cb4-29"><a href="#cb4-29"></a><span class="co">#'   + SEPs don't have sections, but it's all participants' comments</span></span>
-<span id="cb4-30"><a href="#cb4-30"></a><span class="co">#' 3. Calculate embedding of paragraphs and documents.</span></span>
-<span id="cb4-31"><a href="#cb4-31"></a><span class="co">#' 4. Calculate similarities between pairs of documents.</span></span>
-<span id="cb4-32"><a href="#cb4-32"></a></span>
-<span id="cb4-33"><a href="#cb4-33"></a></span>
-<span id="cb4-34"><a href="#cb4-34"></a><span class="co"># Generate doc_id </span></span>
-<span id="cb4-35"><a href="#cb4-35"></a>big_df <span class="ot">&lt;-</span> big_df <span class="sc">%&gt;%</span></span>
-<span id="cb4-36"><a href="#cb4-36"></a>  <span class="fu">mutate</span>(<span class="at">doc_id =</span> <span class="fu">substr</span>(id, <span class="dv">1</span>,<span class="dv">8</span>))</span>
-<span id="cb4-37"><a href="#cb4-37"></a></span>
-<span id="cb4-38"><a href="#cb4-38"></a></span>
-<span id="cb4-39"><a href="#cb4-39"></a><span class="co"># Find paragraphs with SEP header</span></span>
-<span id="cb4-40"><a href="#cb4-40"></a>big_df <span class="ot">&lt;-</span> big_df <span class="sc">%&gt;%</span></span>
-<span id="cb4-41"><a href="#cb4-41"></a>  <span class="fu">mutate</span>(<span class="at">SEP_header =</span> <span class="fu">if_else</span>(text <span class="sc">==</span> <span class="st">"Summary of Economic Projections</span><span class="sc">\r\n</span><span class="st">"</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
-<span id="cb4-42"><a href="#cb4-42"></a></span>
-<span id="cb4-43"><a href="#cb4-43"></a><span class="co"># Now label all pages following SEP header as "SEP" and previous pages as "Minutes"</span></span>
-<span id="cb4-44"><a href="#cb4-44"></a>big_df <span class="ot">&lt;-</span> big_df <span class="sc">%&gt;%</span></span>
-<span id="cb4-45"><a href="#cb4-45"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
-<span id="cb4-46"><a href="#cb4-46"></a>  <span class="fu">mutate</span>( <span class="at">page_sep =</span> <span class="fu">max</span>(<span class="fu">as.numeric</span>(page) <span class="sc">*</span> SEP_header)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-47"><a href="#cb4-47"></a>  <span class="fu">mutate</span>( <span class="at">doc_type =</span> <span class="fu">if_else</span>(<span class="fu">as.numeric</span>(page) <span class="sc">&lt;</span> page_sep, <span class="st">"Minutes"</span>, <span class="st">"SEP"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-48"><a href="#cb4-48"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-49"><a href="#cb4-49"></a></span>
-<span id="cb4-50"><a href="#cb4-50"></a><span class="co"># Make copy</span></span>
-<span id="cb4-51"><a href="#cb4-51"></a>dt <span class="ot">&lt;-</span> big_df <span class="sc">%&gt;%</span></span>
-<span id="cb4-52"><a href="#cb4-52"></a>  <span class="fu">select</span>(id, doc_id, doc_type, page, text, chars, avg_word_height, pos_x, pos_y, width, height, area, char_size )</span>
-<span id="cb4-53"><a href="#cb4-53"></a></span>
-<span id="cb4-54"><a href="#cb4-54"></a>{ <span class="co"># Drop page headers and sort by reading order (by columns)</span></span>
-<span id="cb4-55"><a href="#cb4-55"></a>  </span>
-<span id="cb4-56"><a href="#cb4-56"></a><span class="co"># Drop page headers</span></span>
-<span id="cb4-57"><a href="#cb4-57"></a>dt <span class="ot">&lt;-</span> dt <span class="sc">%&gt;%</span></span>
-<span id="cb4-58"><a href="#cb4-58"></a>  <span class="fu">filter</span>(pos_y <span class="sc">&gt;</span> <span class="fl">0.08</span>)</span>
-<span id="cb4-59"><a href="#cb4-59"></a></span>
-<span id="cb4-60"><a href="#cb4-60"></a><span class="co"># Now divide into left/right columns and sort within page</span></span>
-<span id="cb4-61"><a href="#cb4-61"></a><span class="co"># (Sort paragraphs in reading order within page, first column up to down, second column up to down)</span></span>
-<span id="cb4-62"><a href="#cb4-62"></a><span class="co"># Note: (pos_x, pos_y) are coordinates of the middle of the paragraph</span></span>
-<span id="cb4-63"><a href="#cb4-63"></a><span class="co"># calculate left edge pos_x by subtracting width/2</span></span>
-<span id="cb4-64"><a href="#cb4-64"></a>dt <span class="ot">&lt;-</span> dt <span class="sc">%&gt;%</span></span>
-<span id="cb4-65"><a href="#cb4-65"></a>  <span class="fu">mutate</span>(<span class="at">x_pos =</span> pos_x <span class="sc">-</span> width<span class="sc">/</span><span class="dv">2</span> ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-66"><a href="#cb4-66"></a>  <span class="fu">group_by</span>(doc_id, page) <span class="sc">%&gt;%</span></span>
-<span id="cb4-67"><a href="#cb4-67"></a>  <span class="fu">mutate</span>(<span class="at">column_pos =</span> <span class="fu">if_else</span>(x_pos <span class="sc">&lt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="fu">if_else</span>(x_pos <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">2</span>, <span class="dv">0</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-68"><a href="#cb4-68"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-69"><a href="#cb4-69"></a></span>
-<span id="cb4-70"><a href="#cb4-70"></a><span class="co"># Sort by column top to bottom</span></span>
-<span id="cb4-71"><a href="#cb4-71"></a>dt <span class="ot">&lt;-</span> dt <span class="sc">%&gt;%</span></span>
-<span id="cb4-72"><a href="#cb4-72"></a>  <span class="fu">group_by</span>(doc_id, page) <span class="sc">%&gt;%</span></span>
-<span id="cb4-73"><a href="#cb4-73"></a>  <span class="fu">arrange</span>(column_pos, pos_y, <span class="at">.by_group =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb4-74"><a href="#cb4-74"></a>  <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb4-75"><a href="#cb4-75"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-76"><a href="#cb4-76"></a>}</span>
-<span id="cb4-77"><a href="#cb4-77"></a></span>
-<span id="cb4-78"><a href="#cb4-78"></a><span class="co"># Clean up Minutes --------------------------------------------------------</span></span>
-<span id="cb4-79"><a href="#cb4-79"></a></span>
-<span id="cb4-80"><a href="#cb4-80"></a>{</span>
-<span id="cb4-81"><a href="#cb4-81"></a></span>
-<span id="cb4-82"><a href="#cb4-82"></a><span class="co"># Find relevant paragraphs in the Minutes:</span></span>
-<span id="cb4-83"><a href="#cb4-83"></a><span class="co"># - First appearance of "Participants' Views in 2009+</span></span>
-<span id="cb4-84"><a href="#cb4-84"></a><span class="co"># - First appearance of "In conjunction" in 2007-2008</span></span>
-<span id="cb4-85"><a href="#cb4-85"></a>dm <span class="ot">&lt;-</span> dt <span class="sc">%&gt;%</span></span>
-<span id="cb4-86"><a href="#cb4-86"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
-<span id="cb4-87"><a href="#cb4-87"></a>  <span class="fu">mutate</span>( <span class="at">page_min_views_09 =</span> <span class="fu">if_else</span>( doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> </span>
-<span id="cb4-88"><a href="#cb4-88"></a>                                       stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">"Participants('|’) Views"</span>) <span class="sc">&amp;</span></span>
-<span id="cb4-89"><a href="#cb4-89"></a>                                       doc_id <span class="sc">&gt;=</span> <span class="st">'20090101'</span>, page, <span class="dv">0</span>),</span>
-<span id="cb4-90"><a href="#cb4-90"></a>          <span class="at">page_min_views_07 =</span> <span class="fu">if_else</span>( doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span></span>
-<span id="cb4-91"><a href="#cb4-91"></a>                                       stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">"(i|I)n conjunction"</span>) <span class="sc">&amp;</span></span>
-<span id="cb4-92"><a href="#cb4-92"></a>                                       doc_id <span class="sc">&lt;</span>  <span class="st">'20090101'</span>, page, <span class="dv">0</span>)</span>
-<span id="cb4-93"><a href="#cb4-93"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-94"><a href="#cb4-94"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-95"><a href="#cb4-95"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
-<span id="cb4-96"><a href="#cb4-96"></a>  <span class="fu">mutate</span>( <span class="at">page_min_views =</span> <span class="fu">case_when</span>(</span>
-<span id="cb4-97"><a href="#cb4-97"></a>    doc_id <span class="sc">&lt;</span> <span class="st">'20090101'</span> <span class="sc">&amp;</span> doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">~</span> <span class="fu">max</span>(page_min_views_07),</span>
-<span id="cb4-98"><a href="#cb4-98"></a>    doc_id <span class="sc">&gt;=</span><span class="st">'20090101'</span> <span class="sc">&amp;</span> doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">~</span> <span class="fu">max</span>(page_min_views_09)</span>
-<span id="cb4-99"><a href="#cb4-99"></a>  )) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-100"><a href="#cb4-100"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-101"><a href="#cb4-101"></a></span>
-<span id="cb4-102"><a href="#cb4-102"></a><span class="co"># Drop pages in the Minutes lower than page_min_views</span></span>
-<span id="cb4-103"><a href="#cb4-103"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
-<span id="cb4-104"><a href="#cb4-104"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
-<span id="cb4-105"><a href="#cb4-105"></a>  <span class="fu">filter</span>( (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> page <span class="sc">&gt;=</span> page_min_views) <span class="sc">|</span> (doc_type <span class="sc">==</span> <span class="st">"SEP"</span>) ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-106"><a href="#cb4-106"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-107"><a href="#cb4-107"></a></span>
-<span id="cb4-108"><a href="#cb4-108"></a><span class="co"># Drop pages after "voted" in the minutes</span></span>
-<span id="cb4-109"><a href="#cb4-109"></a><span class="co"># Find first instance of "voted"</span></span>
-<span id="cb4-110"><a href="#cb4-110"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
-<span id="cb4-111"><a href="#cb4-111"></a>  <span class="fu">group_by</span>(doc_id, doc_type ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-112"><a href="#cb4-112"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb4-113"><a href="#cb4-113"></a>    <span class="at">page_min_voted_n =</span> <span class="fu">if_else</span>( doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> </span>
-<span id="cb4-114"><a href="#cb4-114"></a>                                stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">"At the conclusion"</span>),</span>
-<span id="cb4-115"><a href="#cb4-115"></a>                              page, <span class="cn">NA_real_</span>)</span>
-<span id="cb4-116"><a href="#cb4-116"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-117"><a href="#cb4-117"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-118"><a href="#cb4-118"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
-<span id="cb4-119"><a href="#cb4-119"></a>  <span class="fu">mutate</span>( </span>
-<span id="cb4-120"><a href="#cb4-120"></a>    <span class="at">page_min_voted =</span> <span class="fu">min</span>(page_min_voted_n, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-121"><a href="#cb4-121"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-122"><a href="#cb4-122"></a></span>
-<span id="cb4-123"><a href="#cb4-123"></a><span class="co"># Drop pages after "voted"</span></span>
-<span id="cb4-124"><a href="#cb4-124"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
-<span id="cb4-125"><a href="#cb4-125"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
-<span id="cb4-126"><a href="#cb4-126"></a>  <span class="fu">filter</span>( (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> page <span class="sc">&lt;=</span>  page_min_voted) <span class="sc">|</span> doc_type <span class="sc">==</span> <span class="st">"SEP"</span> ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-127"><a href="#cb4-127"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-128"><a href="#cb4-128"></a></span>
-<span id="cb4-129"><a href="#cb4-129"></a></span>
-<span id="cb4-130"><a href="#cb4-130"></a><span class="co"># Clean up Minutes further</span></span>
-<span id="cb4-131"><a href="#cb4-131"></a></span>
-<span id="cb4-132"><a href="#cb4-132"></a><span class="co"># Drop paragraphs prior to "Participant's"  and following "Voted"</span></span>
-<span id="cb4-133"><a href="#cb4-133"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
-<span id="cb4-134"><a href="#cb4-134"></a>  <span class="fu">mutate</span>( <span class="at">para_participants =</span> <span class="fu">case_when</span>(</span>
-<span id="cb4-135"><a href="#cb4-135"></a>    doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> doc_id <span class="sc">&lt;=</span> <span class="st">'20090101'</span> <span class="sc">&amp;</span></span>
-<span id="cb4-136"><a href="#cb4-136"></a>      page_min_views_07 <span class="sc">==</span> page_min_views <span class="sc">~</span> rank,</span>
-<span id="cb4-137"><a href="#cb4-137"></a>    doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> doc_id <span class="sc">&gt;</span> <span class="st">'20090101'</span> <span class="sc">&amp;</span></span>
-<span id="cb4-138"><a href="#cb4-138"></a>      page_min_views_09 <span class="sc">==</span> page_min_views <span class="sc">~</span> rank</span>
-<span id="cb4-139"><a href="#cb4-139"></a>  ),</span>
-<span id="cb4-140"><a href="#cb4-140"></a>  <span class="at">para_voted =</span> <span class="fu">case_when</span>(</span>
-<span id="cb4-141"><a href="#cb4-141"></a>    doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> </span>
-<span id="cb4-142"><a href="#cb4-142"></a>      page_min_voted_n <span class="sc">==</span> page_min_voted  <span class="sc">~</span> rank</span>
-<span id="cb4-143"><a href="#cb4-143"></a>  )</span>
-<span id="cb4-144"><a href="#cb4-144"></a>  )</span>
-<span id="cb4-145"><a href="#cb4-145"></a></span>
-<span id="cb4-146"><a href="#cb4-146"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
-<span id="cb4-147"><a href="#cb4-147"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
-<span id="cb4-148"><a href="#cb4-148"></a>  <span class="fu">mutate</span>( <span class="at">para_participants_rank =</span> <span class="fu">max</span>(para_participants, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb4-149"><a href="#cb4-149"></a>          <span class="at">para_voted_rank =</span> <span class="fu">min</span>(para_voted, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-150"><a href="#cb4-150"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-151"><a href="#cb4-151"></a></span>
-<span id="cb4-152"><a href="#cb4-152"></a><span class="co"># Now drop paragraphs within page</span></span>
-<span id="cb4-153"><a href="#cb4-153"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
-<span id="cb4-154"><a href="#cb4-154"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
-<span id="cb4-155"><a href="#cb4-155"></a>  <span class="fu">filter</span>( ((rank <span class="sc">&gt;=</span> para_participants_rank <span class="sc">&amp;</span> rank <span class="sc">&lt;=</span> para_voted_rank) <span class="sc">&amp;</span> (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>)) <span class="sc">|</span> (doc_type <span class="sc">==</span> <span class="st">"SEP"</span>) ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-156"><a href="#cb4-156"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-157"><a href="#cb4-157"></a></span>
-<span id="cb4-158"><a href="#cb4-158"></a></span>
-<span id="cb4-159"><a href="#cb4-159"></a><span class="co"># Now clean up content in Minutes within bounding paragraphs</span></span>
-<span id="cb4-160"><a href="#cb4-160"></a><span class="co"># Text before "In conjunction" or before "Participants' Views"</span></span>
-<span id="cb4-161"><a href="#cb4-161"></a><span class="co"># Text after "At the Conclusion" (inclusive)</span></span>
-<span id="cb4-162"><a href="#cb4-162"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
-<span id="cb4-163"><a href="#cb4-163"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
-<span id="cb4-164"><a href="#cb4-164"></a>  <span class="fu">mutate</span>( </span>
-<span id="cb4-165"><a href="#cb4-165"></a>    <span class="at">text2 =</span> <span class="fu">case_when</span>( </span>
-<span id="cb4-166"><a href="#cb4-166"></a>      (para_participants <span class="sc">==</span> para_participants_rank) <span class="sc">&amp;</span> </span>
-<span id="cb4-167"><a href="#cb4-167"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_participants)) <span class="sc">&amp;</span> </span>
-<span id="cb4-168"><a href="#cb4-168"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_participants_rank)) <span class="sc">&amp;</span></span>
-<span id="cb4-169"><a href="#cb4-169"></a>        doc_id <span class="sc">&lt;=</span> <span class="st">'20090101'</span> <span class="sc">~</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'.*In conjunction'</span>, <span class="at">replacement =</span> <span class="st">'In conjunction'</span>, <span class="at">x =</span> text),</span>
-<span id="cb4-170"><a href="#cb4-170"></a>      (para_participants <span class="sc">==</span> para_participants_rank) <span class="sc">&amp;</span> </span>
-<span id="cb4-171"><a href="#cb4-171"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_participants)) <span class="sc">&amp;</span> </span>
-<span id="cb4-172"><a href="#cb4-172"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_participants_rank)) <span class="sc">&amp;</span></span>
-<span id="cb4-173"><a href="#cb4-173"></a>        doc_id <span class="sc">&gt;</span> <span class="st">'20090101'</span> <span class="sc">~</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">".*Participants('|’) Views"</span>, <span class="at">replacement =</span> <span class="st">"Participants' Views"</span>, <span class="at">x =</span> text),    </span>
-<span id="cb4-174"><a href="#cb4-174"></a>      (para_voted <span class="sc">==</span> para_voted_rank) <span class="sc">&amp;</span></span>
-<span id="cb4-175"><a href="#cb4-175"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_voted)) <span class="sc">&amp;</span></span>
-<span id="cb4-176"><a href="#cb4-176"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_voted_rank)) <span class="sc">~</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'At the conclusion.*'</span>, <span class="at">replacement =</span> <span class="st">''</span>, <span class="at">x =</span> text),</span>
-<span id="cb4-177"><a href="#cb4-177"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> text</span>
-<span id="cb4-178"><a href="#cb4-178"></a>    )</span>
-<span id="cb4-179"><a href="#cb4-179"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-180"><a href="#cb4-180"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-181"><a href="#cb4-181"></a>  <span class="fu">select</span>(id, doc_id, doc_type, page, text, text2, <span class="fu">everything</span>())</span>
-<span id="cb4-182"><a href="#cb4-182"></a></span>
-<span id="cb4-183"><a href="#cb4-183"></a>}</span>
-<span id="cb4-184"><a href="#cb4-184"></a></span>
-<span id="cb4-185"><a href="#cb4-185"></a><span class="co"># Clean up SEPs -----------------------------------------------------------</span></span>
-<span id="cb4-186"><a href="#cb4-186"></a></span>
-<span id="cb4-187"><a href="#cb4-187"></a>{</span>
-<span id="cb4-188"><a href="#cb4-188"></a></span>
-<span id="cb4-189"><a href="#cb4-189"></a><span class="co"># Drop page with "Forecast Uncertainty" box, usually the last page.</span></span>
-<span id="cb4-190"><a href="#cb4-190"></a>ds <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
-<span id="cb4-191"><a href="#cb4-191"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
-<span id="cb4-192"><a href="#cb4-192"></a>  <span class="fu">mutate</span>( <span class="at">page_fct_uncert_n =</span> <span class="fu">if_else</span>( doc_type <span class="sc">==</span> <span class="st">"SEP"</span> <span class="sc">&amp;</span> </span>
-<span id="cb4-193"><a href="#cb4-193"></a>                                         stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">"Forecast Uncertainty"</span>), page, <span class="dv">0</span>),</span>
-<span id="cb4-194"><a href="#cb4-194"></a>          </span>
-<span id="cb4-195"><a href="#cb4-195"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-196"><a href="#cb4-196"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-197"><a href="#cb4-197"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
-<span id="cb4-198"><a href="#cb4-198"></a>  <span class="fu">mutate</span>( <span class="at">page_fct_uncert =</span> <span class="fu">max</span>(page_fct_uncert_n) ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-199"><a href="#cb4-199"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-200"><a href="#cb4-200"></a></span>
-<span id="cb4-201"><a href="#cb4-201"></a><span class="co"># Drop pages after "Forecast Uncertainty"</span></span>
-<span id="cb4-202"><a href="#cb4-202"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-203"><a href="#cb4-203"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
-<span id="cb4-204"><a href="#cb4-204"></a>  <span class="fu">filter</span>( (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) <span class="sc">|</span> (page <span class="sc">&lt;=</span> page_fct_uncert <span class="sc">&amp;</span> doc_type <span class="sc">==</span> <span class="st">"SEP"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-205"><a href="#cb4-205"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-206"><a href="#cb4-206"></a></span>
-<span id="cb4-207"><a href="#cb4-207"></a></span>
-<span id="cb4-208"><a href="#cb4-208"></a><span class="co"># Drop paragraphs after "Forecast Uncertainty"</span></span>
-<span id="cb4-209"><a href="#cb4-209"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-210"><a href="#cb4-210"></a>  <span class="fu">mutate</span>( <span class="at">para_fct_uncert =</span> <span class="fu">case_when</span>(</span>
-<span id="cb4-211"><a href="#cb4-211"></a>                              doc_type <span class="sc">==</span> <span class="st">"SEP"</span>  <span class="sc">&amp;</span></span>
-<span id="cb4-212"><a href="#cb4-212"></a>                              page_fct_uncert <span class="sc">==</span> page_fct_uncert_n <span class="sc">~</span> rank</span>
-<span id="cb4-213"><a href="#cb4-213"></a>                            )</span>
-<span id="cb4-214"><a href="#cb4-214"></a>  )</span>
-<span id="cb4-215"><a href="#cb4-215"></a></span>
-<span id="cb4-216"><a href="#cb4-216"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-217"><a href="#cb4-217"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
-<span id="cb4-218"><a href="#cb4-218"></a>  <span class="fu">mutate</span>( <span class="at">para_fct_uncert_rank =</span> <span class="fu">min</span>(para_fct_uncert, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-219"><a href="#cb4-219"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-220"><a href="#cb4-220"></a></span>
-<span id="cb4-221"><a href="#cb4-221"></a><span class="co"># Now drop paragraphs within page</span></span>
-<span id="cb4-222"><a href="#cb4-222"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-223"><a href="#cb4-223"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
-<span id="cb4-224"><a href="#cb4-224"></a>  <span class="fu">filter</span>( ((rank <span class="sc">&lt;=</span> para_fct_uncert_rank) <span class="sc">&amp;</span> (doc_type <span class="sc">==</span> <span class="st">"SEP"</span>)) <span class="sc">|</span> (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-225"><a href="#cb4-225"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-226"><a href="#cb4-226"></a></span>
-<span id="cb4-227"><a href="#cb4-227"></a><span class="co"># Now clean up content in SEPS </span></span>
-<span id="cb4-228"><a href="#cb4-228"></a><span class="co"># Drop text after "Forecast Uncertainty" (inclusive)</span></span>
-<span id="cb4-229"><a href="#cb4-229"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-230"><a href="#cb4-230"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
-<span id="cb4-231"><a href="#cb4-231"></a>  <span class="fu">mutate</span>( </span>
-<span id="cb4-232"><a href="#cb4-232"></a>    <span class="at">text3 =</span> <span class="fu">case_when</span>( </span>
-<span id="cb4-233"><a href="#cb4-233"></a>      (para_fct_uncert <span class="sc">==</span> para_fct_uncert_rank) <span class="sc">&amp;</span> </span>
-<span id="cb4-234"><a href="#cb4-234"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_fct_uncert)) <span class="sc">&amp;</span> </span>
-<span id="cb4-235"><a href="#cb4-235"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_fct_uncert_rank))  <span class="sc">~</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'Forecast Uncertainty.*'</span>, <span class="at">replacement =</span> <span class="st">''</span>, <span class="at">x =</span> text2),</span>
-<span id="cb4-236"><a href="#cb4-236"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> text2</span>
-<span id="cb4-237"><a href="#cb4-237"></a>    )</span>
-<span id="cb4-238"><a href="#cb4-238"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-239"><a href="#cb4-239"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-240"><a href="#cb4-240"></a>  <span class="fu">select</span>(id, doc_id, doc_type, page, text, text2, text3, <span class="fu">everything</span>())</span>
-<span id="cb4-241"><a href="#cb4-241"></a></span>
-<span id="cb4-242"><a href="#cb4-242"></a></span>
-<span id="cb4-243"><a href="#cb4-243"></a><span class="co"># Drop pages in the SEPs with small font size</span></span>
-<span id="cb4-244"><a href="#cb4-244"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-245"><a href="#cb4-245"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
-<span id="cb4-246"><a href="#cb4-246"></a>  <span class="fu">filter</span>( (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) <span class="sc">|</span> (doc_type <span class="sc">==</span> <span class="st">"SEP"</span> <span class="sc">&amp;</span> avg_word_height <span class="sc">&gt;=</span> <span class="fl">11.5</span>) ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-247"><a href="#cb4-247"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-248"><a href="#cb4-248"></a></span>
-<span id="cb4-249"><a href="#cb4-249"></a></span>
-<span id="cb4-250"><a href="#cb4-250"></a><span class="co"># Drop paragraphs with no text</span></span>
-<span id="cb4-251"><a href="#cb4-251"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-252"><a href="#cb4-252"></a>  <span class="fu">filter</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text3, <span class="at">pattern =</span> <span class="st">'[a-zA-Z]+'</span>))</span>
-<span id="cb4-253"><a href="#cb4-253"></a></span>
-<span id="cb4-254"><a href="#cb4-254"></a></span>
-<span id="cb4-255"><a href="#cb4-255"></a><span class="co"># Drop paragraphs with small area, these is charts text</span></span>
-<span id="cb4-256"><a href="#cb4-256"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-257"><a href="#cb4-257"></a>  <span class="fu">filter</span>(area <span class="sc">&gt;=</span> <span class="fl">0.0001</span>)</span>
-<span id="cb4-258"><a href="#cb4-258"></a></span>
-<span id="cb4-259"><a href="#cb4-259"></a><span class="co"># Drop paragraphs in SEPs starting with "Chart" or "Figure" and have small number of characters</span></span>
-<span id="cb4-260"><a href="#cb4-260"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-261"><a href="#cb4-261"></a>  <span class="fu">filter</span>( (<span class="sc">!</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text3, <span class="at">pattern =</span> <span class="st">"^[ ]*(Chart|Figure)"</span>) <span class="sc">&amp;</span> chars <span class="sc">&lt;</span> <span class="dv">120</span>) <span class="sc">&amp;</span> doc_type <span class="sc">==</span> <span class="st">"SEP"</span>) <span class="sc">|</span> </span>
-<span id="cb4-262"><a href="#cb4-262"></a>          (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) </span>
-<span id="cb4-263"><a href="#cb4-263"></a>   )</span>
-<span id="cb4-264"><a href="#cb4-264"></a></span>
-<span id="cb4-265"><a href="#cb4-265"></a></span>
-<span id="cb4-266"><a href="#cb4-266"></a><span class="co"># Drop entire pages with small number of characters in "SEP"</span></span>
-<span id="cb4-267"><a href="#cb4-267"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-268"><a href="#cb4-268"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
-<span id="cb4-269"><a href="#cb4-269"></a>  <span class="fu">mutate</span>( <span class="at">page_chars =</span> <span class="fu">sum</span>(chars) ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-270"><a href="#cb4-270"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-271"><a href="#cb4-271"></a></span>
-<span id="cb4-272"><a href="#cb4-272"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-273"><a href="#cb4-273"></a>  <span class="fu">filter</span>( (page_chars <span class="sc">&gt;</span> <span class="dv">40</span> <span class="sc">&amp;</span> doc_type <span class="sc">==</span> <span class="st">"SEP"</span>) <span class="sc">|</span> (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) )</span>
-<span id="cb4-274"><a href="#cb4-274"></a></span>
-<span id="cb4-275"><a href="#cb4-275"></a><span class="co"># Drop paragraphs with small number of characters</span></span>
-<span id="cb4-276"><a href="#cb4-276"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-277"><a href="#cb4-277"></a>  <span class="fu">mutate</span>(<span class="at">text4 =</span> <span class="fu">case_when</span>(</span>
-<span id="cb4-278"><a href="#cb4-278"></a>    doc_type <span class="sc">==</span> <span class="st">"SEP"</span> <span class="sc">&amp;</span> stringr<span class="sc">::</span><span class="fu">str_detect</span>(text3, <span class="st">"Summary of Economic Projections"</span>) <span class="sc">~</span> text3,</span>
-<span id="cb4-279"><a href="#cb4-279"></a>    doc_type <span class="sc">==</span> <span class="st">"SEP"</span> <span class="sc">&amp;</span> chars <span class="sc">&lt;</span> <span class="dv">40</span> <span class="sc">&amp;</span> <span class="sc">!</span>stringr<span class="sc">::</span><span class="fu">str_detect</span>(text3, <span class="st">"Summary of Economic Projections"</span>) <span class="sc">~</span> <span class="st">""</span>,</span>
-<span id="cb4-280"><a href="#cb4-280"></a>    doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">~</span> text3,</span>
-<span id="cb4-281"><a href="#cb4-281"></a>    <span class="cn">TRUE</span>                  <span class="sc">~</span> text3) </span>
-<span id="cb4-282"><a href="#cb4-282"></a>    ) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-283"><a href="#cb4-283"></a>  <span class="fu">select</span>(<span class="sc">-</span>text2, <span class="sc">-</span>text3) <span class="sc">%&gt;%</span></span>
-<span id="cb4-284"><a href="#cb4-284"></a><span class="fu">select</span>(id, doc_id, doc_type, page, text, text4, <span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb4-285"><a href="#cb4-285"></a>  <span class="fu">filter</span>(text4 <span class="sc">!=</span> <span class="st">""</span>)</span>
-<span id="cb4-286"><a href="#cb4-286"></a></span>
-<span id="cb4-287"><a href="#cb4-287"></a>}</span>
-<span id="cb4-288"><a href="#cb4-288"></a></span>
-<span id="cb4-289"><a href="#cb4-289"></a></span>
-<span id="cb4-290"><a href="#cb4-290"></a><span class="co"># Prepare text for analysis -----------------------------------------------</span></span>
-<span id="cb4-291"><a href="#cb4-291"></a><span class="co"># + Concatenate all the paragraphs in the Minutes and SEPs for each meeting.</span></span>
-<span id="cb4-292"><a href="#cb4-292"></a><span class="co"># + Tokenize into sentences</span></span>
-<span id="cb4-293"><a href="#cb4-293"></a><span class="co"># + Remove numerals</span></span>
-<span id="cb4-294"><a href="#cb4-294"></a><span class="co"># + Remove stop words</span></span>
-<span id="cb4-295"><a href="#cb4-295"></a><span class="co"># + Remove punctuation and symbols</span></span>
-<span id="cb4-296"><a href="#cb4-296"></a></span>
-<span id="cb4-297"><a href="#cb4-297"></a>minutes <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-298"><a href="#cb4-298"></a>  <span class="fu">filter</span>(doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb4-299"><a href="#cb4-299"></a>  <span class="fu">select</span>(doc_id, doc_type, page, rank, text4) <span class="sc">%&gt;%</span></span>
-<span id="cb4-300"><a href="#cb4-300"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
-<span id="cb4-301"><a href="#cb4-301"></a>  <span class="fu">summarise</span>(<span class="at">text =</span> <span class="fu">paste0</span>(text4, <span class="at">collapse =</span> <span class="st">""</span>) ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-302"><a href="#cb4-302"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-303"><a href="#cb4-303"></a></span>
-<span id="cb4-304"><a href="#cb4-304"></a>seps <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-305"><a href="#cb4-305"></a>  <span class="fu">filter</span>(doc_type <span class="sc">==</span> <span class="st">"SEP"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb4-306"><a href="#cb4-306"></a>  <span class="fu">select</span>(doc_id, doc_type, page, rank, text4) <span class="sc">%&gt;%</span></span>
-<span id="cb4-307"><a href="#cb4-307"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
-<span id="cb4-308"><a href="#cb4-308"></a>  <span class="fu">summarise</span>(<span class="at">text =</span> <span class="fu">paste0</span>(text4, <span class="at">collapse =</span> <span class="st">""</span>) ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-309"><a href="#cb4-309"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-310"><a href="#cb4-310"></a></span>
-<span id="cb4-311"><a href="#cb4-311"></a></span>
-<span id="cb4-312"><a href="#cb4-312"></a><span class="co"># Tokenize into sentences, then into words, then remove stop words</span></span>
-<span id="cb4-313"><a href="#cb4-313"></a><span class="fu">data</span>(stop_words)</span>
-<span id="cb4-314"><a href="#cb4-314"></a></span>
-<span id="cb4-315"><a href="#cb4-315"></a>tidy_minutes <span class="ot">&lt;-</span> minutes <span class="sc">%&gt;%</span></span>
-<span id="cb4-316"><a href="#cb4-316"></a>  <span class="co"># Replace line feeds, newline characters</span></span>
-<span id="cb4-317"><a href="#cb4-317"></a>  <span class="fu">mutate</span>(<span class="at">text =</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'</span><span class="sc">\\</span><span class="st">r</span><span class="sc">\\</span><span class="st">n'</span>, <span class="at">replacement =</span> <span class="st">' '</span>, <span class="at">x =</span> text)) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-318"><a href="#cb4-318"></a>  <span class="fu">unnest_tokens</span>(<span class="at">token =</span> <span class="st">"sentences"</span>, <span class="at">input =</span> text, <span class="at">output =</span> sentence) <span class="sc">%&gt;%</span></span>
-<span id="cb4-319"><a href="#cb4-319"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
-<span id="cb4-320"><a href="#cb4-320"></a>  <span class="fu">mutate</span>( <span class="at">sentence_id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb4-321"><a href="#cb4-321"></a>  <span class="fu">unnest_tokens</span>(<span class="at">token =</span> <span class="st">"words"</span>, <span class="at">input =</span> sentence, <span class="at">output =</span> word) <span class="sc">%&gt;%</span></span>
-<span id="cb4-322"><a href="#cb4-322"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-323"><a href="#cb4-323"></a>  <span class="fu">anti_join</span>(stop_words)</span>
-<span id="cb4-324"><a href="#cb4-324"></a></span>
-<span id="cb4-325"><a href="#cb4-325"></a>tidy_seps <span class="ot">&lt;-</span> seps <span class="sc">%&gt;%</span></span>
-<span id="cb4-326"><a href="#cb4-326"></a>  <span class="co"># Replace line feeds, newline characters</span></span>
-<span id="cb4-327"><a href="#cb4-327"></a>  <span class="fu">mutate</span>(<span class="at">text =</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'</span><span class="sc">\\</span><span class="st">r</span><span class="sc">\\</span><span class="st">n'</span>, <span class="at">replacement =</span> <span class="st">' '</span>, <span class="at">x =</span> text)) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-328"><a href="#cb4-328"></a>  <span class="fu">unnest_tokens</span>(<span class="at">token =</span> <span class="st">"sentences"</span>, <span class="at">input =</span> text, <span class="at">output =</span> sentence) <span class="sc">%&gt;%</span></span>
-<span id="cb4-329"><a href="#cb4-329"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
-<span id="cb4-330"><a href="#cb4-330"></a>  <span class="fu">mutate</span>( <span class="at">sentence_id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb4-331"><a href="#cb4-331"></a>  <span class="fu">unnest_tokens</span>(<span class="at">token =</span> <span class="st">"words"</span>, <span class="at">input =</span> sentence, <span class="at">output =</span> word) <span class="sc">%&gt;%</span></span>
-<span id="cb4-332"><a href="#cb4-332"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-333"><a href="#cb4-333"></a>  <span class="fu">anti_join</span>(stop_words)</span>
-<span id="cb4-334"><a href="#cb4-334"></a></span>
-<span id="cb4-335"><a href="#cb4-335"></a><span class="co"># Remove numbers</span></span>
-<span id="cb4-336"><a href="#cb4-336"></a>tidy_minutes <span class="ot">&lt;-</span> tidy_minutes <span class="sc">%&gt;%</span></span>
-<span id="cb4-337"><a href="#cb4-337"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="at">pattern =</span> <span class="st">'^[0-9</span><span class="sc">\\</span><span class="st">.+</span><span class="sc">\\</span><span class="st">-]+$'</span>, <span class="at">x =</span> word) )</span>
-<span id="cb4-338"><a href="#cb4-338"></a>tidy_seps <span class="ot">&lt;-</span> tidy_seps <span class="sc">%&gt;%</span></span>
-<span id="cb4-339"><a href="#cb4-339"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="at">pattern =</span> <span class="st">'^[0-9</span><span class="sc">\\</span><span class="st">.+</span><span class="sc">\\</span><span class="st">-]+$'</span>, <span class="at">x =</span> word) )</span>
-<span id="cb4-340"><a href="#cb4-340"></a></span>
-<span id="cb4-341"><a href="#cb4-341"></a><span class="co"># Join back into sentences</span></span>
-<span id="cb4-342"><a href="#cb4-342"></a>sent_minutes <span class="ot">&lt;-</span> tidy_minutes <span class="sc">%&gt;%</span></span>
-<span id="cb4-343"><a href="#cb4-343"></a>  <span class="fu">group_by</span>(doc_id, sentence_id) <span class="sc">%&gt;%</span></span>
-<span id="cb4-344"><a href="#cb4-344"></a>  <span class="fu">summarise</span>(<span class="at">text =</span> <span class="fu">paste0</span>(word, <span class="at">collapse =</span> <span class="st">" "</span>) ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-345"><a href="#cb4-345"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-346"><a href="#cb4-346"></a></span>
-<span id="cb4-347"><a href="#cb4-347"></a>sent_seps <span class="ot">&lt;-</span> tidy_seps <span class="sc">%&gt;%</span></span>
-<span id="cb4-348"><a href="#cb4-348"></a>  <span class="fu">group_by</span>(doc_id, sentence_id) <span class="sc">%&gt;%</span></span>
-<span id="cb4-349"><a href="#cb4-349"></a>  <span class="fu">summarise</span>(<span class="at">text =</span> <span class="fu">paste0</span>(word, <span class="at">collapse =</span> <span class="st">" "</span>) ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-350"><a href="#cb4-350"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-351"><a href="#cb4-351"></a></span>
-<span id="cb4-352"><a href="#cb4-352"></a></span>
-<span id="cb4-353"><a href="#cb4-353"></a><span class="co"># Write data for python</span></span>
-<span id="cb4-354"><a href="#cb4-354"></a><span class="fu">py_save_object</span>(sent_minutes, <span class="at">filename =</span> <span class="st">'data/data-gen/sent_minutes.p'</span>)</span>
-<span id="cb4-355"><a href="#cb4-355"></a><span class="fu">py_save_object</span>(sent_seps, <span class="at">filename =</span> <span class="st">'data/data-gen/sent_seps.p'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="fu">library</span>(reticulate)</span>
+<span id="cb3-6"><a href="#cb3-6"></a></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co"># Select python environment</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#use_condaenv('py37_fomc')</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="fu">use_condaenv</span>(<span class="st">'gcloud'</span>)</span>
+<span id="cb3-10"><a href="#cb3-10"></a></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co"># Read pickle file</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>pd <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"pandas"</span>)</span>
+<span id="cb3-13"><a href="#cb3-13"></a>big_df <span class="ot">&lt;-</span> pd<span class="sc">$</span><span class="fu">read_pickle</span>(<span class="st">"data/data-gen/big_df.p"</span>)</span>
+<span id="cb3-14"><a href="#cb3-14"></a></span>
+<span id="cb3-15"><a href="#cb3-15"></a></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#' Goals:</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#' 1. Split into Minutes and SEPs</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#' 2. Extract relevant paragraphs from Minutes and SEPs.</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#' - Minutes</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#'   + Strip the section on Participants' views on the outlook</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#'   + Problem: earlier Minutes don't have headings.</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#'   + The relevant section in later Minutes is:</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#'   + "Participants' Views on Current Conditions and the Economic Outlook"</span></span>
+<span id="cb3-24"><a href="#cb3-24"></a><span class="co">#'     This section appears after the staff comments and before the votes.</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a><span class="co">#'     Headings started in 2009. </span></span>
+<span id="cb3-26"><a href="#cb3-26"></a><span class="co">#'     Current version of headings started on November 2009 (the last meeting of 2009)</span></span>
+<span id="cb3-27"><a href="#cb3-27"></a><span class="co">#' - SEPs</span></span>
+<span id="cb3-28"><a href="#cb3-28"></a><span class="co">#'   + Strip the forecast summaries with the Participant's views</span></span>
+<span id="cb3-29"><a href="#cb3-29"></a><span class="co">#'   + SEPs don't have sections, but it's all participants' comments</span></span>
+<span id="cb3-30"><a href="#cb3-30"></a><span class="co">#' 3. Calculate embedding of paragraphs and documents.</span></span>
+<span id="cb3-31"><a href="#cb3-31"></a><span class="co">#' 4. Calculate similarities between pairs of documents.</span></span>
+<span id="cb3-32"><a href="#cb3-32"></a></span>
+<span id="cb3-33"><a href="#cb3-33"></a></span>
+<span id="cb3-34"><a href="#cb3-34"></a><span class="co"># Generate doc_id </span></span>
+<span id="cb3-35"><a href="#cb3-35"></a>big_df <span class="ot">&lt;-</span> big_df <span class="sc">%&gt;%</span></span>
+<span id="cb3-36"><a href="#cb3-36"></a>  <span class="fu">mutate</span>(<span class="at">doc_id =</span> <span class="fu">substr</span>(id, <span class="dv">1</span>,<span class="dv">8</span>))</span>
+<span id="cb3-37"><a href="#cb3-37"></a></span>
+<span id="cb3-38"><a href="#cb3-38"></a></span>
+<span id="cb3-39"><a href="#cb3-39"></a><span class="co"># Find paragraphs with SEP header</span></span>
+<span id="cb3-40"><a href="#cb3-40"></a>big_df <span class="ot">&lt;-</span> big_df <span class="sc">%&gt;%</span></span>
+<span id="cb3-41"><a href="#cb3-41"></a>  <span class="fu">mutate</span>(<span class="at">SEP_header =</span> <span class="fu">if_else</span>(text <span class="sc">==</span> <span class="st">"Summary of Economic Projections</span><span class="sc">\r\n</span><span class="st">"</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb3-42"><a href="#cb3-42"></a></span>
+<span id="cb3-43"><a href="#cb3-43"></a><span class="co"># Now label all pages following SEP header as "SEP" and previous pages as "Minutes"</span></span>
+<span id="cb3-44"><a href="#cb3-44"></a>big_df <span class="ot">&lt;-</span> big_df <span class="sc">%&gt;%</span></span>
+<span id="cb3-45"><a href="#cb3-45"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
+<span id="cb3-46"><a href="#cb3-46"></a>  <span class="fu">mutate</span>( <span class="at">page_sep =</span> <span class="fu">max</span>(<span class="fu">as.numeric</span>(page) <span class="sc">*</span> SEP_header)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-47"><a href="#cb3-47"></a>  <span class="fu">mutate</span>( <span class="at">doc_type =</span> <span class="fu">if_else</span>(<span class="fu">as.numeric</span>(page) <span class="sc">&lt;</span> page_sep, <span class="st">"Minutes"</span>, <span class="st">"SEP"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-48"><a href="#cb3-48"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-49"><a href="#cb3-49"></a></span>
+<span id="cb3-50"><a href="#cb3-50"></a><span class="co"># Make copy</span></span>
+<span id="cb3-51"><a href="#cb3-51"></a>dt <span class="ot">&lt;-</span> big_df <span class="sc">%&gt;%</span></span>
+<span id="cb3-52"><a href="#cb3-52"></a>  <span class="fu">select</span>(id, doc_id, doc_type, page, text, chars, avg_word_height, pos_x, pos_y, width, height, area, char_size )</span>
+<span id="cb3-53"><a href="#cb3-53"></a></span>
+<span id="cb3-54"><a href="#cb3-54"></a>{ <span class="co"># Drop page headers and sort by reading order (by columns)</span></span>
+<span id="cb3-55"><a href="#cb3-55"></a>  </span>
+<span id="cb3-56"><a href="#cb3-56"></a><span class="co"># Drop page headers</span></span>
+<span id="cb3-57"><a href="#cb3-57"></a>dt <span class="ot">&lt;-</span> dt <span class="sc">%&gt;%</span></span>
+<span id="cb3-58"><a href="#cb3-58"></a>  <span class="fu">filter</span>(pos_y <span class="sc">&gt;</span> <span class="fl">0.08</span>)</span>
+<span id="cb3-59"><a href="#cb3-59"></a></span>
+<span id="cb3-60"><a href="#cb3-60"></a><span class="co"># Now divide into left/right columns and sort within page</span></span>
+<span id="cb3-61"><a href="#cb3-61"></a><span class="co"># (Sort paragraphs in reading order within page, first column up to down, second column up to down)</span></span>
+<span id="cb3-62"><a href="#cb3-62"></a><span class="co"># Note: (pos_x, pos_y) are coordinates of the middle of the paragraph</span></span>
+<span id="cb3-63"><a href="#cb3-63"></a><span class="co"># calculate left edge pos_x by subtracting width/2</span></span>
+<span id="cb3-64"><a href="#cb3-64"></a>dt <span class="ot">&lt;-</span> dt <span class="sc">%&gt;%</span></span>
+<span id="cb3-65"><a href="#cb3-65"></a>  <span class="fu">mutate</span>(<span class="at">x_pos =</span> pos_x <span class="sc">-</span> width<span class="sc">/</span><span class="dv">2</span> ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-66"><a href="#cb3-66"></a>  <span class="fu">group_by</span>(doc_id, page) <span class="sc">%&gt;%</span></span>
+<span id="cb3-67"><a href="#cb3-67"></a>  <span class="fu">mutate</span>(<span class="at">column_pos =</span> <span class="fu">if_else</span>(x_pos <span class="sc">&lt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="fu">if_else</span>(x_pos <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">2</span>, <span class="dv">0</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-68"><a href="#cb3-68"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-69"><a href="#cb3-69"></a></span>
+<span id="cb3-70"><a href="#cb3-70"></a><span class="co"># Sort by column top to bottom</span></span>
+<span id="cb3-71"><a href="#cb3-71"></a>dt <span class="ot">&lt;-</span> dt <span class="sc">%&gt;%</span></span>
+<span id="cb3-72"><a href="#cb3-72"></a>  <span class="fu">group_by</span>(doc_id, page) <span class="sc">%&gt;%</span></span>
+<span id="cb3-73"><a href="#cb3-73"></a>  <span class="fu">arrange</span>(column_pos, pos_y, <span class="at">.by_group =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-74"><a href="#cb3-74"></a>  <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb3-75"><a href="#cb3-75"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-76"><a href="#cb3-76"></a>}</span>
+<span id="cb3-77"><a href="#cb3-77"></a></span>
+<span id="cb3-78"><a href="#cb3-78"></a><span class="co"># Clean up Minutes --------------------------------------------------------</span></span>
+<span id="cb3-79"><a href="#cb3-79"></a></span>
+<span id="cb3-80"><a href="#cb3-80"></a>{</span>
+<span id="cb3-81"><a href="#cb3-81"></a></span>
+<span id="cb3-82"><a href="#cb3-82"></a><span class="co"># Find relevant paragraphs in the Minutes:</span></span>
+<span id="cb3-83"><a href="#cb3-83"></a><span class="co"># - First appearance of "Participants' Views in 2009+</span></span>
+<span id="cb3-84"><a href="#cb3-84"></a><span class="co"># - First appearance of "In conjunction" in 2007-2008</span></span>
+<span id="cb3-85"><a href="#cb3-85"></a>dm <span class="ot">&lt;-</span> dt <span class="sc">%&gt;%</span></span>
+<span id="cb3-86"><a href="#cb3-86"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
+<span id="cb3-87"><a href="#cb3-87"></a>  <span class="fu">mutate</span>( <span class="at">page_min_views_09 =</span> <span class="fu">if_else</span>( doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> </span>
+<span id="cb3-88"><a href="#cb3-88"></a>                                       stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">"Participants('|’) Views"</span>) <span class="sc">&amp;</span></span>
+<span id="cb3-89"><a href="#cb3-89"></a>                                       doc_id <span class="sc">&gt;=</span> <span class="st">'20090101'</span>, page, <span class="dv">0</span>),</span>
+<span id="cb3-90"><a href="#cb3-90"></a>          <span class="at">page_min_views_07 =</span> <span class="fu">if_else</span>( doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span></span>
+<span id="cb3-91"><a href="#cb3-91"></a>                                       stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">"(i|I)n conjunction"</span>) <span class="sc">&amp;</span></span>
+<span id="cb3-92"><a href="#cb3-92"></a>                                       doc_id <span class="sc">&lt;</span>  <span class="st">'20090101'</span>, page, <span class="dv">0</span>)</span>
+<span id="cb3-93"><a href="#cb3-93"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-94"><a href="#cb3-94"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-95"><a href="#cb3-95"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
+<span id="cb3-96"><a href="#cb3-96"></a>  <span class="fu">mutate</span>( <span class="at">page_min_views =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-97"><a href="#cb3-97"></a>    doc_id <span class="sc">&lt;</span> <span class="st">'20090101'</span> <span class="sc">&amp;</span> doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">~</span> <span class="fu">max</span>(page_min_views_07),</span>
+<span id="cb3-98"><a href="#cb3-98"></a>    doc_id <span class="sc">&gt;=</span><span class="st">'20090101'</span> <span class="sc">&amp;</span> doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">~</span> <span class="fu">max</span>(page_min_views_09)</span>
+<span id="cb3-99"><a href="#cb3-99"></a>  )) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-100"><a href="#cb3-100"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-101"><a href="#cb3-101"></a></span>
+<span id="cb3-102"><a href="#cb3-102"></a><span class="co"># Drop pages in the Minutes lower than page_min_views</span></span>
+<span id="cb3-103"><a href="#cb3-103"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
+<span id="cb3-104"><a href="#cb3-104"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
+<span id="cb3-105"><a href="#cb3-105"></a>  <span class="fu">filter</span>( (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> page <span class="sc">&gt;=</span> page_min_views) <span class="sc">|</span> (doc_type <span class="sc">==</span> <span class="st">"SEP"</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-106"><a href="#cb3-106"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-107"><a href="#cb3-107"></a></span>
+<span id="cb3-108"><a href="#cb3-108"></a><span class="co"># Drop pages after "voted" in the minutes</span></span>
+<span id="cb3-109"><a href="#cb3-109"></a><span class="co"># Find first instance of "voted"</span></span>
+<span id="cb3-110"><a href="#cb3-110"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
+<span id="cb3-111"><a href="#cb3-111"></a>  <span class="fu">group_by</span>(doc_id, doc_type ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-112"><a href="#cb3-112"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-113"><a href="#cb3-113"></a>    <span class="at">page_min_voted_n =</span> <span class="fu">if_else</span>( doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> </span>
+<span id="cb3-114"><a href="#cb3-114"></a>                                stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">"At the conclusion"</span>),</span>
+<span id="cb3-115"><a href="#cb3-115"></a>                              page, <span class="cn">NA_real_</span>)</span>
+<span id="cb3-116"><a href="#cb3-116"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-117"><a href="#cb3-117"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-118"><a href="#cb3-118"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
+<span id="cb3-119"><a href="#cb3-119"></a>  <span class="fu">mutate</span>( </span>
+<span id="cb3-120"><a href="#cb3-120"></a>    <span class="at">page_min_voted =</span> <span class="fu">min</span>(page_min_voted_n, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-121"><a href="#cb3-121"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-122"><a href="#cb3-122"></a></span>
+<span id="cb3-123"><a href="#cb3-123"></a><span class="co"># Drop pages after "voted"</span></span>
+<span id="cb3-124"><a href="#cb3-124"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
+<span id="cb3-125"><a href="#cb3-125"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
+<span id="cb3-126"><a href="#cb3-126"></a>  <span class="fu">filter</span>( (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> page <span class="sc">&lt;=</span>  page_min_voted) <span class="sc">|</span> doc_type <span class="sc">==</span> <span class="st">"SEP"</span> ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-127"><a href="#cb3-127"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-128"><a href="#cb3-128"></a></span>
+<span id="cb3-129"><a href="#cb3-129"></a></span>
+<span id="cb3-130"><a href="#cb3-130"></a><span class="co"># Clean up Minutes further</span></span>
+<span id="cb3-131"><a href="#cb3-131"></a></span>
+<span id="cb3-132"><a href="#cb3-132"></a><span class="co"># Drop paragraphs prior to "Participant's"  and following "Voted"</span></span>
+<span id="cb3-133"><a href="#cb3-133"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
+<span id="cb3-134"><a href="#cb3-134"></a>  <span class="fu">mutate</span>( <span class="at">para_participants =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-135"><a href="#cb3-135"></a>    doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> doc_id <span class="sc">&lt;=</span> <span class="st">'20090101'</span> <span class="sc">&amp;</span></span>
+<span id="cb3-136"><a href="#cb3-136"></a>      page_min_views_07 <span class="sc">==</span> page_min_views <span class="sc">~</span> rank,</span>
+<span id="cb3-137"><a href="#cb3-137"></a>    doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> doc_id <span class="sc">&gt;</span> <span class="st">'20090101'</span> <span class="sc">&amp;</span></span>
+<span id="cb3-138"><a href="#cb3-138"></a>      page_min_views_09 <span class="sc">==</span> page_min_views <span class="sc">~</span> rank</span>
+<span id="cb3-139"><a href="#cb3-139"></a>  ),</span>
+<span id="cb3-140"><a href="#cb3-140"></a>  <span class="at">para_voted =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-141"><a href="#cb3-141"></a>    doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> </span>
+<span id="cb3-142"><a href="#cb3-142"></a>      page_min_voted_n <span class="sc">==</span> page_min_voted  <span class="sc">~</span> rank</span>
+<span id="cb3-143"><a href="#cb3-143"></a>  )</span>
+<span id="cb3-144"><a href="#cb3-144"></a>  )</span>
+<span id="cb3-145"><a href="#cb3-145"></a></span>
+<span id="cb3-146"><a href="#cb3-146"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
+<span id="cb3-147"><a href="#cb3-147"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
+<span id="cb3-148"><a href="#cb3-148"></a>  <span class="fu">mutate</span>( <span class="at">para_participants_rank =</span> <span class="fu">max</span>(para_participants, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-149"><a href="#cb3-149"></a>          <span class="at">para_voted_rank =</span> <span class="fu">min</span>(para_voted, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-150"><a href="#cb3-150"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-151"><a href="#cb3-151"></a></span>
+<span id="cb3-152"><a href="#cb3-152"></a><span class="co"># Now drop paragraphs within page</span></span>
+<span id="cb3-153"><a href="#cb3-153"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
+<span id="cb3-154"><a href="#cb3-154"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
+<span id="cb3-155"><a href="#cb3-155"></a>  <span class="fu">filter</span>( ((rank <span class="sc">&gt;=</span> para_participants_rank <span class="sc">&amp;</span> rank <span class="sc">&lt;=</span> para_voted_rank) <span class="sc">&amp;</span> (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>)) <span class="sc">|</span> (doc_type <span class="sc">==</span> <span class="st">"SEP"</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-156"><a href="#cb3-156"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-157"><a href="#cb3-157"></a></span>
+<span id="cb3-158"><a href="#cb3-158"></a></span>
+<span id="cb3-159"><a href="#cb3-159"></a><span class="co"># Now clean up content in Minutes within bounding paragraphs</span></span>
+<span id="cb3-160"><a href="#cb3-160"></a><span class="co"># Text before "In conjunction" or before "Participants' Views"</span></span>
+<span id="cb3-161"><a href="#cb3-161"></a><span class="co"># Text after "At the Conclusion" (inclusive)</span></span>
+<span id="cb3-162"><a href="#cb3-162"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
+<span id="cb3-163"><a href="#cb3-163"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
+<span id="cb3-164"><a href="#cb3-164"></a>  <span class="fu">mutate</span>( </span>
+<span id="cb3-165"><a href="#cb3-165"></a>    <span class="at">text2 =</span> <span class="fu">case_when</span>( </span>
+<span id="cb3-166"><a href="#cb3-166"></a>      (para_participants <span class="sc">==</span> para_participants_rank) <span class="sc">&amp;</span> </span>
+<span id="cb3-167"><a href="#cb3-167"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_participants)) <span class="sc">&amp;</span> </span>
+<span id="cb3-168"><a href="#cb3-168"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_participants_rank)) <span class="sc">&amp;</span></span>
+<span id="cb3-169"><a href="#cb3-169"></a>        doc_id <span class="sc">&lt;=</span> <span class="st">'20090101'</span> <span class="sc">~</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'.*In conjunction'</span>, <span class="at">replacement =</span> <span class="st">'In conjunction'</span>, <span class="at">x =</span> text),</span>
+<span id="cb3-170"><a href="#cb3-170"></a>      (para_participants <span class="sc">==</span> para_participants_rank) <span class="sc">&amp;</span> </span>
+<span id="cb3-171"><a href="#cb3-171"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_participants)) <span class="sc">&amp;</span> </span>
+<span id="cb3-172"><a href="#cb3-172"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_participants_rank)) <span class="sc">&amp;</span></span>
+<span id="cb3-173"><a href="#cb3-173"></a>        doc_id <span class="sc">&gt;</span> <span class="st">'20090101'</span> <span class="sc">~</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">".*Participants('|’) Views"</span>, <span class="at">replacement =</span> <span class="st">"Participants' Views"</span>, <span class="at">x =</span> text),    </span>
+<span id="cb3-174"><a href="#cb3-174"></a>      (para_voted <span class="sc">==</span> para_voted_rank) <span class="sc">&amp;</span></span>
+<span id="cb3-175"><a href="#cb3-175"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_voted)) <span class="sc">&amp;</span></span>
+<span id="cb3-176"><a href="#cb3-176"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_voted_rank)) <span class="sc">~</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'At the conclusion.*'</span>, <span class="at">replacement =</span> <span class="st">''</span>, <span class="at">x =</span> text),</span>
+<span id="cb3-177"><a href="#cb3-177"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> text</span>
+<span id="cb3-178"><a href="#cb3-178"></a>    )</span>
+<span id="cb3-179"><a href="#cb3-179"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-180"><a href="#cb3-180"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-181"><a href="#cb3-181"></a>  <span class="fu">select</span>(id, doc_id, doc_type, page, text, text2, <span class="fu">everything</span>())</span>
+<span id="cb3-182"><a href="#cb3-182"></a></span>
+<span id="cb3-183"><a href="#cb3-183"></a>}</span>
+<span id="cb3-184"><a href="#cb3-184"></a></span>
+<span id="cb3-185"><a href="#cb3-185"></a><span class="co"># Clean up SEPs -----------------------------------------------------------</span></span>
+<span id="cb3-186"><a href="#cb3-186"></a></span>
+<span id="cb3-187"><a href="#cb3-187"></a>{</span>
+<span id="cb3-188"><a href="#cb3-188"></a></span>
+<span id="cb3-189"><a href="#cb3-189"></a><span class="co"># Drop page with "Forecast Uncertainty" box, usually the last page.</span></span>
+<span id="cb3-190"><a href="#cb3-190"></a>ds <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
+<span id="cb3-191"><a href="#cb3-191"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
+<span id="cb3-192"><a href="#cb3-192"></a>  <span class="fu">mutate</span>( <span class="at">page_fct_uncert_n =</span> <span class="fu">if_else</span>( doc_type <span class="sc">==</span> <span class="st">"SEP"</span> <span class="sc">&amp;</span> </span>
+<span id="cb3-193"><a href="#cb3-193"></a>                                         stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">"Forecast Uncertainty"</span>), page, <span class="dv">0</span>),</span>
+<span id="cb3-194"><a href="#cb3-194"></a>          </span>
+<span id="cb3-195"><a href="#cb3-195"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-196"><a href="#cb3-196"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-197"><a href="#cb3-197"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
+<span id="cb3-198"><a href="#cb3-198"></a>  <span class="fu">mutate</span>( <span class="at">page_fct_uncert =</span> <span class="fu">max</span>(page_fct_uncert_n) ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-199"><a href="#cb3-199"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-200"><a href="#cb3-200"></a></span>
+<span id="cb3-201"><a href="#cb3-201"></a><span class="co"># Drop pages after "Forecast Uncertainty"</span></span>
+<span id="cb3-202"><a href="#cb3-202"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb3-203"><a href="#cb3-203"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
+<span id="cb3-204"><a href="#cb3-204"></a>  <span class="fu">filter</span>( (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) <span class="sc">|</span> (page <span class="sc">&lt;=</span> page_fct_uncert <span class="sc">&amp;</span> doc_type <span class="sc">==</span> <span class="st">"SEP"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-205"><a href="#cb3-205"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-206"><a href="#cb3-206"></a></span>
+<span id="cb3-207"><a href="#cb3-207"></a></span>
+<span id="cb3-208"><a href="#cb3-208"></a><span class="co"># Drop paragraphs after "Forecast Uncertainty"</span></span>
+<span id="cb3-209"><a href="#cb3-209"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb3-210"><a href="#cb3-210"></a>  <span class="fu">mutate</span>( <span class="at">para_fct_uncert =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-211"><a href="#cb3-211"></a>                              doc_type <span class="sc">==</span> <span class="st">"SEP"</span>  <span class="sc">&amp;</span></span>
+<span id="cb3-212"><a href="#cb3-212"></a>                              page_fct_uncert <span class="sc">==</span> page_fct_uncert_n <span class="sc">~</span> rank</span>
+<span id="cb3-213"><a href="#cb3-213"></a>                            )</span>
+<span id="cb3-214"><a href="#cb3-214"></a>  )</span>
+<span id="cb3-215"><a href="#cb3-215"></a></span>
+<span id="cb3-216"><a href="#cb3-216"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb3-217"><a href="#cb3-217"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
+<span id="cb3-218"><a href="#cb3-218"></a>  <span class="fu">mutate</span>( <span class="at">para_fct_uncert_rank =</span> <span class="fu">min</span>(para_fct_uncert, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-219"><a href="#cb3-219"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-220"><a href="#cb3-220"></a></span>
+<span id="cb3-221"><a href="#cb3-221"></a><span class="co"># Now drop paragraphs within page</span></span>
+<span id="cb3-222"><a href="#cb3-222"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb3-223"><a href="#cb3-223"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
+<span id="cb3-224"><a href="#cb3-224"></a>  <span class="fu">filter</span>( ((rank <span class="sc">&lt;=</span> para_fct_uncert_rank) <span class="sc">&amp;</span> (doc_type <span class="sc">==</span> <span class="st">"SEP"</span>)) <span class="sc">|</span> (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-225"><a href="#cb3-225"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-226"><a href="#cb3-226"></a></span>
+<span id="cb3-227"><a href="#cb3-227"></a><span class="co"># Now clean up content in SEPS </span></span>
+<span id="cb3-228"><a href="#cb3-228"></a><span class="co"># Drop text after "Forecast Uncertainty" (inclusive)</span></span>
+<span id="cb3-229"><a href="#cb3-229"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb3-230"><a href="#cb3-230"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
+<span id="cb3-231"><a href="#cb3-231"></a>  <span class="fu">mutate</span>( </span>
+<span id="cb3-232"><a href="#cb3-232"></a>    <span class="at">text3 =</span> <span class="fu">case_when</span>( </span>
+<span id="cb3-233"><a href="#cb3-233"></a>      (para_fct_uncert <span class="sc">==</span> para_fct_uncert_rank) <span class="sc">&amp;</span> </span>
+<span id="cb3-234"><a href="#cb3-234"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_fct_uncert)) <span class="sc">&amp;</span> </span>
+<span id="cb3-235"><a href="#cb3-235"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_fct_uncert_rank))  <span class="sc">~</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'Forecast Uncertainty.*'</span>, <span class="at">replacement =</span> <span class="st">''</span>, <span class="at">x =</span> text2),</span>
+<span id="cb3-236"><a href="#cb3-236"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> text2</span>
+<span id="cb3-237"><a href="#cb3-237"></a>    )</span>
+<span id="cb3-238"><a href="#cb3-238"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-239"><a href="#cb3-239"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-240"><a href="#cb3-240"></a>  <span class="fu">select</span>(id, doc_id, doc_type, page, text, text2, text3, <span class="fu">everything</span>())</span>
+<span id="cb3-241"><a href="#cb3-241"></a></span>
+<span id="cb3-242"><a href="#cb3-242"></a></span>
+<span id="cb3-243"><a href="#cb3-243"></a><span class="co"># Drop pages in the SEPs with small font size</span></span>
+<span id="cb3-244"><a href="#cb3-244"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb3-245"><a href="#cb3-245"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
+<span id="cb3-246"><a href="#cb3-246"></a>  <span class="fu">filter</span>( (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) <span class="sc">|</span> (doc_type <span class="sc">==</span> <span class="st">"SEP"</span> <span class="sc">&amp;</span> avg_word_height <span class="sc">&gt;=</span> <span class="fl">11.5</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-247"><a href="#cb3-247"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-248"><a href="#cb3-248"></a></span>
+<span id="cb3-249"><a href="#cb3-249"></a></span>
+<span id="cb3-250"><a href="#cb3-250"></a><span class="co"># Drop paragraphs with no text</span></span>
+<span id="cb3-251"><a href="#cb3-251"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb3-252"><a href="#cb3-252"></a>  <span class="fu">filter</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text3, <span class="at">pattern =</span> <span class="st">'[a-zA-Z]+'</span>))</span>
+<span id="cb3-253"><a href="#cb3-253"></a></span>
+<span id="cb3-254"><a href="#cb3-254"></a></span>
+<span id="cb3-255"><a href="#cb3-255"></a><span class="co"># Drop paragraphs with small area, these is charts text</span></span>
+<span id="cb3-256"><a href="#cb3-256"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb3-257"><a href="#cb3-257"></a>  <span class="fu">filter</span>(area <span class="sc">&gt;=</span> <span class="fl">0.0001</span>)</span>
+<span id="cb3-258"><a href="#cb3-258"></a></span>
+<span id="cb3-259"><a href="#cb3-259"></a><span class="co"># Drop paragraphs in SEPs starting with "Chart" or "Figure" and have small number of characters</span></span>
+<span id="cb3-260"><a href="#cb3-260"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb3-261"><a href="#cb3-261"></a>  <span class="fu">filter</span>( (<span class="sc">!</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text3, <span class="at">pattern =</span> <span class="st">"^[ ]*(Chart|Figure)"</span>) <span class="sc">&amp;</span> chars <span class="sc">&lt;</span> <span class="dv">120</span>) <span class="sc">&amp;</span> doc_type <span class="sc">==</span> <span class="st">"SEP"</span>) <span class="sc">|</span> </span>
+<span id="cb3-262"><a href="#cb3-262"></a>          (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) </span>
+<span id="cb3-263"><a href="#cb3-263"></a>   )</span>
+<span id="cb3-264"><a href="#cb3-264"></a></span>
+<span id="cb3-265"><a href="#cb3-265"></a></span>
+<span id="cb3-266"><a href="#cb3-266"></a><span class="co"># Drop entire pages with small number of characters in "SEP"</span></span>
+<span id="cb3-267"><a href="#cb3-267"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb3-268"><a href="#cb3-268"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
+<span id="cb3-269"><a href="#cb3-269"></a>  <span class="fu">mutate</span>( <span class="at">page_chars =</span> <span class="fu">sum</span>(chars) ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-270"><a href="#cb3-270"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-271"><a href="#cb3-271"></a></span>
+<span id="cb3-272"><a href="#cb3-272"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb3-273"><a href="#cb3-273"></a>  <span class="fu">filter</span>( (page_chars <span class="sc">&gt;</span> <span class="dv">40</span> <span class="sc">&amp;</span> doc_type <span class="sc">==</span> <span class="st">"SEP"</span>) <span class="sc">|</span> (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) )</span>
+<span id="cb3-274"><a href="#cb3-274"></a></span>
+<span id="cb3-275"><a href="#cb3-275"></a><span class="co"># Drop paragraphs with small number of characters</span></span>
+<span id="cb3-276"><a href="#cb3-276"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb3-277"><a href="#cb3-277"></a>  <span class="fu">mutate</span>(<span class="at">text4 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-278"><a href="#cb3-278"></a>    doc_type <span class="sc">==</span> <span class="st">"SEP"</span> <span class="sc">&amp;</span> stringr<span class="sc">::</span><span class="fu">str_detect</span>(text3, <span class="st">"Summary of Economic Projections"</span>) <span class="sc">~</span> text3,</span>
+<span id="cb3-279"><a href="#cb3-279"></a>    doc_type <span class="sc">==</span> <span class="st">"SEP"</span> <span class="sc">&amp;</span> chars <span class="sc">&lt;</span> <span class="dv">40</span> <span class="sc">&amp;</span> <span class="sc">!</span>stringr<span class="sc">::</span><span class="fu">str_detect</span>(text3, <span class="st">"Summary of Economic Projections"</span>) <span class="sc">~</span> <span class="st">""</span>,</span>
+<span id="cb3-280"><a href="#cb3-280"></a>    doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">~</span> text3,</span>
+<span id="cb3-281"><a href="#cb3-281"></a>    <span class="cn">TRUE</span>                  <span class="sc">~</span> text3) </span>
+<span id="cb3-282"><a href="#cb3-282"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-283"><a href="#cb3-283"></a>  <span class="fu">select</span>(<span class="sc">-</span>text2, <span class="sc">-</span>text3) <span class="sc">%&gt;%</span></span>
+<span id="cb3-284"><a href="#cb3-284"></a><span class="fu">select</span>(id, doc_id, doc_type, page, text, text4, <span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb3-285"><a href="#cb3-285"></a>  <span class="fu">filter</span>(text4 <span class="sc">!=</span> <span class="st">""</span>)</span>
+<span id="cb3-286"><a href="#cb3-286"></a></span>
+<span id="cb3-287"><a href="#cb3-287"></a>}</span>
+<span id="cb3-288"><a href="#cb3-288"></a></span>
+<span id="cb3-289"><a href="#cb3-289"></a></span>
+<span id="cb3-290"><a href="#cb3-290"></a><span class="co"># Prepare text for analysis -----------------------------------------------</span></span>
+<span id="cb3-291"><a href="#cb3-291"></a><span class="co"># + Concatenate all the paragraphs in the Minutes and SEPs for each meeting.</span></span>
+<span id="cb3-292"><a href="#cb3-292"></a><span class="co"># + Tokenize into sentences</span></span>
+<span id="cb3-293"><a href="#cb3-293"></a><span class="co"># + Remove numerals</span></span>
+<span id="cb3-294"><a href="#cb3-294"></a><span class="co"># + Remove stop words</span></span>
+<span id="cb3-295"><a href="#cb3-295"></a><span class="co"># + Remove punctuation and symbols</span></span>
+<span id="cb3-296"><a href="#cb3-296"></a></span>
+<span id="cb3-297"><a href="#cb3-297"></a>minutes <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb3-298"><a href="#cb3-298"></a>  <span class="fu">filter</span>(doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-299"><a href="#cb3-299"></a>  <span class="fu">select</span>(doc_id, doc_type, page, rank, text4) <span class="sc">%&gt;%</span></span>
+<span id="cb3-300"><a href="#cb3-300"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
+<span id="cb3-301"><a href="#cb3-301"></a>  <span class="fu">summarise</span>(<span class="at">text =</span> <span class="fu">paste0</span>(text4, <span class="at">collapse =</span> <span class="st">""</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-302"><a href="#cb3-302"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-303"><a href="#cb3-303"></a></span>
+<span id="cb3-304"><a href="#cb3-304"></a>seps <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb3-305"><a href="#cb3-305"></a>  <span class="fu">filter</span>(doc_type <span class="sc">==</span> <span class="st">"SEP"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-306"><a href="#cb3-306"></a>  <span class="fu">select</span>(doc_id, doc_type, page, rank, text4) <span class="sc">%&gt;%</span></span>
+<span id="cb3-307"><a href="#cb3-307"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
+<span id="cb3-308"><a href="#cb3-308"></a>  <span class="fu">summarise</span>(<span class="at">text =</span> <span class="fu">paste0</span>(text4, <span class="at">collapse =</span> <span class="st">""</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-309"><a href="#cb3-309"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-310"><a href="#cb3-310"></a></span>
+<span id="cb3-311"><a href="#cb3-311"></a></span>
+<span id="cb3-312"><a href="#cb3-312"></a><span class="co"># Tokenize into sentences, then into words, then remove stop words</span></span>
+<span id="cb3-313"><a href="#cb3-313"></a><span class="fu">data</span>(stop_words)</span>
+<span id="cb3-314"><a href="#cb3-314"></a></span>
+<span id="cb3-315"><a href="#cb3-315"></a>tidy_minutes <span class="ot">&lt;-</span> minutes <span class="sc">%&gt;%</span></span>
+<span id="cb3-316"><a href="#cb3-316"></a>  <span class="co"># Replace line feeds, newline characters</span></span>
+<span id="cb3-317"><a href="#cb3-317"></a>  <span class="fu">mutate</span>(<span class="at">text =</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'</span><span class="sc">\\</span><span class="st">r</span><span class="sc">\\</span><span class="st">n'</span>, <span class="at">replacement =</span> <span class="st">' '</span>, <span class="at">x =</span> text)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-318"><a href="#cb3-318"></a>  <span class="fu">unnest_tokens</span>(<span class="at">token =</span> <span class="st">"sentences"</span>, <span class="at">input =</span> text, <span class="at">output =</span> sentence) <span class="sc">%&gt;%</span></span>
+<span id="cb3-319"><a href="#cb3-319"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
+<span id="cb3-320"><a href="#cb3-320"></a>  <span class="fu">mutate</span>( <span class="at">sentence_id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb3-321"><a href="#cb3-321"></a>  <span class="fu">unnest_tokens</span>(<span class="at">token =</span> <span class="st">"words"</span>, <span class="at">input =</span> sentence, <span class="at">output =</span> word) <span class="sc">%&gt;%</span></span>
+<span id="cb3-322"><a href="#cb3-322"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-323"><a href="#cb3-323"></a>  <span class="fu">anti_join</span>(stop_words)</span>
+<span id="cb3-324"><a href="#cb3-324"></a></span>
+<span id="cb3-325"><a href="#cb3-325"></a>tidy_seps <span class="ot">&lt;-</span> seps <span class="sc">%&gt;%</span></span>
+<span id="cb3-326"><a href="#cb3-326"></a>  <span class="co"># Replace line feeds, newline characters</span></span>
+<span id="cb3-327"><a href="#cb3-327"></a>  <span class="fu">mutate</span>(<span class="at">text =</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'</span><span class="sc">\\</span><span class="st">r</span><span class="sc">\\</span><span class="st">n'</span>, <span class="at">replacement =</span> <span class="st">' '</span>, <span class="at">x =</span> text)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-328"><a href="#cb3-328"></a>  <span class="fu">unnest_tokens</span>(<span class="at">token =</span> <span class="st">"sentences"</span>, <span class="at">input =</span> text, <span class="at">output =</span> sentence) <span class="sc">%&gt;%</span></span>
+<span id="cb3-329"><a href="#cb3-329"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
+<span id="cb3-330"><a href="#cb3-330"></a>  <span class="fu">mutate</span>( <span class="at">sentence_id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb3-331"><a href="#cb3-331"></a>  <span class="fu">unnest_tokens</span>(<span class="at">token =</span> <span class="st">"words"</span>, <span class="at">input =</span> sentence, <span class="at">output =</span> word) <span class="sc">%&gt;%</span></span>
+<span id="cb3-332"><a href="#cb3-332"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-333"><a href="#cb3-333"></a>  <span class="fu">anti_join</span>(stop_words)</span>
+<span id="cb3-334"><a href="#cb3-334"></a></span>
+<span id="cb3-335"><a href="#cb3-335"></a><span class="co"># Remove numbers</span></span>
+<span id="cb3-336"><a href="#cb3-336"></a>tidy_minutes <span class="ot">&lt;-</span> tidy_minutes <span class="sc">%&gt;%</span></span>
+<span id="cb3-337"><a href="#cb3-337"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="at">pattern =</span> <span class="st">'^[0-9</span><span class="sc">\\</span><span class="st">.+</span><span class="sc">\\</span><span class="st">-]+$'</span>, <span class="at">x =</span> word) )</span>
+<span id="cb3-338"><a href="#cb3-338"></a>tidy_seps <span class="ot">&lt;-</span> tidy_seps <span class="sc">%&gt;%</span></span>
+<span id="cb3-339"><a href="#cb3-339"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="at">pattern =</span> <span class="st">'^[0-9</span><span class="sc">\\</span><span class="st">.+</span><span class="sc">\\</span><span class="st">-]+$'</span>, <span class="at">x =</span> word) )</span>
+<span id="cb3-340"><a href="#cb3-340"></a></span>
+<span id="cb3-341"><a href="#cb3-341"></a><span class="co"># Join back into sentences</span></span>
+<span id="cb3-342"><a href="#cb3-342"></a>sent_minutes <span class="ot">&lt;-</span> tidy_minutes <span class="sc">%&gt;%</span></span>
+<span id="cb3-343"><a href="#cb3-343"></a>  <span class="fu">group_by</span>(doc_id, sentence_id) <span class="sc">%&gt;%</span></span>
+<span id="cb3-344"><a href="#cb3-344"></a>  <span class="fu">summarise</span>(<span class="at">text =</span> <span class="fu">paste0</span>(word, <span class="at">collapse =</span> <span class="st">" "</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-345"><a href="#cb3-345"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-346"><a href="#cb3-346"></a></span>
+<span id="cb3-347"><a href="#cb3-347"></a>sent_seps <span class="ot">&lt;-</span> tidy_seps <span class="sc">%&gt;%</span></span>
+<span id="cb3-348"><a href="#cb3-348"></a>  <span class="fu">group_by</span>(doc_id, sentence_id) <span class="sc">%&gt;%</span></span>
+<span id="cb3-349"><a href="#cb3-349"></a>  <span class="fu">summarise</span>(<span class="at">text =</span> <span class="fu">paste0</span>(word, <span class="at">collapse =</span> <span class="st">" "</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-350"><a href="#cb3-350"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-351"><a href="#cb3-351"></a></span>
+<span id="cb3-352"><a href="#cb3-352"></a></span>
+<span id="cb3-353"><a href="#cb3-353"></a><span class="co"># Write data for python</span></span>
+<span id="cb3-354"><a href="#cb3-354"></a><span class="fu">py_save_object</span>(sent_minutes, <span class="at">filename =</span> <span class="st">'data/data-gen/sent_minutes.p'</span>)</span>
+<span id="cb3-355"><a href="#cb3-355"></a><span class="fu">py_save_object</span>(sent_seps, <span class="at">filename =</span> <span class="st">'data/data-gen/sent_seps.p'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="calculate-similarity-python" class="slide level2">
 <h2>Calculate similarity (<code>python</code>)</h2>
@@ -1206,6 +1011,15 @@ https://www.pipinghotdata.com/posts/2022-05-12-code-line-highlighting-in-quarto-
 <iframe id="frame" src="code/Calculate_similarities.html">
 </iframe>
 </div>
+</section>
+<section id="to-do" class="slide level2">
+<h2>To Do</h2>
+<ol type="1">
+<li>Charts with main results</li>
+<li>Charts with robustness results</li>
+<li>Conclusions</li>
+<li>Add links to GitHub repository</li>
+</ol>
 <div class="footer footer-default">
 <p><a href="https://rubenhm.org/talks/fedcomms">rubenhm.org/talks/fedcomms</a></p>
 </div>
