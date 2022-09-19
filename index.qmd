@@ -3,6 +3,7 @@ title: "Fed Communications"
 author: "Rubén Hernández Murillo"
 location: "Model Risk Seminar"
 date: "KeyBank — October, 2022"
+institute: "Model Risk"
 format: 
   revealjs:
     footer: "[rubenhm.org/talks/fedcomms](https://rubenhm.org/talks/fedcomms)"
@@ -11,10 +12,18 @@ format:
     highlight-style: solarized
     chalkboard: 
       boardmarker-width: 5
+    show-slide-number: all
+    slide-number: c/t
 from: markdown+emoji
 filters:
   - pandoc/include-code-files.lua
 ---
+
+## This talk
+
+- Website: [rubenhm.org/talks/fedcomms](https://rubenhm.org/talks/fedcomms)
+- GitHub repository: [github.com/rubenhm/fedcomms](https://github.com/rubenhm/fedcomms)
+- Project: [github.com/rubenhm/text-similarities](https://github.com/rubenhm/text-similarities)
 
 ## Motivation
 
@@ -82,7 +91,7 @@ filters:
 
 ## Google Cloud (CLI via `Bash`)
 
-``` {.bash include="code/gcompfiles.sh"}
+``` {.bash include="code/gcompfiles.sh" code-line-numbers="|22|"}
 ```
 
 ## Process OCR results (`python`)

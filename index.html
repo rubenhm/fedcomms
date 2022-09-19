@@ -388,9 +388,18 @@
 <section id="title-slide" class="center">
   <h1 class="title">Fed Communications</h1>
   <p class="author">Rubén Hernández Murillo</p>
+  <p class="institute">Model Risk</p>
   <p class="date">KeyBank — October, 2022</p>
 </section>
 
+<section id="this-talk" class="slide level2">
+<h2>This talk</h2>
+<ul>
+<li>Website: <a href="https://rubenhm.org/talks/fedcomms">rubenhm.org/talks/fedcomms</a></li>
+<li>GitHub repository: <a href="https://github.com/rubenhm/fedcomms">github.com/rubenhm/fedcomms</a></li>
+<li>Project: <a href="https://github.com/rubenhm/text-similarities">github.com/rubenhm/text-similarities</a></li>
+</ul>
+</section>
 <section id="motivation" class="slide level2">
 <h2>Motivation</h2>
 <ul>
@@ -579,7 +588,7 @@ the <strong>Summary of Economic Projections</strong>.</li>
 </section>
 <section id="google-cloud-cli-via-bash-1" class="slide level2">
 <h2>Google Cloud (CLI via <code>Bash</code>)</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#!/bin/bash</span></span>
+<div class="sourceCode" id="cb2" data-code-line-numbers="|22|"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#!/bin/bash</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
 <span id="cb2-3"><a href="#cb2-3"></a><span class="co"># Copy pdf files to google cloud storage</span></span>
 <span id="cb2-4"><a href="#cb2-4"></a><span class="ex">gsutil</span> storage cp data/minutes_sep/<span class="pp">*</span> gs://fomc-files/pdfs/</span>
@@ -1078,7 +1087,7 @@ the <strong>Summary of Economic Projections</strong>.</li>
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: false,
+        slideNumber: 'c/t',
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
