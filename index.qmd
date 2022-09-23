@@ -32,6 +32,7 @@ filters:
 -   Tension between:
     -   promoting **transparency**
     -   minimizing **disruptions**
+-   Goal: To be _'N-sync_ with the markets
 
 ## Exercise
 
@@ -47,6 +48,25 @@ filters:
 
 -   Compare with the **Beige Book**
 -   Compare with **movie reviews**
+
+## Measures of similarity
+
+- Cosine similarity
+- Euclidean distance
+- Pearson correlation
+
+## Cosine similarity 
+
++ Measure of similarity between two vectors, $A$ and $B$
+$$
+\mathrm{cosine~similarity}~(A,B) = cos(\theta) = \frac{A \cdot B}{\lVert A \rVert \lVert B \rVert} 
+$$
++ Measure ranges from $-1$ to $1$
+\begin{align*}
+  {\scriptsize\bullet}~ A &\perp B                    &\implies cos(\theta) &= 0 &\\ 
+  {\scriptsize\bullet}~ B &= c A \mathrm{, with~} c>0 &\implies cos(\theta) &= 1 &\\
+  {\scriptsize\bullet}~ B &= c A \mathrm{, with~} c<0 &\implies cos(\theta) &=-1 &\\
+\end{align*}
 
 ## Code dependencies
 
@@ -138,10 +158,31 @@ filters:
 </iframe>
 </div>
 
+
+## Generate plots (`R`)
+
+``` {.r include="code/plot_results.R"}
+```
+
+
+
+## Results, FOMC
+
+
+![](images/plot_cosine_fomc.png){.absolute top="10%" left="0%" width="100%"}
+
+
+## Results, Movie Reviews
+
+![](images/plot_cosine_movies.png){.absolute top="10%" left="0%" width="100%"}
+
+
+
 ## To Do
 
-1. Charts with main results
-2. Charts with robustness results
-3. Conclusions
-4. Add links to GitHub repository
+1. Explain Cosine similarity
+1. (Nice) Charts with main results
+1. (Nice) Charts with robustness results
+1. Conclusions
+
 
