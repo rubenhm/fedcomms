@@ -7,13 +7,16 @@ institute: "Model Risk"
 format: 
   revealjs:
     footer: "[rubenhm.org/talks/fedcomms](https://rubenhm.org/talks/fedcomms)"
-    scrollable: true
+    scrollable: false
     code-fold: true
     highlight-style: solarized
     chalkboard: 
       boardmarker-width: 5
     show-slide-number: all
     slide-number: c/t
+    revealjs-plugins:
+      - reveald3
+    preview-links: true
 from: markdown+emoji
 filters:
   - pandoc/include-code-files.lua
@@ -34,13 +37,33 @@ filters:
     -   minimizing **disruptions**
 -   Goal: To be _'N-sync_ with the markets
 
+## Fed's Monetary Policy
+
++ Federal Open Market Committee (FOMC)
++ FOMC Communications
+  - Minutes
+  - Summary of Economic Projections (SEPs)
++ Other Fed Communications
+  - The Beige Book
+  
+## SEPs
+
+<h3>The (infamous) dotplot</h3> 
+<div class="fig-container" data-file="d3charts/dotplot.html"></div>
+
+## SEPs
+
+<h3>PCE Inflation</h3> 
+<div class="fig-container" data-file="d3charts/fomc_pce_box.html"></div>
+
+
 ## Exercise
 
 -   Calculate measures of *semantic similarity* between:
     -   the discussion on **the outlook** reported in\
-        the **Minutes** and
+        the [**Minutes**]{style="color: firebrick;"} and
     -   the discussion on **the forecasts** reported in\
-        the **Summary of Economic Projections**.
+        the [**Summary of Economic Projections**]{style="color: firebrick;"}.
 -   The similarity measures provide a notion of the\
     **correlation of ideas** across the two documents.
 
@@ -80,6 +103,25 @@ $$
 <!-- ![](images/code-network.svg){.absolute left="10%" width="80%"} -->
 
 
+## Code dependencies
+
+::::{.columns}
+
+::: {.column width="60%" .scrollable}
+
+``` {.makefile include="code/Makefile"}
+```
+
+:::
+
+::: {.column width="40%" .scrollable}
+
+![](images/code_dependencies.svg)
+:::
+
+::::
+
+
 ## Multiple tools and languages
 
 ![](images/Rlogo.svg){.absolute top="10%" left="5%" width="150px"}
@@ -98,10 +140,11 @@ $$
 -   [Beige Book reports](https://www.minneapolisfed.org/region-and-community/regional-economic-indicators/beige-book-archive) available as `HTML` files
 -   [Movie reviews](https://developer.nytimes.com/docs/movie-reviews-api/1/overview) available from the NYT API as `JSON` files
 
-## Download Minutes and SEPs (`R`)
+## Download Minutes and SEPs (`R`) 
 
 ``` {.r include="code/download_fomc_minutes.R"}
 ```
+
 
 ## Google Cloud (CLI via `Bash`)
 
@@ -121,7 +164,7 @@ $$
 -   Save as `pickle` file
 
 
-## Process OCR results (`python`)
+## Process OCR results (`python`) {.scrollable}
 
 <style>
     #wrap { width: 1620px; height: 1000px; padding: 0; position:relative; left:-100px; top:0px; overflow: hidden; }
@@ -142,7 +185,7 @@ $$
 
 
 
-## Calculate similarity (`python`)
+## Calculate similarity (`python`) {.scrollable}
 
 <!-- https://stackoverflow.com/questions/166160/how-can-i-scale-the-content-of-an-iframe -->
 
@@ -180,9 +223,10 @@ $$
 
 ## To Do
 
-1. Explain Cosine similarity
-1. (Nice) Charts with main results
-1. (Nice) Charts with robustness results
-1. Conclusions
+1. Clean up code for presentation
+1. Add more about the FOMC and monetary policy
+1. Generate (Nicer) Charts with main results
+1. Generate (Nicer) Charts with robustness results
+1. Add Conclusions
 
 
