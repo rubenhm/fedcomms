@@ -1,0 +1,5 @@
+.reveal .slides section .fragment.highlight-red.visible {
+    color: firebrick;
+    font-weight: bold;
+}
+

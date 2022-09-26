@@ -5,7 +5,6 @@ library(tidytext)
 library(reticulate)
 
 # Select python environment
-#use_condaenv('py37_fomc')
 use_condaenv('gcloud')
 
 # Read pickle file
@@ -27,8 +26,7 @@ big_df <- pd$read_pickle("data/data-gen/big_df.p")
 #' - SEPs
 #'   + Strip the forecast summaries with the Participant's views
 #'   + SEPs don't have sections, but it's all participants' comments
-#' 3. Calculate embedding of paragraphs and documents.
-#' 4. Calculate similarities between pairs of documents.
+
 
 
 # Generate doc_id 
@@ -80,7 +78,7 @@ dt <- dt %>%
 {
 
 # Find relevant paragraphs in the Minutes:
-# - First appearance of "Participants' Views in 2009+
+# - First appearance of "Participants' Views" in 2009+
 # - First appearance of "In conjunction" in 2007-2008
 dm <- dt %>%
   group_by(doc_id, doc_type) %>%

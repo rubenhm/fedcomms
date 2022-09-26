@@ -9,14 +9,15 @@ format:
     footer: "[rubenhm.org/talks/fedcomms](https://rubenhm.org/talks/fedcomms)"
     scrollable: false
     code-fold: true
+    css: custom.css
     highlight-style: solarized
     chalkboard: 
       boardmarker-width: 5
     show-slide-number: all
     slide-number: c/t
+    width: 1200
     revealjs-plugins:
       - reveald3
-    preview-links: true
 from: markdown+emoji
 filters:
   - pandoc/include-code-files.lua
@@ -24,53 +25,130 @@ filters:
 
 ## This talk
 
-- Website: [rubenhm.org/talks/fedcomms](https://rubenhm.org/talks/fedcomms)
-- GitHub repository: [github.com/rubenhm/fedcomms](https://github.com/rubenhm/fedcomms)
-- Project: [github.com/rubenhm/text-similarities](https://github.com/rubenhm/text-similarities)
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" crossorigin="anonymous">
+
+- Presentation website: [rubenhm.org/talks/fedcomms](https://rubenhm.org/talks/fedcomms)
+- Slides repository: [github.com/rubenhm/fedcomms](https://github.com/rubenhm/fedcomms)
+- Project repository: [github.com/rubenhm/text-similarities](https://github.com/rubenhm/text-similarities)
+
+# 
+
+:::{style="text-align:left; font-size:100px; font-weight: bold; margin-top:100px;"}
+Part I: <br>Fed Communications
+:::
 
 ## Motivation
 
--   Fed communications are drafted strategically
+The Fed produces a lot of communications:
+
+
++ [Monetary policy]{.fragment fragment-index=3 .highlight-red}
++ Banking supervision and regulation
++ Financial stability
++ Payments systems
++ Economic research
+
+
+##  Monetary Policy Communications
+
+- FOMC post-meeting statement
+- Post-meeting press conference
+- Semiannual Report to Congress by Fed Chair
+- [Minutes of the FOMC meeting]{.fragment fragment-index=3 .highlight-red}
+- [Summary of Economic Projections (SEPs)]{.fragment fragment-index=3 .highlight-red}
+- Congressional testimony by Fed governors
+- Speeches by Fed governors
+  
+## Other Fed Communications  
+  
+- [The Beige Book](https://www.federalreserve.gov/monetarypolicy/beige-book-default.htm)
+- Speeches by regional bank presidents   
+  <https://www.stlouisfed.org/fomcspeak>
+
+## SEPs: The Dotplot
+
+<style>
+    #dotplot { width: 1600px; height: 600px; position:relative; left:15px; top:0px; }
+    #dotplot { -ms-zoom: 1.3; -moz-transform: scale(1.3); -moz-transform-origin: 0px 0; -o-transform: scale(1.3); -o-transform-origin: 0 0; -webkit-transform: scale(1.3); -webkit-transform-origin: 0 0; }
+</style>
+
+<div id="dotplot" class="fig-container" data-file="d3charts/dotplot.html" width="100%"></div>
+
+## SEPs: PCE Inflation
+
+<style>
+    #pce { width: 1600px; height: 600px; position:relative; left:15px; top:0px; }
+    #pce { -ms-zoom: 1.3; -moz-transform: scale(1.3); -moz-transform-origin: 0px 0; -o-transform: scale(1.3); -o-transform-origin: 0 0; -webkit-transform: scale(1.3); -webkit-transform-origin: 0 0; }
+</style>
+
+<div id="pce" class="fig-container" data-file="d3charts/fomc_pce_box.html"></div>
+
+
+
+## FOMC Communications
+
+-   FOMC communications are drafted strategically
 -   The Fed takes into account market reactions
 -   Tension between:
-    -   promoting **transparency**
-    -   minimizing **disruptions**
--   Goal: To be _'N-sync_ with the markets
+    -   promoting [**transparency**]{.highlight-red}
+    -   minimizing [**disruptions**]{.highlight-red}
+-   Goals:
+    + Convey that policies are _**data-driven**_
+    + To be _'N-sync_ with the markets
 
-## Fed's Monetary Policy
 
-+ Federal Open Market Committee (FOMC)
-+ FOMC Communications
-  - Minutes
-  - Summary of Economic Projections (SEPs)
-+ Other Fed Communications
-  - The Beige Book
-  
-## SEPs
+## Fed Communications
 
-<h3>The (infamous) dotplot</h3> 
-<div class="fig-container" data-file="d3charts/dotplot.html"></div>
+[Chairman Bernanke on Federal Reserve Communications](https://www.federalreserve.gov/newsevents/speech/bernanke20071114a.htm)
 
-## SEPs
+> [<i class="fas fa-quote-left"></i>]{style="color:gray;"} _If market participants understand that  
+> arriving information about the economy  
+> increases the likelihood of certain policy actions,  
+> then market interest rates will tend to move   
+> in a way that reinforces the expected actions,  
+> effectively supporting the goals of the central bank._ [<i class="fas fa-quote-right"></i>]{style="color:gray;"}
+> 
+:::{style="text-align:right;"}
+> — Ben S. Bernanke  
+> November 14, 2007
+:::
 
-<h3>PCE Inflation</h3> 
-<div class="fig-container" data-file="d3charts/fomc_pce_box.html"></div>
+
+# 
+
+:::{style="text-align:left; font-size:100px; font-weight: bold; margin-top:100px;"}
+Part II: <br>Numerical Exercise
+:::
 
 
 ## Exercise
 
 -   Calculate measures of *semantic similarity* between:
-    -   the discussion on **the outlook** reported in\
-        the [**Minutes**]{style="color: firebrick;"} and
-    -   the discussion on **the forecasts** reported in\
-        the [**Summary of Economic Projections**]{style="color: firebrick;"}.
+    -   the discussion on [**current conditions and the outlook**]{style="color: steelblue;"} \
+        reported in the [**Minutes**]{style="color: firebrick;"} and
+    -   the discussion on [**the forecasts**]{style="color: steelblue;"} \
+        reported in the [**Summary of Economic Projections**]{style="color: firebrick;"}.
 -   The similarity measures provide a notion of the\
-    **correlation of ideas** across the two documents.
+    **correlation of ideas** across the two documents
+
+## Minutes and SEPs {.column-page}
+
+<iframe src="attachments/fomcminutes20180613.pdf" width="150%" height="80%"></iframe>
+
 
 ## Robustness tests
 
 -   Compare with the **Beige Book**
 -   Compare with **movie reviews**
+
+
+## Strategy
+
++ Use _word embeddings_ of the texts:
+  - [SentenceTransformers](https://www.sbert.net/)
+  - [PyTorch](https://pytorch.org/) with CUDA support
+
 
 ## Measures of similarity
 
@@ -81,45 +159,16 @@ filters:
 ## Cosine similarity 
 
 + Measure of similarity between two vectors, $A$ and $B$
-$$
-\mathrm{cosine~similarity}~(A,B) = cos(\theta) = \frac{A \cdot B}{\lVert A \rVert \lVert B \rVert} 
-$$
+  
+
++ $\mathrm{cosine~similarity}~(A,B) = cos(\theta) = \frac{A \cdot B}{\lVert A \rVert \lVert B \rVert}$
+
 + Measure ranges from $-1$ to $1$
 \begin{align*}
   {\scriptsize\bullet}~ A &\perp B                    &\implies cos(\theta) &= 0 &\\ 
   {\scriptsize\bullet}~ B &= c A \mathrm{, with~} c>0 &\implies cos(\theta) &= 1 &\\
   {\scriptsize\bullet}~ B &= c A \mathrm{, with~} c<0 &\implies cos(\theta) &=-1 &\\
 \end{align*}
-
-## Code dependencies
-
-<!-- https://github.com/ranr01/reveal-inline-svg/ -->
-
-:::{.absolute left="10%"}
-<object type="image/svg+xml" data="images/code-network.svg" width="85%">
-</object>
-:::
-
-<!-- ![](images/code-network.svg){.absolute left="10%" width="80%"} -->
-
-
-## Code dependencies
-
-::::{.columns}
-
-::: {.column width="60%" .scrollable}
-
-``` {.makefile include="code/Makefile"}
-```
-
-:::
-
-::: {.column width="40%" .scrollable}
-
-![](images/code_dependencies.svg)
-:::
-
-::::
 
 
 ## Multiple tools and languages
@@ -134,11 +183,29 @@ $$
 
 ![](images/google-cloud.svg){.absolute top="70%" left="80%" width="150px"}
 
+## Code dependencies
+
+<!-- https://github.com/ranr01/reveal-inline-svg/ -->
+
+:::{.absolute left="10%"}
+<object type="image/svg+xml" data="images/code-network.svg" width="85%">
+</object>
+:::
+
+<!-- ![](images/code-network.svg){.absolute left="10%" width="80%"} -->
+
+
+
 ## Download data (`R`)
 
 -   [FOMC Minutes and SEPs](https://www.federalreserve.gov/monetarypolicy/fomchistorical2010.htm) available as `PDF` files
 -   [Beige Book reports](https://www.minneapolisfed.org/region-and-community/regional-economic-indicators/beige-book-archive) available as `HTML` files
 -   [Movie reviews](https://developer.nytimes.com/docs/movie-reviews-api/1/overview) available from the NYT API as `JSON` files
+
+## Download Movie Reviews (`R`)
+
+```{.r include="code/download_and_process_movies.R"}
+```
 
 ## Download Minutes and SEPs (`R`) 
 
@@ -154,7 +221,7 @@ $$
 
 ## Google Cloud (CLI via `Bash`)
 
-``` {.bash include="code/gcompfiles.sh" code-line-numbers="|22|"}
+``` {.bash include="code/gcompfiles.sh" code-line-numbers="|22"}
 ```
 
 ## Process OCR results (`python`)
@@ -223,10 +290,7 @@ $$
 
 ## To Do
 
-1. Clean up code for presentation
-1. Add more about the FOMC and monetary policy
-1. Generate (Nicer) Charts with main results
-1. Generate (Nicer) Charts with robustness results
+
 1. Add Conclusions
 
 

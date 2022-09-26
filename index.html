@@ -89,6 +89,7 @@
     code span.wa { color: #cb4b16; } /* Warning */
   </style>
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="custom.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -393,56 +394,110 @@
 
 <section id="this-talk" class="slide level2">
 <h2>This talk</h2>
+<!-- FontAwesome -->
+<p><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" crossorigin="anonymous"></p>
 <ul>
-<li>Website: <a href="https://rubenhm.org/talks/fedcomms">rubenhm.org/talks/fedcomms</a></li>
-<li>GitHub repository: <a href="https://github.com/rubenhm/fedcomms">github.com/rubenhm/fedcomms</a></li>
-<li>Project: <a href="https://github.com/rubenhm/text-similarities">github.com/rubenhm/text-similarities</a></li>
+<li>Presentation website: <a href="https://rubenhm.org/talks/fedcomms">rubenhm.org/talks/fedcomms</a></li>
+<li>Slides repository: <a href="https://github.com/rubenhm/fedcomms">github.com/rubenhm/fedcomms</a></li>
+<li>Project repository: <a href="https://github.com/rubenhm/text-similarities">github.com/rubenhm/text-similarities</a></li>
 </ul>
+</section>
+<section>
+<section id="section" class="title-slide slide level1 center">
+<h1></h1>
+<div style="text-align:left; font-size:100px; font-weight: bold; margin-top:100px;">
+<p>Part I: <br>Fed Communications</p>
+</div>
 </section>
 <section id="motivation" class="slide level2">
 <h2>Motivation</h2>
+<p>The Fed produces a lot of communications:</p>
 <ul>
-<li>Fed communications are drafted strategically</li>
-<li>The Fed takes into account market reactions</li>
-<li>Tension between:
-<ul>
-<li>promoting <strong>transparency</strong></li>
-<li>minimizing <strong>disruptions</strong></li>
-</ul></li>
-<li>Goal: To be <em>’N-sync</em> with the markets</li>
+<li><span class="fragment highlight-red" data-fragment-index="3">Monetary policy</span></li>
+<li>Banking supervision and regulation</li>
+<li>Financial stability</li>
+<li>Payments systems</li>
+<li>Economic research</li>
 </ul>
 </section>
-<section id="feds-monetary-policy" class="slide level2">
-<h2>Fed’s Monetary Policy</h2>
+<section id="monetary-policy-communications" class="slide level2">
+<h2>Monetary Policy Communications</h2>
 <ul>
-<li>Federal Open Market Committee (FOMC)</li>
-<li>FOMC Communications
-<ul>
-<li>Minutes</li>
-<li>Summary of Economic Projections (SEPs)</li>
-</ul></li>
-<li>Other Fed Communications
-<ul>
-<li>The Beige Book</li>
-</ul></li>
+<li>FOMC post-meeting statement</li>
+<li>Post-meeting press conference</li>
+<li>Semiannual Report to Congress by Fed Chair</li>
+<li><span class="fragment highlight-red" data-fragment-index="3">Minutes of the FOMC meeting</span></li>
+<li><span class="fragment highlight-red" data-fragment-index="3">Summary of Economic Projections (SEPs)</span></li>
+<li>Congressional testimony by Fed governors</li>
+<li>Speeches by Fed governors</li>
 </ul>
 </section>
-<section id="seps" class="slide level2">
-<h2>SEPs</h2>
-<h3>
-The (infamous) dotplot
-</h3>
-<div class="fig-container" data-file="d3charts/dotplot.html">
+<section id="other-fed-communications" class="slide level2">
+<h2>Other Fed Communications</h2>
+<ul>
+<li><a href="https://www.federalreserve.gov/monetarypolicy/beige-book-default.htm">The Beige Book</a></li>
+<li>Speeches by regional bank presidents<br>
+<a href="https://www.stlouisfed.org/fomcspeak" class="uri">https://www.stlouisfed.org/fomcspeak</a></li>
+</ul>
+</section>
+<section id="seps-the-dotplot" class="slide level2">
+<h2>SEPs: The Dotplot</h2>
+<style>
+    #dotplot { width: 1600px; height: 600px; position:relative; left:15px; top:0px; }
+    #dotplot { -ms-zoom: 1.3; -moz-transform: scale(1.3); -moz-transform-origin: 0px 0; -o-transform: scale(1.3); -o-transform-origin: 0 0; -webkit-transform: scale(1.3); -webkit-transform-origin: 0 0; }
+</style>
+<div id="dotplot" class="fig-container" data-file="d3charts/dotplot.html" width="100%">
 
 </div>
 </section>
-<section id="seps-1" class="slide level2">
-<h2>SEPs</h2>
-<h3>
-PCE Inflation
-</h3>
-<div class="fig-container" data-file="d3charts/fomc_pce_box.html">
+<section id="seps-pce-inflation" class="slide level2">
+<h2>SEPs: PCE Inflation</h2>
+<style>
+    #pce { width: 1600px; height: 600px; position:relative; left:15px; top:0px; }
+    #pce { -ms-zoom: 1.3; -moz-transform: scale(1.3); -moz-transform-origin: 0px 0; -o-transform: scale(1.3); -o-transform-origin: 0 0; -webkit-transform: scale(1.3); -webkit-transform-origin: 0 0; }
+</style>
+<div id="pce" class="fig-container" data-file="d3charts/fomc_pce_box.html">
 
+</div>
+</section>
+<section id="fomc-communications" class="slide level2">
+<h2>FOMC Communications</h2>
+<ul>
+<li>FOMC communications are drafted strategically</li>
+<li>The Fed takes into account market reactions</li>
+<li>Tension between:
+<ul>
+<li>promoting <span class="highlight-red"><strong>transparency</strong></span></li>
+<li>minimizing <span class="highlight-red"><strong>disruptions</strong></span></li>
+</ul></li>
+<li>Goals:
+<ul>
+<li>Convey that policies are <em><strong>data-driven</strong></em></li>
+<li>To be <em>’N-sync</em> with the markets</li>
+</ul></li>
+</ul>
+</section>
+<section id="fed-communications" class="slide level2">
+<h2>Fed Communications</h2>
+<p><a href="https://www.federalreserve.gov/newsevents/speech/bernanke20071114a.htm">Chairman Bernanke on Federal Reserve Communications</a></p>
+<blockquote>
+<p><span style="color:gray;"><i class="fas fa-quote-left"></i></span> <em>If market participants understand that<br>
+arriving information about the economy<br>
+increases the likelihood of certain policy actions,<br>
+then market interest rates will tend to move<br>
+in a way that reinforces the expected actions,<br>
+effectively supporting the goals of the central bank.</em> <span style="color:gray;"><i class="fas fa-quote-right"></i></span></p>
+<div style="text-align:right;">
+<p>— Ben S. Bernanke<br>
+November 14, 2007</p>
+</div>
+</blockquote>
+</section></section>
+<section>
+<section id="section-1" class="title-slide slide level1 center">
+<h1></h1>
+<div style="text-align:left; font-size:100px; font-weight: bold; margin-top:100px;">
+<p>Part II: <br>Numerical Exercise</p>
 </div>
 </section>
 <section id="exercise" class="slide level2">
@@ -450,20 +505,35 @@ PCE Inflation
 <ul>
 <li>Calculate measures of <em>semantic similarity</em> between:
 <ul>
-<li>the discussion on <strong>the outlook</strong> reported in<br>
-the <span style="color: firebrick;"><strong>Minutes</strong></span> and</li>
-<li>the discussion on <strong>the forecasts</strong> reported in<br>
-the <span style="color: firebrick;"><strong>Summary of Economic Projections</strong></span>.</li>
+<li>the discussion on <span style="color: steelblue;"><strong>current conditions and the outlook</strong></span><br>
+reported in the <span style="color: firebrick;"><strong>Minutes</strong></span> and</li>
+<li>the discussion on <span style="color: steelblue;"><strong>the forecasts</strong></span><br>
+reported in the <span style="color: firebrick;"><strong>Summary of Economic Projections</strong></span>.</li>
 </ul></li>
 <li>The similarity measures provide a notion of the<br>
-<strong>correlation of ideas</strong> across the two documents.</li>
+<strong>correlation of ideas</strong> across the two documents</li>
 </ul>
+</section>
+<section id="minutes-and-seps" class="slide level2 column-page">
+<h2>Minutes and SEPs</h2>
+<iframe src="attachments/fomcminutes20180613.pdf" width="150%" height="80%">
+</iframe>
 </section>
 <section id="robustness-tests" class="slide level2">
 <h2>Robustness tests</h2>
 <ul>
 <li>Compare with the <strong>Beige Book</strong></li>
 <li>Compare with <strong>movie reviews</strong></li>
+</ul>
+</section>
+<section id="strategy" class="slide level2">
+<h2>Strategy</h2>
+<ul>
+<li>Use <em>word embeddings</em> of the texts:
+<ul>
+<li><a href="https://www.sbert.net/">SentenceTransformers</a></li>
+<li><a href="https://pytorch.org/">PyTorch</a> with CUDA support</li>
+</ul></li>
 </ul>
 </section>
 <section id="measures-of-similarity" class="slide level2">
@@ -477,18 +547,22 @@ the <span style="color: firebrick;"><strong>Summary of Economic Projections</str
 <section id="cosine-similarity" class="slide level2">
 <h2>Cosine similarity</h2>
 <ul>
-<li>Measure of similarity between two vectors, <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span></li>
-</ul>
-<p><span class="math display">\[
-\mathrm{cosine~similarity}~(A,B) = cos(\theta) = \frac{A \cdot B}{\lVert A \rVert \lVert B \rVert}
-\]</span></p>
-<ul>
-<li>Measure ranges from <span class="math inline">\(-1\)</span> to <span class="math inline">\(1\)</span> <span class="math display">\[\begin{align*}
+<li><p>Measure of similarity between two vectors, <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span></p></li>
+<li><p><span class="math inline">\(\mathrm{cosine~similarity}~(A,B) = cos(\theta) = \frac{A \cdot B}{\lVert A \rVert \lVert B \rVert}\)</span></p></li>
+<li><p>Measure ranges from <span class="math inline">\(-1\)</span> to <span class="math inline">\(1\)</span> <span class="math display">\[\begin{align*}
 {\scriptsize\bullet}~ A &amp;\perp B                    &amp;\implies cos(\theta) &amp;= 0 &amp;\\
 {\scriptsize\bullet}~ B &amp;= c A \mathrm{, with~} c&gt;0 &amp;\implies cos(\theta) &amp;= 1 &amp;\\
 {\scriptsize\bullet}~ B &amp;= c A \mathrm{, with~} c&lt;0 &amp;\implies cos(\theta) &amp;=-1 &amp;\\
-\end{align*}\]</span></li>
+\end{align*}\]</span></p></li>
 </ul>
+</section>
+<section id="multiple-tools-and-languages" class="slide level2">
+<h2>Multiple tools and languages</h2>
+<p><img data-src="images/Rlogo.svg" class="absolute" style="top: 10%; left: 5%; width: 150px; "></p>
+<p><img data-src="images/jupyter.svg" class="absolute" style="top: 10%; left: 80%; width: 150px; "></p>
+<p><img data-src="images/python.svg" class="absolute" style="top: 40%; left: 40%; width: 150px; "></p>
+<p><img data-src="images/bash.svg" class="absolute" style="top: 70%; left: 5%; width: 150px; "></p>
+<p><img data-src="images/google-cloud.svg" class="absolute" style="top: 70%; left: 80%; width: 150px; "></p>
 </section>
 <section id="code-dependencies" class="slide level2">
 <h2>Code dependencies</h2>
@@ -499,101 +573,6 @@ the <span style="color: firebrick;"><strong>Summary of Economic Projections</str
 </div>
 <!-- ![](images/code-network.svg){.absolute left="10%" width="80%"} -->
 </section>
-<section id="code-dependencies-1" class="slide level2">
-<h2>Code dependencies</h2>
-<div class="columns">
-<div class="column scrollable" style="width:60%;">
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource makefile number-lines code-with-copy"><code class="sourceCode makefile"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Preliminaries</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="co"># Google Cloud </span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># + Initiate a new project </span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># + Create a storage bucket </span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># + Activate the Vision API </span></span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="dv">all:</span><span class="dt">  charts </span></span>
-<span id="cb1-8"><a href="#cb1-8"></a></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="co"># Beige book (html files)</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="dv">R/organize_beige_book.R:</span><span class="dt"> R/download_beige_book.R</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a>	cd R </span>
-<span id="cb1-12"><a href="#cb1-12"></a>	R CMD BATCH download_beige_book.R</span>
-<span id="cb1-13"><a href="#cb1-13"></a></span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="dv">data/data-gen/sent_beigebook.p:</span><span class="dt"> R/organize_beige_book.R</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a>	cd R </span>
-<span id="cb1-16"><a href="#cb1-16"></a>	R CMD BATCH organize_beige_book.R</span>
-<span id="cb1-17"><a href="#cb1-17"></a></span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="co"># Minutes and SEPs (pdf files)</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="dv">R/select_minutes_with_sep.R :</span><span class="dt"> R/download_fomc_minutes.R</span></span>
-<span id="cb1-20"><a href="#cb1-20"></a>	cd R</span>
-<span id="cb1-21"><a href="#cb1-21"></a>	R CMD BATCH download_fomc_minutes.R </span>
-<span id="cb1-22"><a href="#cb1-22"></a></span>
-<span id="cb1-23"><a href="#cb1-23"></a><span class="dv">pdfs:</span><span class="dt"> R/select_minutes_with_sep.R </span></span>
-<span id="cb1-24"><a href="#cb1-24"></a>	cd R</span>
-<span id="cb1-25"><a href="#cb1-25"></a>	R CMD BATCH download_fomc_minutes.R </span>
-<span id="cb1-26"><a href="#cb1-26"></a>	R CMD BATCH select_minutes_with_sep.R</span>
-<span id="cb1-27"><a href="#cb1-27"></a></span>
-<span id="cb1-28"><a href="#cb1-28"></a><span class="co"># Movie Reviews (direct from API into pickle file2022-)</span></span>
-<span id="cb1-29"><a href="#cb1-29"></a><span class="dv">data/data-gen/sent_movies.p:</span><span class="dt"> R/download_and_process_movies.R</span></span>
-<span id="cb1-30"><a href="#cb1-30"></a>	cd R</span>
-<span id="cb1-31"><a href="#cb1-31"></a>	R CMD BATCH download_and_process_movies.R</span>
-<span id="cb1-32"><a href="#cb1-32"></a></span>
-<span id="cb1-33"><a href="#cb1-33"></a><span class="co"># Upload selected pdf files to storage bucket</span></span>
-<span id="cb1-34"><a href="#cb1-34"></a><span class="dv">storage:</span><span class="dt"> pdfs</span></span>
-<span id="cb1-35"><a href="#cb1-35"></a>	gsutil storage cp data/minutes_sep/* gs://fomc-files/pdfs</span>
-<span id="cb1-36"><a href="#cb1-36"></a></span>
-<span id="cb1-37"><a href="#cb1-37"></a><span class="dv">code/gcompfiles.sh:</span><span class="dt"> storage</span></span>
-<span id="cb1-38"><a href="#cb1-38"></a></span>
-<span id="cb1-39"><a href="#cb1-39"></a><span class="co"># Obtain json files (output from google API)</span></span>
-<span id="cb1-40"><a href="#cb1-40"></a><span class="dv">jsons:</span><span class="dt"> code/gcompfiles.sh</span></span>
-<span id="cb1-41"><a href="#cb1-41"></a>	cd code</span>
-<span id="cb1-42"><a href="#cb1-42"></a>	bash gcompfiles.sh</span>
-<span id="cb1-43"><a href="#cb1-43"></a></span>
-<span id="cb1-44"><a href="#cb1-44"></a><span class="co"># Process OCR results and store text in pickle file</span></span>
-<span id="cb1-45"><a href="#cb1-45"></a><span class="dv">python/Process_ocr_results.ipynb:</span><span class="dt"> jsons</span></span>
-<span id="cb1-46"><a href="#cb1-46"></a></span>
-<span id="cb1-47"><a href="#cb1-47"></a><span class="dv">R/organize_paragraphs.R:</span><span class="dt"> data/data-gen/big_df.p</span></span>
-<span id="cb1-48"><a href="#cb1-48"></a></span>
-<span id="cb1-49"><a href="#cb1-49"></a><span class="dv">data/data-gen/big_df.p:</span><span class="dt"> python/Process_ocr_results.ipynb</span></span>
-<span id="cb1-50"><a href="#cb1-50"></a>	cd python</span>
-<span id="cb1-51"><a href="#cb1-51"></a>	jupyter nbconvert --to notebook --inplace --execute Process_ocr_results.ipynb</span>
-<span id="cb1-52"><a href="#cb1-52"></a></span>
-<span id="cb1-53"><a href="#cb1-53"></a><span class="dv">data/data-gen/sent_minutes.p data/data-gen/sent_seps.p:</span><span class="dt"> R/organize_paragraphs.R </span></span>
-<span id="cb1-54"><a href="#cb1-54"></a>	cd R </span>
-<span id="cb1-55"><a href="#cb1-55"></a>	R CMD BATCH organize_paragraphs.R</span>
-<span id="cb1-56"><a href="#cb1-56"></a></span>
-<span id="cb1-57"><a href="#cb1-57"></a><span class="dv">python/Process_ocr_results.ipynb:</span><span class="dt"> jsons</span></span>
-<span id="cb1-58"><a href="#cb1-58"></a>	cd python</span>
-<span id="cb1-59"><a href="#cb1-59"></a>	jupyter nbconvert --to notebook --inplace --execute mynotebook.ipynb</span>
-<span id="cb1-60"><a href="#cb1-60"></a></span>
-<span id="cb1-61"><a href="#cb1-61"></a></span>
-<span id="cb1-62"><a href="#cb1-62"></a><span class="co"># Calculate similarities</span></span>
-<span id="cb1-63"><a href="#cb1-63"></a><span class="dv">python/Calculate_similarites.ipynb:</span><span class="dt"> data/data-gen/sent_beigebook.p data/data-gen/sent_minutes.p data/data-gen/sent_seps.p data/data-gen/sent_movies.p</span></span>
-<span id="cb1-64"><a href="#cb1-64"></a></span>
-<span id="cb1-65"><a href="#cb1-65"></a><span class="dv">similarities:</span><span class="dt"> python/Calculate_similarites.ipynb </span></span>
-<span id="cb1-66"><a href="#cb1-66"></a>	cd python</span>
-<span id="cb1-67"><a href="#cb1-67"></a>	jupyter nbconvert --to notebook --inplace --execute Calculate_similarites.ipynb</span>
-<span id="cb1-68"><a href="#cb1-68"></a></span>
-<span id="cb1-69"><a href="#cb1-69"></a><span class="co"># Generate results charts</span></span>
-<span id="cb1-70"><a href="#cb1-70"></a><span class="dv">R/plot_results.R:</span><span class="dt"> similarities</span></span>
-<span id="cb1-71"><a href="#cb1-71"></a></span>
-<span id="cb1-72"><a href="#cb1-72"></a><span class="dv">charts:</span><span class="dt"> R/plot_results.R </span></span>
-<span id="cb1-73"><a href="#cb1-73"></a>	cd R </span>
-<span id="cb1-74"><a href="#cb1-74"></a>	R CMD bash plot_results.R </span>
-<span id="cb1-75"><a href="#cb1-75"></a></span>
-<span id="cb1-76"><a href="#cb1-76"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column scrollable" style="width:40%;">
-<div class="column-screen">
-<p><img data-src="images/code_dependencies.svg"></p>
-</div>
-</div>
-</div>
-</section>
-<section id="multiple-tools-and-languages" class="slide level2">
-<h2>Multiple tools and languages</h2>
-<p><img data-src="images/Rlogo.svg" class="absolute" style="top: 10%; left: 5%; width: 150px; "></p>
-<p><img data-src="images/jupyter.svg" class="absolute" style="top: 10%; left: 80%; width: 150px; "></p>
-<p><img data-src="images/python.svg" class="absolute" style="top: 40%; left: 40%; width: 150px; "></p>
-<p><img data-src="images/bash.svg" class="absolute" style="top: 70%; left: 5%; width: 150px; "></p>
-<p><img data-src="images/google-cloud.svg" class="absolute" style="top: 70%; left: 80%; width: 150px; "></p>
-</section>
 <section id="download-data-r" class="slide level2">
 <h2>Download data (<code>R</code>)</h2>
 <ul>
@@ -601,6 +580,165 @@ the <span style="color: firebrick;"><strong>Summary of Economic Projections</str
 <li><a href="https://www.minneapolisfed.org/region-and-community/regional-economic-indicators/beige-book-archive">Beige Book reports</a> available as <code>HTML</code> files</li>
 <li><a href="https://developer.nytimes.com/docs/movie-reviews-api/1/overview">Movie reviews</a> available from the NYT API as <code>JSON</code> files</li>
 </ul>
+</section>
+<section id="download-movie-reviews-r" class="slide level2">
+<h2>Download Movie Reviews (<code>R</code>)</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Download movie/book reviews from the nytimes API</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(reticulate)</span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># Select python environment</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">use_condaenv</span>(<span class="st">'gcloud'</span>)</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co"># Load New York Times API key</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>nyt_key <span class="ot">=</span> <span class="fu">Sys.getenv</span>(<span class="st">'NYT_KEY'</span>) </span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co"># Dates of Minutes with SEPS</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a>dates.seps <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'20071031'</span>,</span>
+<span id="cb1-17"><a href="#cb1-17"></a>                <span class="st">'20080130'</span>,</span>
+<span id="cb1-18"><a href="#cb1-18"></a>                <span class="st">'20080430'</span>,</span>
+<span id="cb1-19"><a href="#cb1-19"></a>                <span class="st">'20080625'</span>,</span>
+<span id="cb1-20"><a href="#cb1-20"></a>                <span class="st">'20081029'</span>,</span>
+<span id="cb1-21"><a href="#cb1-21"></a>                <span class="st">'20090128'</span>,</span>
+<span id="cb1-22"><a href="#cb1-22"></a>                <span class="st">'20090429'</span>,</span>
+<span id="cb1-23"><a href="#cb1-23"></a>                <span class="st">'20090624'</span>,</span>
+<span id="cb1-24"><a href="#cb1-24"></a>                <span class="st">'20091104'</span>,</span>
+<span id="cb1-25"><a href="#cb1-25"></a>                <span class="st">'20100127'</span>,</span>
+<span id="cb1-26"><a href="#cb1-26"></a>                <span class="st">'20100428'</span>,</span>
+<span id="cb1-27"><a href="#cb1-27"></a>                <span class="st">'20100623'</span>,</span>
+<span id="cb1-28"><a href="#cb1-28"></a>                <span class="st">'20101103'</span>,</span>
+<span id="cb1-29"><a href="#cb1-29"></a>                <span class="st">'20110126'</span>,</span>
+<span id="cb1-30"><a href="#cb1-30"></a>                <span class="st">'20110427'</span>,</span>
+<span id="cb1-31"><a href="#cb1-31"></a>                <span class="st">'20110622'</span>,</span>
+<span id="cb1-32"><a href="#cb1-32"></a>                <span class="st">'20111102'</span>,</span>
+<span id="cb1-33"><a href="#cb1-33"></a>                <span class="st">'20120125'</span>,</span>
+<span id="cb1-34"><a href="#cb1-34"></a>                <span class="st">'20120425'</span>,</span>
+<span id="cb1-35"><a href="#cb1-35"></a>                <span class="st">'20120620'</span>,</span>
+<span id="cb1-36"><a href="#cb1-36"></a>                <span class="st">'20120913'</span>,</span>
+<span id="cb1-37"><a href="#cb1-37"></a>                <span class="st">'20121212'</span>,</span>
+<span id="cb1-38"><a href="#cb1-38"></a>                <span class="st">'20130320'</span>,</span>
+<span id="cb1-39"><a href="#cb1-39"></a>                <span class="st">'20130619'</span>,</span>
+<span id="cb1-40"><a href="#cb1-40"></a>                <span class="st">'20130918'</span>,</span>
+<span id="cb1-41"><a href="#cb1-41"></a>                <span class="st">'20131218'</span>,</span>
+<span id="cb1-42"><a href="#cb1-42"></a>                <span class="st">'20140319'</span>,</span>
+<span id="cb1-43"><a href="#cb1-43"></a>                <span class="st">'20140618'</span>,</span>
+<span id="cb1-44"><a href="#cb1-44"></a>                <span class="st">'20140917'</span>,</span>
+<span id="cb1-45"><a href="#cb1-45"></a>                <span class="st">'20141217'</span>,</span>
+<span id="cb1-46"><a href="#cb1-46"></a>                <span class="st">'20150318'</span>,</span>
+<span id="cb1-47"><a href="#cb1-47"></a>                <span class="st">'20150617'</span>,</span>
+<span id="cb1-48"><a href="#cb1-48"></a>                <span class="st">'20150917'</span>,</span>
+<span id="cb1-49"><a href="#cb1-49"></a>                <span class="st">'20151216'</span>,</span>
+<span id="cb1-50"><a href="#cb1-50"></a>                <span class="st">'20160316'</span>,</span>
+<span id="cb1-51"><a href="#cb1-51"></a>                <span class="st">'20160615'</span>,</span>
+<span id="cb1-52"><a href="#cb1-52"></a>                <span class="st">'20160921'</span>,</span>
+<span id="cb1-53"><a href="#cb1-53"></a>                <span class="st">'20161214'</span>,</span>
+<span id="cb1-54"><a href="#cb1-54"></a>                <span class="st">'20170315'</span>,</span>
+<span id="cb1-55"><a href="#cb1-55"></a>                <span class="st">'20170614'</span>,</span>
+<span id="cb1-56"><a href="#cb1-56"></a>                <span class="st">'20170920'</span>,</span>
+<span id="cb1-57"><a href="#cb1-57"></a>                <span class="st">'20171213'</span>,</span>
+<span id="cb1-58"><a href="#cb1-58"></a>                <span class="st">'20180321'</span>,</span>
+<span id="cb1-59"><a href="#cb1-59"></a>                <span class="st">'20180613'</span>,</span>
+<span id="cb1-60"><a href="#cb1-60"></a>                <span class="st">'20180926'</span>,</span>
+<span id="cb1-61"><a href="#cb1-61"></a>                <span class="st">'20181219'</span>,</span>
+<span id="cb1-62"><a href="#cb1-62"></a>                <span class="st">'20190320'</span>,</span>
+<span id="cb1-63"><a href="#cb1-63"></a>                <span class="st">'20190619'</span>,</span>
+<span id="cb1-64"><a href="#cb1-64"></a>                <span class="st">'20190918'</span>,</span>
+<span id="cb1-65"><a href="#cb1-65"></a>                <span class="st">'20191211'</span>,</span>
+<span id="cb1-66"><a href="#cb1-66"></a>                <span class="st">'20200610'</span>,</span>
+<span id="cb1-67"><a href="#cb1-67"></a>                <span class="st">'20200916'</span>) <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="at">format =</span> <span class="st">'%Y%m%d'</span>)</span>
+<span id="cb1-68"><a href="#cb1-68"></a></span>
+<span id="cb1-69"><a href="#cb1-69"></a><span class="co"># Test API</span></span>
+<span id="cb1-70"><a href="#cb1-70"></a><span class="co"># https://www.storybench.org/working-with-the-new-york-times-api-in-r/</span></span>
+<span id="cb1-71"><a href="#cb1-71"></a></span>
+<span id="cb1-72"><a href="#cb1-72"></a>download_movies <span class="ot">&lt;-</span> <span class="cf">function</span>(date_sep) {</span>
+<span id="cb1-73"><a href="#cb1-73"></a>  <span class="co"># Download titles and summaries of movies that opened on the SEP date</span></span>
+<span id="cb1-74"><a href="#cb1-74"></a>  link <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"https://api.nytimes.com/svc/movies/v2/reviews/search.json?opening-date="</span>,</span>
+<span id="cb1-75"><a href="#cb1-75"></a>                 date_sep,<span class="st">"&amp;api-key="</span>,nyt_key)</span>
+<span id="cb1-76"><a href="#cb1-76"></a>  </span>
+<span id="cb1-77"><a href="#cb1-77"></a>  <span class="co"># Call the API</span></span>
+<span id="cb1-78"><a href="#cb1-78"></a>  x <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(link)</span>
+<span id="cb1-79"><a href="#cb1-79"></a>  </span>
+<span id="cb1-80"><a href="#cb1-80"></a>  <span class="co"># Define the dataframe with sentences</span></span>
+<span id="cb1-81"><a href="#cb1-81"></a>  dt <span class="ot">&lt;-</span> x<span class="sc">$</span>results <span class="sc">%&gt;%</span> <span class="fu">select</span>(display_title, summary_short)</span>
+<span id="cb1-82"><a href="#cb1-82"></a>  dt<span class="sc">$</span>doc_id <span class="ot">&lt;-</span> <span class="fu">format</span>(date_sep, <span class="st">"%Y%m%d"</span>)</span>
+<span id="cb1-83"><a href="#cb1-83"></a>  </span>
+<span id="cb1-84"><a href="#cb1-84"></a>  dt <span class="ot">&lt;-</span> dt <span class="sc">%&gt;%</span> </span>
+<span id="cb1-85"><a href="#cb1-85"></a>    <span class="fu">mutate</span>(<span class="at">movie =</span> <span class="fu">paste0</span>(display_title, <span class="st">'. '</span>, summary_short)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-86"><a href="#cb1-86"></a>    <span class="fu">select</span>(doc_id, movie)</span>
+<span id="cb1-87"><a href="#cb1-87"></a>  </span>
+<span id="cb1-88"><a href="#cb1-88"></a>  <span class="fu">return</span>(dt)</span>
+<span id="cb1-89"><a href="#cb1-89"></a>}</span>
+<span id="cb1-90"><a href="#cb1-90"></a></span>
+<span id="cb1-91"><a href="#cb1-91"></a></span>
+<span id="cb1-92"><a href="#cb1-92"></a><span class="co"># Download data for all SEP dates</span></span>
+<span id="cb1-93"><a href="#cb1-93"></a>movies <span class="ot">&lt;-</span> <span class="fu">lapply</span>(dates.seps, <span class="cf">function</span>(x) {</span>
+<span id="cb1-94"><a href="#cb1-94"></a>      <span class="co">#browser()</span></span>
+<span id="cb1-95"><a href="#cb1-95"></a>      <span class="co"># https://stackoverflow.com/questions/12193779/how-to-write-trycatch-in-r</span></span>
+<span id="cb1-96"><a href="#cb1-96"></a>      response <span class="ot">=</span> <span class="fu">tryCatch</span>({</span>
+<span id="cb1-97"><a href="#cb1-97"></a>                    <span class="fu">message</span>(<span class="fu">paste0</span>(<span class="st">"Now attempting API call for date= "</span>, x))</span>
+<span id="cb1-98"><a href="#cb1-98"></a>                    dt <span class="ot">=</span> <span class="fu">download_movies</span>(x)</span>
+<span id="cb1-99"><a href="#cb1-99"></a>                 }, </span>
+<span id="cb1-100"><a href="#cb1-100"></a>                    <span class="at">warning =</span> <span class="cf">function</span>(w) {</span>
+<span id="cb1-101"><a href="#cb1-101"></a>                      <span class="fu">message</span>(<span class="fu">paste0</span>(<span class="st">'Warning downloading date='</span>, x))</span>
+<span id="cb1-102"><a href="#cb1-102"></a>                      <span class="fu">message</span>(<span class="st">'Here is the original warning:'</span>)</span>
+<span id="cb1-103"><a href="#cb1-103"></a>                      <span class="fu">message</span>(w)</span>
+<span id="cb1-104"><a href="#cb1-104"></a>                      <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb1-105"><a href="#cb1-105"></a>                 },</span>
+<span id="cb1-106"><a href="#cb1-106"></a>                     <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
+<span id="cb1-107"><a href="#cb1-107"></a>                      <span class="fu">message</span>(<span class="fu">paste0</span>(<span class="st">'Error downloading date='</span>, x))</span>
+<span id="cb1-108"><a href="#cb1-108"></a>                      <span class="fu">message</span>(<span class="st">'Here is the original error:'</span>)</span>
+<span id="cb1-109"><a href="#cb1-109"></a>                      <span class="fu">message</span>(e)</span>
+<span id="cb1-110"><a href="#cb1-110"></a>                      <span class="fu">return</span>(<span class="cn">NULL</span>) </span>
+<span id="cb1-111"><a href="#cb1-111"></a>                 },</span>
+<span id="cb1-112"><a href="#cb1-112"></a>                    <span class="at">finally =</span> {</span>
+<span id="cb1-113"><a href="#cb1-113"></a>                      <span class="fu">message</span>(<span class="st">'Processed API call for date='</span>, x, <span class="st">'...'</span>)</span>
+<span id="cb1-114"><a href="#cb1-114"></a>                    }</span>
+<span id="cb1-115"><a href="#cb1-115"></a>   )</span>
+<span id="cb1-116"><a href="#cb1-116"></a>      <span class="co"># Wait 6 seconds before next API call</span></span>
+<span id="cb1-117"><a href="#cb1-117"></a>      <span class="co"># to avoid the 10 requests per minute limit</span></span>
+<span id="cb1-118"><a href="#cb1-118"></a>      <span class="fu">Sys.sleep</span>(<span class="dv">6</span>)</span>
+<span id="cb1-119"><a href="#cb1-119"></a>      <span class="fu">return</span>(response)</span>
+<span id="cb1-120"><a href="#cb1-120"></a>  }) </span>
+<span id="cb1-121"><a href="#cb1-121"></a></span>
+<span id="cb1-122"><a href="#cb1-122"></a><span class="co"># Check if we hit the requests-per-minute limit </span></span>
+<span id="cb1-123"><a href="#cb1-123"></a>assertthat<span class="sc">::</span><span class="fu">assert_that</span>(<span class="sc">!</span><span class="fu">any</span>(<span class="fu">unlist</span>(<span class="fu">lapply</span>(movies, is.null))))</span>
+<span id="cb1-124"><a href="#cb1-124"></a></span>
+<span id="cb1-125"><a href="#cb1-125"></a></span>
+<span id="cb1-126"><a href="#cb1-126"></a><span class="co"># Prepare data for analysis -----------------------------------------------</span></span>
+<span id="cb1-127"><a href="#cb1-127"></a></span>
+<span id="cb1-128"><a href="#cb1-128"></a>movies <span class="ot">&lt;-</span> movies <span class="sc">%&gt;%</span> <span class="fu">bind_rows</span>()</span>
+<span id="cb1-129"><a href="#cb1-129"></a></span>
+<span id="cb1-130"><a href="#cb1-130"></a><span class="co"># # Tokenize into sentences, then into words, then remove stop words</span></span>
+<span id="cb1-131"><a href="#cb1-131"></a><span class="fu">data</span>(<span class="st">"stop_words"</span>)</span>
+<span id="cb1-132"><a href="#cb1-132"></a>tidy_movies <span class="ot">&lt;-</span> movies <span class="sc">%&gt;%</span> </span>
+<span id="cb1-133"><a href="#cb1-133"></a>  <span class="fu">select</span>(doc_id, movie) <span class="sc">%&gt;%</span></span>
+<span id="cb1-134"><a href="#cb1-134"></a>  <span class="co"># Replace line feeds, newline characters</span></span>
+<span id="cb1-135"><a href="#cb1-135"></a>  <span class="fu">mutate</span>(<span class="at">movie =</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'</span><span class="sc">\\</span><span class="st">r</span><span class="sc">\\</span><span class="st">n'</span>, <span class="at">replacement =</span> <span class="st">' '</span>, <span class="at">x =</span> movie)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-136"><a href="#cb1-136"></a>  <span class="fu">unnest_tokens</span>(<span class="at">token =</span> <span class="st">"sentences"</span>, <span class="at">input =</span> movie, <span class="at">output =</span> sentence) <span class="sc">%&gt;%</span></span>
+<span id="cb1-137"><a href="#cb1-137"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
+<span id="cb1-138"><a href="#cb1-138"></a>  <span class="fu">mutate</span>( <span class="at">sentence_id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb1-139"><a href="#cb1-139"></a>  <span class="fu">unnest_tokens</span>(<span class="at">token =</span> <span class="st">"words"</span>, <span class="at">input =</span> sentence, <span class="at">output =</span> word) <span class="sc">%&gt;%</span></span>
+<span id="cb1-140"><a href="#cb1-140"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-141"><a href="#cb1-141"></a>  <span class="fu">anti_join</span>(stop_words)</span>
+<span id="cb1-142"><a href="#cb1-142"></a></span>
+<span id="cb1-143"><a href="#cb1-143"></a><span class="co"># Remove numbers</span></span>
+<span id="cb1-144"><a href="#cb1-144"></a>tidy_movies <span class="ot">&lt;-</span> tidy_movies <span class="sc">%&gt;%</span></span>
+<span id="cb1-145"><a href="#cb1-145"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="at">pattern =</span> <span class="st">'^[0-9</span><span class="sc">\\</span><span class="st">.+</span><span class="sc">\\</span><span class="st">-]+$'</span>, <span class="at">x =</span> word) )</span>
+<span id="cb1-146"><a href="#cb1-146"></a></span>
+<span id="cb1-147"><a href="#cb1-147"></a><span class="co"># Join back into sentences</span></span>
+<span id="cb1-148"><a href="#cb1-148"></a>sent_movies <span class="ot">&lt;-</span> tidy_movies <span class="sc">%&gt;%</span></span>
+<span id="cb1-149"><a href="#cb1-149"></a>  <span class="fu">group_by</span>(doc_id, sentence_id) <span class="sc">%&gt;%</span></span>
+<span id="cb1-150"><a href="#cb1-150"></a>  <span class="fu">summarise</span>(<span class="at">text =</span> <span class="fu">paste0</span>(word, <span class="at">collapse =</span> <span class="st">" "</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb1-151"><a href="#cb1-151"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb1-152"><a href="#cb1-152"></a></span>
+<span id="cb1-153"><a href="#cb1-153"></a></span>
+<span id="cb1-154"><a href="#cb1-154"></a><span class="co"># Write to pickle file for python</span></span>
+<span id="cb1-155"><a href="#cb1-155"></a><span class="fu">py_save_object</span>(sent_movies, <span class="at">filename =</span> <span class="st">'data/data-gen/sent_movies.p'</span>)</span>
+<span id="cb1-156"><a href="#cb1-156"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="download-minutes-and-seps-r" class="slide level2">
 <h2>Download Minutes and SEPs (<code>R</code>)</h2>
@@ -732,7 +870,7 @@ the <span style="color: firebrick;"><strong>Summary of Economic Projections</str
 </section>
 <section id="google-cloud-cli-via-bash-1" class="slide level2">
 <h2>Google Cloud (CLI via <code>Bash</code>)</h2>
-<div class="sourceCode" id="cb3" data-code-line-numbers="|22|"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#!/bin/bash</span></span>
+<div class="sourceCode" id="cb3" data-code-line-numbers="|22"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#!/bin/bash</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="co"># Copy pdf files to google cloud storage</span></span>
 <span id="cb3-4"><a href="#cb3-4"></a><span class="ex">gsutil</span> storage cp data/minutes_sep/<span class="pp">*</span> gs://fomc-files/pdfs/</span>
@@ -803,354 +941,352 @@ the <span style="color: firebrick;"><strong>Summary of Economic Projections</str
 <span id="cb4-5"><a href="#cb4-5"></a><span class="fu">library</span>(reticulate)</span>
 <span id="cb4-6"><a href="#cb4-6"></a></span>
 <span id="cb4-7"><a href="#cb4-7"></a><span class="co"># Select python environment</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#use_condaenv('py37_fomc')</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="fu">use_condaenv</span>(<span class="st">'gcloud'</span>)</span>
-<span id="cb4-10"><a href="#cb4-10"></a></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="co"># Read pickle file</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a>pd <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"pandas"</span>)</span>
-<span id="cb4-13"><a href="#cb4-13"></a>big_df <span class="ot">&lt;-</span> pd<span class="sc">$</span><span class="fu">read_pickle</span>(<span class="st">"data/data-gen/big_df.p"</span>)</span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="fu">use_condaenv</span>(<span class="st">'gcloud'</span>)</span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co"># Read pickle file</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>pd <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"pandas"</span>)</span>
+<span id="cb4-12"><a href="#cb4-12"></a>big_df <span class="ot">&lt;-</span> pd<span class="sc">$</span><span class="fu">read_pickle</span>(<span class="st">"data/data-gen/big_df.p"</span>)</span>
+<span id="cb4-13"><a href="#cb4-13"></a></span>
 <span id="cb4-14"><a href="#cb4-14"></a></span>
-<span id="cb4-15"><a href="#cb4-15"></a></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#' Goals:</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#' 1. Split into Minutes and SEPs</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#' 2. Extract relevant paragraphs from Minutes and SEPs.</span></span>
-<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#' - Minutes</span></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#'   + Strip the section on Participants' views on the outlook</span></span>
-<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#'   + Problem: earlier Minutes don't have headings.</span></span>
-<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#'   + The relevant section in later Minutes is:</span></span>
-<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#'   + "Participants' Views on Current Conditions and the Economic Outlook"</span></span>
-<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#'     This section appears after the staff comments and before the votes.</span></span>
-<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#'     Headings started in 2009. </span></span>
-<span id="cb4-26"><a href="#cb4-26"></a><span class="co">#'     Current version of headings started on November 2009 (the last meeting of 2009)</span></span>
-<span id="cb4-27"><a href="#cb4-27"></a><span class="co">#' - SEPs</span></span>
-<span id="cb4-28"><a href="#cb4-28"></a><span class="co">#'   + Strip the forecast summaries with the Participant's views</span></span>
-<span id="cb4-29"><a href="#cb4-29"></a><span class="co">#'   + SEPs don't have sections, but it's all participants' comments</span></span>
-<span id="cb4-30"><a href="#cb4-30"></a><span class="co">#' 3. Calculate embedding of paragraphs and documents.</span></span>
-<span id="cb4-31"><a href="#cb4-31"></a><span class="co">#' 4. Calculate similarities between pairs of documents.</span></span>
-<span id="cb4-32"><a href="#cb4-32"></a></span>
-<span id="cb4-33"><a href="#cb4-33"></a></span>
-<span id="cb4-34"><a href="#cb4-34"></a><span class="co"># Generate doc_id </span></span>
-<span id="cb4-35"><a href="#cb4-35"></a>big_df <span class="ot">&lt;-</span> big_df <span class="sc">%&gt;%</span></span>
-<span id="cb4-36"><a href="#cb4-36"></a>  <span class="fu">mutate</span>(<span class="at">doc_id =</span> <span class="fu">substr</span>(id, <span class="dv">1</span>,<span class="dv">8</span>))</span>
-<span id="cb4-37"><a href="#cb4-37"></a></span>
-<span id="cb4-38"><a href="#cb4-38"></a></span>
-<span id="cb4-39"><a href="#cb4-39"></a><span class="co"># Find paragraphs with SEP header</span></span>
-<span id="cb4-40"><a href="#cb4-40"></a>big_df <span class="ot">&lt;-</span> big_df <span class="sc">%&gt;%</span></span>
-<span id="cb4-41"><a href="#cb4-41"></a>  <span class="fu">mutate</span>(<span class="at">SEP_header =</span> <span class="fu">if_else</span>(text <span class="sc">==</span> <span class="st">"Summary of Economic Projections</span><span class="sc">\r\n</span><span class="st">"</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
-<span id="cb4-42"><a href="#cb4-42"></a></span>
-<span id="cb4-43"><a href="#cb4-43"></a><span class="co"># Now label all pages following SEP header as "SEP" and previous pages as "Minutes"</span></span>
-<span id="cb4-44"><a href="#cb4-44"></a>big_df <span class="ot">&lt;-</span> big_df <span class="sc">%&gt;%</span></span>
-<span id="cb4-45"><a href="#cb4-45"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
-<span id="cb4-46"><a href="#cb4-46"></a>  <span class="fu">mutate</span>( <span class="at">page_sep =</span> <span class="fu">max</span>(<span class="fu">as.numeric</span>(page) <span class="sc">*</span> SEP_header)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-47"><a href="#cb4-47"></a>  <span class="fu">mutate</span>( <span class="at">doc_type =</span> <span class="fu">if_else</span>(<span class="fu">as.numeric</span>(page) <span class="sc">&lt;</span> page_sep, <span class="st">"Minutes"</span>, <span class="st">"SEP"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-48"><a href="#cb4-48"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-49"><a href="#cb4-49"></a></span>
-<span id="cb4-50"><a href="#cb4-50"></a><span class="co"># Make copy</span></span>
-<span id="cb4-51"><a href="#cb4-51"></a>dt <span class="ot">&lt;-</span> big_df <span class="sc">%&gt;%</span></span>
-<span id="cb4-52"><a href="#cb4-52"></a>  <span class="fu">select</span>(id, doc_id, doc_type, page, text, chars, avg_word_height, pos_x, pos_y, width, height, area, char_size )</span>
-<span id="cb4-53"><a href="#cb4-53"></a></span>
-<span id="cb4-54"><a href="#cb4-54"></a>{ <span class="co"># Drop page headers and sort by reading order (by columns)</span></span>
-<span id="cb4-55"><a href="#cb4-55"></a>  </span>
-<span id="cb4-56"><a href="#cb4-56"></a><span class="co"># Drop page headers</span></span>
-<span id="cb4-57"><a href="#cb4-57"></a>dt <span class="ot">&lt;-</span> dt <span class="sc">%&gt;%</span></span>
-<span id="cb4-58"><a href="#cb4-58"></a>  <span class="fu">filter</span>(pos_y <span class="sc">&gt;</span> <span class="fl">0.08</span>)</span>
-<span id="cb4-59"><a href="#cb4-59"></a></span>
-<span id="cb4-60"><a href="#cb4-60"></a><span class="co"># Now divide into left/right columns and sort within page</span></span>
-<span id="cb4-61"><a href="#cb4-61"></a><span class="co"># (Sort paragraphs in reading order within page, first column up to down, second column up to down)</span></span>
-<span id="cb4-62"><a href="#cb4-62"></a><span class="co"># Note: (pos_x, pos_y) are coordinates of the middle of the paragraph</span></span>
-<span id="cb4-63"><a href="#cb4-63"></a><span class="co"># calculate left edge pos_x by subtracting width/2</span></span>
-<span id="cb4-64"><a href="#cb4-64"></a>dt <span class="ot">&lt;-</span> dt <span class="sc">%&gt;%</span></span>
-<span id="cb4-65"><a href="#cb4-65"></a>  <span class="fu">mutate</span>(<span class="at">x_pos =</span> pos_x <span class="sc">-</span> width<span class="sc">/</span><span class="dv">2</span> ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-66"><a href="#cb4-66"></a>  <span class="fu">group_by</span>(doc_id, page) <span class="sc">%&gt;%</span></span>
-<span id="cb4-67"><a href="#cb4-67"></a>  <span class="fu">mutate</span>(<span class="at">column_pos =</span> <span class="fu">if_else</span>(x_pos <span class="sc">&lt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="fu">if_else</span>(x_pos <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">2</span>, <span class="dv">0</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-68"><a href="#cb4-68"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-69"><a href="#cb4-69"></a></span>
-<span id="cb4-70"><a href="#cb4-70"></a><span class="co"># Sort by column top to bottom</span></span>
-<span id="cb4-71"><a href="#cb4-71"></a>dt <span class="ot">&lt;-</span> dt <span class="sc">%&gt;%</span></span>
-<span id="cb4-72"><a href="#cb4-72"></a>  <span class="fu">group_by</span>(doc_id, page) <span class="sc">%&gt;%</span></span>
-<span id="cb4-73"><a href="#cb4-73"></a>  <span class="fu">arrange</span>(column_pos, pos_y, <span class="at">.by_group =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb4-74"><a href="#cb4-74"></a>  <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb4-75"><a href="#cb4-75"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-76"><a href="#cb4-76"></a>}</span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#' Goals:</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#' 1. Split into Minutes and SEPs</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#' 2. Extract relevant paragraphs from Minutes and SEPs.</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#' - Minutes</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#'   + Strip the section on Participants' views on the outlook</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#'   + Problem: earlier Minutes don't have headings.</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#'   + The relevant section in later Minutes is:</span></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#'   + "Participants' Views on Current Conditions and the Economic Outlook"</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#'     This section appears after the staff comments and before the votes.</span></span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#'     Headings started in 2009. </span></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#'     Current version of headings started on November 2009 (the last meeting of 2009)</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a><span class="co">#' - SEPs</span></span>
+<span id="cb4-27"><a href="#cb4-27"></a><span class="co">#'   + Strip the forecast summaries with the Participant's views</span></span>
+<span id="cb4-28"><a href="#cb4-28"></a><span class="co">#'   + SEPs don't have sections, but it's all participants' comments</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a></span>
+<span id="cb4-30"><a href="#cb4-30"></a></span>
+<span id="cb4-31"><a href="#cb4-31"></a></span>
+<span id="cb4-32"><a href="#cb4-32"></a><span class="co"># Generate doc_id </span></span>
+<span id="cb4-33"><a href="#cb4-33"></a>big_df <span class="ot">&lt;-</span> big_df <span class="sc">%&gt;%</span></span>
+<span id="cb4-34"><a href="#cb4-34"></a>  <span class="fu">mutate</span>(<span class="at">doc_id =</span> <span class="fu">substr</span>(id, <span class="dv">1</span>,<span class="dv">8</span>))</span>
+<span id="cb4-35"><a href="#cb4-35"></a></span>
+<span id="cb4-36"><a href="#cb4-36"></a></span>
+<span id="cb4-37"><a href="#cb4-37"></a><span class="co"># Find paragraphs with SEP header</span></span>
+<span id="cb4-38"><a href="#cb4-38"></a>big_df <span class="ot">&lt;-</span> big_df <span class="sc">%&gt;%</span></span>
+<span id="cb4-39"><a href="#cb4-39"></a>  <span class="fu">mutate</span>(<span class="at">SEP_header =</span> <span class="fu">if_else</span>(text <span class="sc">==</span> <span class="st">"Summary of Economic Projections</span><span class="sc">\r\n</span><span class="st">"</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb4-40"><a href="#cb4-40"></a></span>
+<span id="cb4-41"><a href="#cb4-41"></a><span class="co"># Now label all pages following SEP header as "SEP" and previous pages as "Minutes"</span></span>
+<span id="cb4-42"><a href="#cb4-42"></a>big_df <span class="ot">&lt;-</span> big_df <span class="sc">%&gt;%</span></span>
+<span id="cb4-43"><a href="#cb4-43"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
+<span id="cb4-44"><a href="#cb4-44"></a>  <span class="fu">mutate</span>( <span class="at">page_sep =</span> <span class="fu">max</span>(<span class="fu">as.numeric</span>(page) <span class="sc">*</span> SEP_header)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-45"><a href="#cb4-45"></a>  <span class="fu">mutate</span>( <span class="at">doc_type =</span> <span class="fu">if_else</span>(<span class="fu">as.numeric</span>(page) <span class="sc">&lt;</span> page_sep, <span class="st">"Minutes"</span>, <span class="st">"SEP"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-46"><a href="#cb4-46"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb4-47"><a href="#cb4-47"></a></span>
+<span id="cb4-48"><a href="#cb4-48"></a><span class="co"># Make copy</span></span>
+<span id="cb4-49"><a href="#cb4-49"></a>dt <span class="ot">&lt;-</span> big_df <span class="sc">%&gt;%</span></span>
+<span id="cb4-50"><a href="#cb4-50"></a>  <span class="fu">select</span>(id, doc_id, doc_type, page, text, chars, avg_word_height, pos_x, pos_y, width, height, area, char_size )</span>
+<span id="cb4-51"><a href="#cb4-51"></a></span>
+<span id="cb4-52"><a href="#cb4-52"></a>{ <span class="co"># Drop page headers and sort by reading order (by columns)</span></span>
+<span id="cb4-53"><a href="#cb4-53"></a>  </span>
+<span id="cb4-54"><a href="#cb4-54"></a><span class="co"># Drop page headers</span></span>
+<span id="cb4-55"><a href="#cb4-55"></a>dt <span class="ot">&lt;-</span> dt <span class="sc">%&gt;%</span></span>
+<span id="cb4-56"><a href="#cb4-56"></a>  <span class="fu">filter</span>(pos_y <span class="sc">&gt;</span> <span class="fl">0.08</span>)</span>
+<span id="cb4-57"><a href="#cb4-57"></a></span>
+<span id="cb4-58"><a href="#cb4-58"></a><span class="co"># Now divide into left/right columns and sort within page</span></span>
+<span id="cb4-59"><a href="#cb4-59"></a><span class="co"># (Sort paragraphs in reading order within page, first column up to down, second column up to down)</span></span>
+<span id="cb4-60"><a href="#cb4-60"></a><span class="co"># Note: (pos_x, pos_y) are coordinates of the middle of the paragraph</span></span>
+<span id="cb4-61"><a href="#cb4-61"></a><span class="co"># calculate left edge pos_x by subtracting width/2</span></span>
+<span id="cb4-62"><a href="#cb4-62"></a>dt <span class="ot">&lt;-</span> dt <span class="sc">%&gt;%</span></span>
+<span id="cb4-63"><a href="#cb4-63"></a>  <span class="fu">mutate</span>(<span class="at">x_pos =</span> pos_x <span class="sc">-</span> width<span class="sc">/</span><span class="dv">2</span> ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-64"><a href="#cb4-64"></a>  <span class="fu">group_by</span>(doc_id, page) <span class="sc">%&gt;%</span></span>
+<span id="cb4-65"><a href="#cb4-65"></a>  <span class="fu">mutate</span>(<span class="at">column_pos =</span> <span class="fu">if_else</span>(x_pos <span class="sc">&lt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="fu">if_else</span>(x_pos <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">2</span>, <span class="dv">0</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-66"><a href="#cb4-66"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb4-67"><a href="#cb4-67"></a></span>
+<span id="cb4-68"><a href="#cb4-68"></a><span class="co"># Sort by column top to bottom</span></span>
+<span id="cb4-69"><a href="#cb4-69"></a>dt <span class="ot">&lt;-</span> dt <span class="sc">%&gt;%</span></span>
+<span id="cb4-70"><a href="#cb4-70"></a>  <span class="fu">group_by</span>(doc_id, page) <span class="sc">%&gt;%</span></span>
+<span id="cb4-71"><a href="#cb4-71"></a>  <span class="fu">arrange</span>(column_pos, pos_y, <span class="at">.by_group =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-72"><a href="#cb4-72"></a>  <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb4-73"><a href="#cb4-73"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb4-74"><a href="#cb4-74"></a>}</span>
+<span id="cb4-75"><a href="#cb4-75"></a></span>
+<span id="cb4-76"><a href="#cb4-76"></a><span class="co"># Clean up Minutes --------------------------------------------------------</span></span>
 <span id="cb4-77"><a href="#cb4-77"></a></span>
-<span id="cb4-78"><a href="#cb4-78"></a><span class="co"># Clean up Minutes --------------------------------------------------------</span></span>
+<span id="cb4-78"><a href="#cb4-78"></a>{</span>
 <span id="cb4-79"><a href="#cb4-79"></a></span>
-<span id="cb4-80"><a href="#cb4-80"></a>{</span>
-<span id="cb4-81"><a href="#cb4-81"></a></span>
-<span id="cb4-82"><a href="#cb4-82"></a><span class="co"># Find relevant paragraphs in the Minutes:</span></span>
-<span id="cb4-83"><a href="#cb4-83"></a><span class="co"># - First appearance of "Participants' Views in 2009+</span></span>
-<span id="cb4-84"><a href="#cb4-84"></a><span class="co"># - First appearance of "In conjunction" in 2007-2008</span></span>
-<span id="cb4-85"><a href="#cb4-85"></a>dm <span class="ot">&lt;-</span> dt <span class="sc">%&gt;%</span></span>
-<span id="cb4-86"><a href="#cb4-86"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
-<span id="cb4-87"><a href="#cb4-87"></a>  <span class="fu">mutate</span>( <span class="at">page_min_views_09 =</span> <span class="fu">if_else</span>( doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> </span>
-<span id="cb4-88"><a href="#cb4-88"></a>                                       stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">"Participants('|’) Views"</span>) <span class="sc">&amp;</span></span>
-<span id="cb4-89"><a href="#cb4-89"></a>                                       doc_id <span class="sc">&gt;=</span> <span class="st">'20090101'</span>, page, <span class="dv">0</span>),</span>
-<span id="cb4-90"><a href="#cb4-90"></a>          <span class="at">page_min_views_07 =</span> <span class="fu">if_else</span>( doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span></span>
-<span id="cb4-91"><a href="#cb4-91"></a>                                       stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">"(i|I)n conjunction"</span>) <span class="sc">&amp;</span></span>
-<span id="cb4-92"><a href="#cb4-92"></a>                                       doc_id <span class="sc">&lt;</span>  <span class="st">'20090101'</span>, page, <span class="dv">0</span>)</span>
-<span id="cb4-93"><a href="#cb4-93"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-94"><a href="#cb4-94"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-95"><a href="#cb4-95"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
-<span id="cb4-96"><a href="#cb4-96"></a>  <span class="fu">mutate</span>( <span class="at">page_min_views =</span> <span class="fu">case_when</span>(</span>
-<span id="cb4-97"><a href="#cb4-97"></a>    doc_id <span class="sc">&lt;</span> <span class="st">'20090101'</span> <span class="sc">&amp;</span> doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">~</span> <span class="fu">max</span>(page_min_views_07),</span>
-<span id="cb4-98"><a href="#cb4-98"></a>    doc_id <span class="sc">&gt;=</span><span class="st">'20090101'</span> <span class="sc">&amp;</span> doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">~</span> <span class="fu">max</span>(page_min_views_09)</span>
-<span id="cb4-99"><a href="#cb4-99"></a>  )) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-100"><a href="#cb4-100"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-101"><a href="#cb4-101"></a></span>
-<span id="cb4-102"><a href="#cb4-102"></a><span class="co"># Drop pages in the Minutes lower than page_min_views</span></span>
-<span id="cb4-103"><a href="#cb4-103"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
-<span id="cb4-104"><a href="#cb4-104"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
-<span id="cb4-105"><a href="#cb4-105"></a>  <span class="fu">filter</span>( (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> page <span class="sc">&gt;=</span> page_min_views) <span class="sc">|</span> (doc_type <span class="sc">==</span> <span class="st">"SEP"</span>) ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-106"><a href="#cb4-106"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-107"><a href="#cb4-107"></a></span>
-<span id="cb4-108"><a href="#cb4-108"></a><span class="co"># Drop pages after "voted" in the minutes</span></span>
-<span id="cb4-109"><a href="#cb4-109"></a><span class="co"># Find first instance of "voted"</span></span>
-<span id="cb4-110"><a href="#cb4-110"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
-<span id="cb4-111"><a href="#cb4-111"></a>  <span class="fu">group_by</span>(doc_id, doc_type ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-112"><a href="#cb4-112"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb4-113"><a href="#cb4-113"></a>    <span class="at">page_min_voted_n =</span> <span class="fu">if_else</span>( doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> </span>
-<span id="cb4-114"><a href="#cb4-114"></a>                                stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">"At the conclusion"</span>),</span>
-<span id="cb4-115"><a href="#cb4-115"></a>                              page, <span class="cn">NA_real_</span>)</span>
-<span id="cb4-116"><a href="#cb4-116"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-117"><a href="#cb4-117"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-118"><a href="#cb4-118"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
-<span id="cb4-119"><a href="#cb4-119"></a>  <span class="fu">mutate</span>( </span>
-<span id="cb4-120"><a href="#cb4-120"></a>    <span class="at">page_min_voted =</span> <span class="fu">min</span>(page_min_voted_n, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-121"><a href="#cb4-121"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-122"><a href="#cb4-122"></a></span>
-<span id="cb4-123"><a href="#cb4-123"></a><span class="co"># Drop pages after "voted"</span></span>
-<span id="cb4-124"><a href="#cb4-124"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
-<span id="cb4-125"><a href="#cb4-125"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
-<span id="cb4-126"><a href="#cb4-126"></a>  <span class="fu">filter</span>( (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> page <span class="sc">&lt;=</span>  page_min_voted) <span class="sc">|</span> doc_type <span class="sc">==</span> <span class="st">"SEP"</span> ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-127"><a href="#cb4-127"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-128"><a href="#cb4-128"></a></span>
+<span id="cb4-80"><a href="#cb4-80"></a><span class="co"># Find relevant paragraphs in the Minutes:</span></span>
+<span id="cb4-81"><a href="#cb4-81"></a><span class="co"># - First appearance of "Participants' Views" in 2009+</span></span>
+<span id="cb4-82"><a href="#cb4-82"></a><span class="co"># - First appearance of "In conjunction" in 2007-2008</span></span>
+<span id="cb4-83"><a href="#cb4-83"></a>dm <span class="ot">&lt;-</span> dt <span class="sc">%&gt;%</span></span>
+<span id="cb4-84"><a href="#cb4-84"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
+<span id="cb4-85"><a href="#cb4-85"></a>  <span class="fu">mutate</span>( <span class="at">page_min_views_09 =</span> <span class="fu">if_else</span>( doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> </span>
+<span id="cb4-86"><a href="#cb4-86"></a>                                       stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">"Participants('|’) Views"</span>) <span class="sc">&amp;</span></span>
+<span id="cb4-87"><a href="#cb4-87"></a>                                       doc_id <span class="sc">&gt;=</span> <span class="st">'20090101'</span>, page, <span class="dv">0</span>),</span>
+<span id="cb4-88"><a href="#cb4-88"></a>          <span class="at">page_min_views_07 =</span> <span class="fu">if_else</span>( doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span></span>
+<span id="cb4-89"><a href="#cb4-89"></a>                                       stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">"(i|I)n conjunction"</span>) <span class="sc">&amp;</span></span>
+<span id="cb4-90"><a href="#cb4-90"></a>                                       doc_id <span class="sc">&lt;</span>  <span class="st">'20090101'</span>, page, <span class="dv">0</span>)</span>
+<span id="cb4-91"><a href="#cb4-91"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-92"><a href="#cb4-92"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-93"><a href="#cb4-93"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
+<span id="cb4-94"><a href="#cb4-94"></a>  <span class="fu">mutate</span>( <span class="at">page_min_views =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-95"><a href="#cb4-95"></a>    doc_id <span class="sc">&lt;</span> <span class="st">'20090101'</span> <span class="sc">&amp;</span> doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">~</span> <span class="fu">max</span>(page_min_views_07),</span>
+<span id="cb4-96"><a href="#cb4-96"></a>    doc_id <span class="sc">&gt;=</span><span class="st">'20090101'</span> <span class="sc">&amp;</span> doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">~</span> <span class="fu">max</span>(page_min_views_09)</span>
+<span id="cb4-97"><a href="#cb4-97"></a>  )) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-98"><a href="#cb4-98"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb4-99"><a href="#cb4-99"></a></span>
+<span id="cb4-100"><a href="#cb4-100"></a><span class="co"># Drop pages in the Minutes lower than page_min_views</span></span>
+<span id="cb4-101"><a href="#cb4-101"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
+<span id="cb4-102"><a href="#cb4-102"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
+<span id="cb4-103"><a href="#cb4-103"></a>  <span class="fu">filter</span>( (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> page <span class="sc">&gt;=</span> page_min_views) <span class="sc">|</span> (doc_type <span class="sc">==</span> <span class="st">"SEP"</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-104"><a href="#cb4-104"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb4-105"><a href="#cb4-105"></a></span>
+<span id="cb4-106"><a href="#cb4-106"></a><span class="co"># Drop pages after "voted" in the minutes</span></span>
+<span id="cb4-107"><a href="#cb4-107"></a><span class="co"># Find first instance of "voted"</span></span>
+<span id="cb4-108"><a href="#cb4-108"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
+<span id="cb4-109"><a href="#cb4-109"></a>  <span class="fu">group_by</span>(doc_id, doc_type ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-110"><a href="#cb4-110"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-111"><a href="#cb4-111"></a>    <span class="at">page_min_voted_n =</span> <span class="fu">if_else</span>( doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> </span>
+<span id="cb4-112"><a href="#cb4-112"></a>                                stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">"At the conclusion"</span>),</span>
+<span id="cb4-113"><a href="#cb4-113"></a>                              page, <span class="cn">NA_real_</span>)</span>
+<span id="cb4-114"><a href="#cb4-114"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-115"><a href="#cb4-115"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-116"><a href="#cb4-116"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
+<span id="cb4-117"><a href="#cb4-117"></a>  <span class="fu">mutate</span>( </span>
+<span id="cb4-118"><a href="#cb4-118"></a>    <span class="at">page_min_voted =</span> <span class="fu">min</span>(page_min_voted_n, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-119"><a href="#cb4-119"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb4-120"><a href="#cb4-120"></a></span>
+<span id="cb4-121"><a href="#cb4-121"></a><span class="co"># Drop pages after "voted"</span></span>
+<span id="cb4-122"><a href="#cb4-122"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
+<span id="cb4-123"><a href="#cb4-123"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
+<span id="cb4-124"><a href="#cb4-124"></a>  <span class="fu">filter</span>( (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> page <span class="sc">&lt;=</span>  page_min_voted) <span class="sc">|</span> doc_type <span class="sc">==</span> <span class="st">"SEP"</span> ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-125"><a href="#cb4-125"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb4-126"><a href="#cb4-126"></a></span>
+<span id="cb4-127"><a href="#cb4-127"></a></span>
+<span id="cb4-128"><a href="#cb4-128"></a><span class="co"># Clean up Minutes further</span></span>
 <span id="cb4-129"><a href="#cb4-129"></a></span>
-<span id="cb4-130"><a href="#cb4-130"></a><span class="co"># Clean up Minutes further</span></span>
-<span id="cb4-131"><a href="#cb4-131"></a></span>
-<span id="cb4-132"><a href="#cb4-132"></a><span class="co"># Drop paragraphs prior to "Participant's"  and following "Voted"</span></span>
-<span id="cb4-133"><a href="#cb4-133"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
-<span id="cb4-134"><a href="#cb4-134"></a>  <span class="fu">mutate</span>( <span class="at">para_participants =</span> <span class="fu">case_when</span>(</span>
-<span id="cb4-135"><a href="#cb4-135"></a>    doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> doc_id <span class="sc">&lt;=</span> <span class="st">'20090101'</span> <span class="sc">&amp;</span></span>
-<span id="cb4-136"><a href="#cb4-136"></a>      page_min_views_07 <span class="sc">==</span> page_min_views <span class="sc">~</span> rank,</span>
-<span id="cb4-137"><a href="#cb4-137"></a>    doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> doc_id <span class="sc">&gt;</span> <span class="st">'20090101'</span> <span class="sc">&amp;</span></span>
-<span id="cb4-138"><a href="#cb4-138"></a>      page_min_views_09 <span class="sc">==</span> page_min_views <span class="sc">~</span> rank</span>
-<span id="cb4-139"><a href="#cb4-139"></a>  ),</span>
-<span id="cb4-140"><a href="#cb4-140"></a>  <span class="at">para_voted =</span> <span class="fu">case_when</span>(</span>
-<span id="cb4-141"><a href="#cb4-141"></a>    doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> </span>
-<span id="cb4-142"><a href="#cb4-142"></a>      page_min_voted_n <span class="sc">==</span> page_min_voted  <span class="sc">~</span> rank</span>
-<span id="cb4-143"><a href="#cb4-143"></a>  )</span>
-<span id="cb4-144"><a href="#cb4-144"></a>  )</span>
-<span id="cb4-145"><a href="#cb4-145"></a></span>
-<span id="cb4-146"><a href="#cb4-146"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
-<span id="cb4-147"><a href="#cb4-147"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
-<span id="cb4-148"><a href="#cb4-148"></a>  <span class="fu">mutate</span>( <span class="at">para_participants_rank =</span> <span class="fu">max</span>(para_participants, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb4-149"><a href="#cb4-149"></a>          <span class="at">para_voted_rank =</span> <span class="fu">min</span>(para_voted, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-150"><a href="#cb4-150"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-151"><a href="#cb4-151"></a></span>
-<span id="cb4-152"><a href="#cb4-152"></a><span class="co"># Now drop paragraphs within page</span></span>
-<span id="cb4-153"><a href="#cb4-153"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
-<span id="cb4-154"><a href="#cb4-154"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
-<span id="cb4-155"><a href="#cb4-155"></a>  <span class="fu">filter</span>( ((rank <span class="sc">&gt;=</span> para_participants_rank <span class="sc">&amp;</span> rank <span class="sc">&lt;=</span> para_voted_rank) <span class="sc">&amp;</span> (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>)) <span class="sc">|</span> (doc_type <span class="sc">==</span> <span class="st">"SEP"</span>) ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-156"><a href="#cb4-156"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-157"><a href="#cb4-157"></a></span>
-<span id="cb4-158"><a href="#cb4-158"></a></span>
-<span id="cb4-159"><a href="#cb4-159"></a><span class="co"># Now clean up content in Minutes within bounding paragraphs</span></span>
-<span id="cb4-160"><a href="#cb4-160"></a><span class="co"># Text before "In conjunction" or before "Participants' Views"</span></span>
-<span id="cb4-161"><a href="#cb4-161"></a><span class="co"># Text after "At the Conclusion" (inclusive)</span></span>
-<span id="cb4-162"><a href="#cb4-162"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
-<span id="cb4-163"><a href="#cb4-163"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
-<span id="cb4-164"><a href="#cb4-164"></a>  <span class="fu">mutate</span>( </span>
-<span id="cb4-165"><a href="#cb4-165"></a>    <span class="at">text2 =</span> <span class="fu">case_when</span>( </span>
-<span id="cb4-166"><a href="#cb4-166"></a>      (para_participants <span class="sc">==</span> para_participants_rank) <span class="sc">&amp;</span> </span>
-<span id="cb4-167"><a href="#cb4-167"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_participants)) <span class="sc">&amp;</span> </span>
-<span id="cb4-168"><a href="#cb4-168"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_participants_rank)) <span class="sc">&amp;</span></span>
-<span id="cb4-169"><a href="#cb4-169"></a>        doc_id <span class="sc">&lt;=</span> <span class="st">'20090101'</span> <span class="sc">~</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'.*In conjunction'</span>, <span class="at">replacement =</span> <span class="st">'In conjunction'</span>, <span class="at">x =</span> text),</span>
-<span id="cb4-170"><a href="#cb4-170"></a>      (para_participants <span class="sc">==</span> para_participants_rank) <span class="sc">&amp;</span> </span>
-<span id="cb4-171"><a href="#cb4-171"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_participants)) <span class="sc">&amp;</span> </span>
-<span id="cb4-172"><a href="#cb4-172"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_participants_rank)) <span class="sc">&amp;</span></span>
-<span id="cb4-173"><a href="#cb4-173"></a>        doc_id <span class="sc">&gt;</span> <span class="st">'20090101'</span> <span class="sc">~</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">".*Participants('|’) Views"</span>, <span class="at">replacement =</span> <span class="st">"Participants' Views"</span>, <span class="at">x =</span> text),    </span>
-<span id="cb4-174"><a href="#cb4-174"></a>      (para_voted <span class="sc">==</span> para_voted_rank) <span class="sc">&amp;</span></span>
-<span id="cb4-175"><a href="#cb4-175"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_voted)) <span class="sc">&amp;</span></span>
-<span id="cb4-176"><a href="#cb4-176"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_voted_rank)) <span class="sc">~</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'At the conclusion.*'</span>, <span class="at">replacement =</span> <span class="st">''</span>, <span class="at">x =</span> text),</span>
-<span id="cb4-177"><a href="#cb4-177"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> text</span>
-<span id="cb4-178"><a href="#cb4-178"></a>    )</span>
-<span id="cb4-179"><a href="#cb4-179"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-180"><a href="#cb4-180"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-181"><a href="#cb4-181"></a>  <span class="fu">select</span>(id, doc_id, doc_type, page, text, text2, <span class="fu">everything</span>())</span>
+<span id="cb4-130"><a href="#cb4-130"></a><span class="co"># Drop paragraphs prior to "Participant's"  and following "Voted"</span></span>
+<span id="cb4-131"><a href="#cb4-131"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
+<span id="cb4-132"><a href="#cb4-132"></a>  <span class="fu">mutate</span>( <span class="at">para_participants =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-133"><a href="#cb4-133"></a>    doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> doc_id <span class="sc">&lt;=</span> <span class="st">'20090101'</span> <span class="sc">&amp;</span></span>
+<span id="cb4-134"><a href="#cb4-134"></a>      page_min_views_07 <span class="sc">==</span> page_min_views <span class="sc">~</span> rank,</span>
+<span id="cb4-135"><a href="#cb4-135"></a>    doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> doc_id <span class="sc">&gt;</span> <span class="st">'20090101'</span> <span class="sc">&amp;</span></span>
+<span id="cb4-136"><a href="#cb4-136"></a>      page_min_views_09 <span class="sc">==</span> page_min_views <span class="sc">~</span> rank</span>
+<span id="cb4-137"><a href="#cb4-137"></a>  ),</span>
+<span id="cb4-138"><a href="#cb4-138"></a>  <span class="at">para_voted =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-139"><a href="#cb4-139"></a>    doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">&amp;</span> </span>
+<span id="cb4-140"><a href="#cb4-140"></a>      page_min_voted_n <span class="sc">==</span> page_min_voted  <span class="sc">~</span> rank</span>
+<span id="cb4-141"><a href="#cb4-141"></a>  )</span>
+<span id="cb4-142"><a href="#cb4-142"></a>  )</span>
+<span id="cb4-143"><a href="#cb4-143"></a></span>
+<span id="cb4-144"><a href="#cb4-144"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
+<span id="cb4-145"><a href="#cb4-145"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
+<span id="cb4-146"><a href="#cb4-146"></a>  <span class="fu">mutate</span>( <span class="at">para_participants_rank =</span> <span class="fu">max</span>(para_participants, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-147"><a href="#cb4-147"></a>          <span class="at">para_voted_rank =</span> <span class="fu">min</span>(para_voted, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-148"><a href="#cb4-148"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb4-149"><a href="#cb4-149"></a></span>
+<span id="cb4-150"><a href="#cb4-150"></a><span class="co"># Now drop paragraphs within page</span></span>
+<span id="cb4-151"><a href="#cb4-151"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
+<span id="cb4-152"><a href="#cb4-152"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
+<span id="cb4-153"><a href="#cb4-153"></a>  <span class="fu">filter</span>( ((rank <span class="sc">&gt;=</span> para_participants_rank <span class="sc">&amp;</span> rank <span class="sc">&lt;=</span> para_voted_rank) <span class="sc">&amp;</span> (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>)) <span class="sc">|</span> (doc_type <span class="sc">==</span> <span class="st">"SEP"</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-154"><a href="#cb4-154"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb4-155"><a href="#cb4-155"></a></span>
+<span id="cb4-156"><a href="#cb4-156"></a></span>
+<span id="cb4-157"><a href="#cb4-157"></a><span class="co"># Now clean up content in Minutes within bounding paragraphs</span></span>
+<span id="cb4-158"><a href="#cb4-158"></a><span class="co"># Text before "In conjunction" or before "Participants' Views"</span></span>
+<span id="cb4-159"><a href="#cb4-159"></a><span class="co"># Text after "At the Conclusion" (inclusive)</span></span>
+<span id="cb4-160"><a href="#cb4-160"></a>dm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
+<span id="cb4-161"><a href="#cb4-161"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
+<span id="cb4-162"><a href="#cb4-162"></a>  <span class="fu">mutate</span>( </span>
+<span id="cb4-163"><a href="#cb4-163"></a>    <span class="at">text2 =</span> <span class="fu">case_when</span>( </span>
+<span id="cb4-164"><a href="#cb4-164"></a>      (para_participants <span class="sc">==</span> para_participants_rank) <span class="sc">&amp;</span> </span>
+<span id="cb4-165"><a href="#cb4-165"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_participants)) <span class="sc">&amp;</span> </span>
+<span id="cb4-166"><a href="#cb4-166"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_participants_rank)) <span class="sc">&amp;</span></span>
+<span id="cb4-167"><a href="#cb4-167"></a>        doc_id <span class="sc">&lt;=</span> <span class="st">'20090101'</span> <span class="sc">~</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'.*In conjunction'</span>, <span class="at">replacement =</span> <span class="st">'In conjunction'</span>, <span class="at">x =</span> text),</span>
+<span id="cb4-168"><a href="#cb4-168"></a>      (para_participants <span class="sc">==</span> para_participants_rank) <span class="sc">&amp;</span> </span>
+<span id="cb4-169"><a href="#cb4-169"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_participants)) <span class="sc">&amp;</span> </span>
+<span id="cb4-170"><a href="#cb4-170"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_participants_rank)) <span class="sc">&amp;</span></span>
+<span id="cb4-171"><a href="#cb4-171"></a>        doc_id <span class="sc">&gt;</span> <span class="st">'20090101'</span> <span class="sc">~</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">".*Participants('|’) Views"</span>, <span class="at">replacement =</span> <span class="st">"Participants' Views"</span>, <span class="at">x =</span> text),    </span>
+<span id="cb4-172"><a href="#cb4-172"></a>      (para_voted <span class="sc">==</span> para_voted_rank) <span class="sc">&amp;</span></span>
+<span id="cb4-173"><a href="#cb4-173"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_voted)) <span class="sc">&amp;</span></span>
+<span id="cb4-174"><a href="#cb4-174"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_voted_rank)) <span class="sc">~</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'At the conclusion.*'</span>, <span class="at">replacement =</span> <span class="st">''</span>, <span class="at">x =</span> text),</span>
+<span id="cb4-175"><a href="#cb4-175"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> text</span>
+<span id="cb4-176"><a href="#cb4-176"></a>    )</span>
+<span id="cb4-177"><a href="#cb4-177"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-178"><a href="#cb4-178"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-179"><a href="#cb4-179"></a>  <span class="fu">select</span>(id, doc_id, doc_type, page, text, text2, <span class="fu">everything</span>())</span>
+<span id="cb4-180"><a href="#cb4-180"></a></span>
+<span id="cb4-181"><a href="#cb4-181"></a>}</span>
 <span id="cb4-182"><a href="#cb4-182"></a></span>
-<span id="cb4-183"><a href="#cb4-183"></a>}</span>
+<span id="cb4-183"><a href="#cb4-183"></a><span class="co"># Clean up SEPs -----------------------------------------------------------</span></span>
 <span id="cb4-184"><a href="#cb4-184"></a></span>
-<span id="cb4-185"><a href="#cb4-185"></a><span class="co"># Clean up SEPs -----------------------------------------------------------</span></span>
+<span id="cb4-185"><a href="#cb4-185"></a>{</span>
 <span id="cb4-186"><a href="#cb4-186"></a></span>
-<span id="cb4-187"><a href="#cb4-187"></a>{</span>
-<span id="cb4-188"><a href="#cb4-188"></a></span>
-<span id="cb4-189"><a href="#cb4-189"></a><span class="co"># Drop page with "Forecast Uncertainty" box, usually the last page.</span></span>
-<span id="cb4-190"><a href="#cb4-190"></a>ds <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
-<span id="cb4-191"><a href="#cb4-191"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
-<span id="cb4-192"><a href="#cb4-192"></a>  <span class="fu">mutate</span>( <span class="at">page_fct_uncert_n =</span> <span class="fu">if_else</span>( doc_type <span class="sc">==</span> <span class="st">"SEP"</span> <span class="sc">&amp;</span> </span>
-<span id="cb4-193"><a href="#cb4-193"></a>                                         stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">"Forecast Uncertainty"</span>), page, <span class="dv">0</span>),</span>
-<span id="cb4-194"><a href="#cb4-194"></a>          </span>
-<span id="cb4-195"><a href="#cb4-195"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-196"><a href="#cb4-196"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-197"><a href="#cb4-197"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
-<span id="cb4-198"><a href="#cb4-198"></a>  <span class="fu">mutate</span>( <span class="at">page_fct_uncert =</span> <span class="fu">max</span>(page_fct_uncert_n) ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-199"><a href="#cb4-199"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-200"><a href="#cb4-200"></a></span>
-<span id="cb4-201"><a href="#cb4-201"></a><span class="co"># Drop pages after "Forecast Uncertainty"</span></span>
-<span id="cb4-202"><a href="#cb4-202"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-203"><a href="#cb4-203"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
-<span id="cb4-204"><a href="#cb4-204"></a>  <span class="fu">filter</span>( (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) <span class="sc">|</span> (page <span class="sc">&lt;=</span> page_fct_uncert <span class="sc">&amp;</span> doc_type <span class="sc">==</span> <span class="st">"SEP"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-205"><a href="#cb4-205"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-206"><a href="#cb4-206"></a></span>
-<span id="cb4-207"><a href="#cb4-207"></a></span>
-<span id="cb4-208"><a href="#cb4-208"></a><span class="co"># Drop paragraphs after "Forecast Uncertainty"</span></span>
-<span id="cb4-209"><a href="#cb4-209"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-210"><a href="#cb4-210"></a>  <span class="fu">mutate</span>( <span class="at">para_fct_uncert =</span> <span class="fu">case_when</span>(</span>
-<span id="cb4-211"><a href="#cb4-211"></a>                              doc_type <span class="sc">==</span> <span class="st">"SEP"</span>  <span class="sc">&amp;</span></span>
-<span id="cb4-212"><a href="#cb4-212"></a>                              page_fct_uncert <span class="sc">==</span> page_fct_uncert_n <span class="sc">~</span> rank</span>
-<span id="cb4-213"><a href="#cb4-213"></a>                            )</span>
-<span id="cb4-214"><a href="#cb4-214"></a>  )</span>
-<span id="cb4-215"><a href="#cb4-215"></a></span>
-<span id="cb4-216"><a href="#cb4-216"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-217"><a href="#cb4-217"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
-<span id="cb4-218"><a href="#cb4-218"></a>  <span class="fu">mutate</span>( <span class="at">para_fct_uncert_rank =</span> <span class="fu">min</span>(para_fct_uncert, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-219"><a href="#cb4-219"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-220"><a href="#cb4-220"></a></span>
-<span id="cb4-221"><a href="#cb4-221"></a><span class="co"># Now drop paragraphs within page</span></span>
-<span id="cb4-222"><a href="#cb4-222"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-223"><a href="#cb4-223"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
-<span id="cb4-224"><a href="#cb4-224"></a>  <span class="fu">filter</span>( ((rank <span class="sc">&lt;=</span> para_fct_uncert_rank) <span class="sc">&amp;</span> (doc_type <span class="sc">==</span> <span class="st">"SEP"</span>)) <span class="sc">|</span> (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-225"><a href="#cb4-225"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-226"><a href="#cb4-226"></a></span>
-<span id="cb4-227"><a href="#cb4-227"></a><span class="co"># Now clean up content in SEPS </span></span>
-<span id="cb4-228"><a href="#cb4-228"></a><span class="co"># Drop text after "Forecast Uncertainty" (inclusive)</span></span>
-<span id="cb4-229"><a href="#cb4-229"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-230"><a href="#cb4-230"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
-<span id="cb4-231"><a href="#cb4-231"></a>  <span class="fu">mutate</span>( </span>
-<span id="cb4-232"><a href="#cb4-232"></a>    <span class="at">text3 =</span> <span class="fu">case_when</span>( </span>
-<span id="cb4-233"><a href="#cb4-233"></a>      (para_fct_uncert <span class="sc">==</span> para_fct_uncert_rank) <span class="sc">&amp;</span> </span>
-<span id="cb4-234"><a href="#cb4-234"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_fct_uncert)) <span class="sc">&amp;</span> </span>
-<span id="cb4-235"><a href="#cb4-235"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_fct_uncert_rank))  <span class="sc">~</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'Forecast Uncertainty.*'</span>, <span class="at">replacement =</span> <span class="st">''</span>, <span class="at">x =</span> text2),</span>
-<span id="cb4-236"><a href="#cb4-236"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> text2</span>
-<span id="cb4-237"><a href="#cb4-237"></a>    )</span>
-<span id="cb4-238"><a href="#cb4-238"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-239"><a href="#cb4-239"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-240"><a href="#cb4-240"></a>  <span class="fu">select</span>(id, doc_id, doc_type, page, text, text2, text3, <span class="fu">everything</span>())</span>
-<span id="cb4-241"><a href="#cb4-241"></a></span>
-<span id="cb4-242"><a href="#cb4-242"></a></span>
-<span id="cb4-243"><a href="#cb4-243"></a><span class="co"># Drop pages in the SEPs with small font size</span></span>
-<span id="cb4-244"><a href="#cb4-244"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-245"><a href="#cb4-245"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
-<span id="cb4-246"><a href="#cb4-246"></a>  <span class="fu">filter</span>( (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) <span class="sc">|</span> (doc_type <span class="sc">==</span> <span class="st">"SEP"</span> <span class="sc">&amp;</span> avg_word_height <span class="sc">&gt;=</span> <span class="fl">11.5</span>) ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-247"><a href="#cb4-247"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-248"><a href="#cb4-248"></a></span>
-<span id="cb4-249"><a href="#cb4-249"></a></span>
-<span id="cb4-250"><a href="#cb4-250"></a><span class="co"># Drop paragraphs with no text</span></span>
-<span id="cb4-251"><a href="#cb4-251"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-252"><a href="#cb4-252"></a>  <span class="fu">filter</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text3, <span class="at">pattern =</span> <span class="st">'[a-zA-Z]+'</span>))</span>
-<span id="cb4-253"><a href="#cb4-253"></a></span>
-<span id="cb4-254"><a href="#cb4-254"></a></span>
-<span id="cb4-255"><a href="#cb4-255"></a><span class="co"># Drop paragraphs with small area, these is charts text</span></span>
-<span id="cb4-256"><a href="#cb4-256"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-257"><a href="#cb4-257"></a>  <span class="fu">filter</span>(area <span class="sc">&gt;=</span> <span class="fl">0.0001</span>)</span>
-<span id="cb4-258"><a href="#cb4-258"></a></span>
-<span id="cb4-259"><a href="#cb4-259"></a><span class="co"># Drop paragraphs in SEPs starting with "Chart" or "Figure" and have small number of characters</span></span>
-<span id="cb4-260"><a href="#cb4-260"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-261"><a href="#cb4-261"></a>  <span class="fu">filter</span>( (<span class="sc">!</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text3, <span class="at">pattern =</span> <span class="st">"^[ ]*(Chart|Figure)"</span>) <span class="sc">&amp;</span> chars <span class="sc">&lt;</span> <span class="dv">120</span>) <span class="sc">&amp;</span> doc_type <span class="sc">==</span> <span class="st">"SEP"</span>) <span class="sc">|</span> </span>
-<span id="cb4-262"><a href="#cb4-262"></a>          (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) </span>
-<span id="cb4-263"><a href="#cb4-263"></a>   )</span>
-<span id="cb4-264"><a href="#cb4-264"></a></span>
-<span id="cb4-265"><a href="#cb4-265"></a></span>
-<span id="cb4-266"><a href="#cb4-266"></a><span class="co"># Drop entire pages with small number of characters in "SEP"</span></span>
-<span id="cb4-267"><a href="#cb4-267"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-268"><a href="#cb4-268"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
-<span id="cb4-269"><a href="#cb4-269"></a>  <span class="fu">mutate</span>( <span class="at">page_chars =</span> <span class="fu">sum</span>(chars) ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-270"><a href="#cb4-270"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-271"><a href="#cb4-271"></a></span>
-<span id="cb4-272"><a href="#cb4-272"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-273"><a href="#cb4-273"></a>  <span class="fu">filter</span>( (page_chars <span class="sc">&gt;</span> <span class="dv">40</span> <span class="sc">&amp;</span> doc_type <span class="sc">==</span> <span class="st">"SEP"</span>) <span class="sc">|</span> (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) )</span>
-<span id="cb4-274"><a href="#cb4-274"></a></span>
-<span id="cb4-275"><a href="#cb4-275"></a><span class="co"># Drop paragraphs with small number of characters</span></span>
-<span id="cb4-276"><a href="#cb4-276"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-277"><a href="#cb4-277"></a>  <span class="fu">mutate</span>(<span class="at">text4 =</span> <span class="fu">case_when</span>(</span>
-<span id="cb4-278"><a href="#cb4-278"></a>    doc_type <span class="sc">==</span> <span class="st">"SEP"</span> <span class="sc">&amp;</span> stringr<span class="sc">::</span><span class="fu">str_detect</span>(text3, <span class="st">"Summary of Economic Projections"</span>) <span class="sc">~</span> text3,</span>
-<span id="cb4-279"><a href="#cb4-279"></a>    doc_type <span class="sc">==</span> <span class="st">"SEP"</span> <span class="sc">&amp;</span> chars <span class="sc">&lt;</span> <span class="dv">40</span> <span class="sc">&amp;</span> <span class="sc">!</span>stringr<span class="sc">::</span><span class="fu">str_detect</span>(text3, <span class="st">"Summary of Economic Projections"</span>) <span class="sc">~</span> <span class="st">""</span>,</span>
-<span id="cb4-280"><a href="#cb4-280"></a>    doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">~</span> text3,</span>
-<span id="cb4-281"><a href="#cb4-281"></a>    <span class="cn">TRUE</span>                  <span class="sc">~</span> text3) </span>
-<span id="cb4-282"><a href="#cb4-282"></a>    ) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-283"><a href="#cb4-283"></a>  <span class="fu">select</span>(<span class="sc">-</span>text2, <span class="sc">-</span>text3) <span class="sc">%&gt;%</span></span>
-<span id="cb4-284"><a href="#cb4-284"></a><span class="fu">select</span>(id, doc_id, doc_type, page, text, text4, <span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb4-285"><a href="#cb4-285"></a>  <span class="fu">filter</span>(text4 <span class="sc">!=</span> <span class="st">""</span>)</span>
+<span id="cb4-187"><a href="#cb4-187"></a><span class="co"># Drop page with "Forecast Uncertainty" box, usually the last page.</span></span>
+<span id="cb4-188"><a href="#cb4-188"></a>ds <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span></span>
+<span id="cb4-189"><a href="#cb4-189"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
+<span id="cb4-190"><a href="#cb4-190"></a>  <span class="fu">mutate</span>( <span class="at">page_fct_uncert_n =</span> <span class="fu">if_else</span>( doc_type <span class="sc">==</span> <span class="st">"SEP"</span> <span class="sc">&amp;</span> </span>
+<span id="cb4-191"><a href="#cb4-191"></a>                                         stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">"Forecast Uncertainty"</span>), page, <span class="dv">0</span>),</span>
+<span id="cb4-192"><a href="#cb4-192"></a>          </span>
+<span id="cb4-193"><a href="#cb4-193"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-194"><a href="#cb4-194"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-195"><a href="#cb4-195"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
+<span id="cb4-196"><a href="#cb4-196"></a>  <span class="fu">mutate</span>( <span class="at">page_fct_uncert =</span> <span class="fu">max</span>(page_fct_uncert_n) ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-197"><a href="#cb4-197"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb4-198"><a href="#cb4-198"></a></span>
+<span id="cb4-199"><a href="#cb4-199"></a><span class="co"># Drop pages after "Forecast Uncertainty"</span></span>
+<span id="cb4-200"><a href="#cb4-200"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb4-201"><a href="#cb4-201"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
+<span id="cb4-202"><a href="#cb4-202"></a>  <span class="fu">filter</span>( (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) <span class="sc">|</span> (page <span class="sc">&lt;=</span> page_fct_uncert <span class="sc">&amp;</span> doc_type <span class="sc">==</span> <span class="st">"SEP"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-203"><a href="#cb4-203"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb4-204"><a href="#cb4-204"></a></span>
+<span id="cb4-205"><a href="#cb4-205"></a></span>
+<span id="cb4-206"><a href="#cb4-206"></a><span class="co"># Drop paragraphs after "Forecast Uncertainty"</span></span>
+<span id="cb4-207"><a href="#cb4-207"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb4-208"><a href="#cb4-208"></a>  <span class="fu">mutate</span>( <span class="at">para_fct_uncert =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-209"><a href="#cb4-209"></a>                              doc_type <span class="sc">==</span> <span class="st">"SEP"</span>  <span class="sc">&amp;</span></span>
+<span id="cb4-210"><a href="#cb4-210"></a>                              page_fct_uncert <span class="sc">==</span> page_fct_uncert_n <span class="sc">~</span> rank</span>
+<span id="cb4-211"><a href="#cb4-211"></a>                            )</span>
+<span id="cb4-212"><a href="#cb4-212"></a>  )</span>
+<span id="cb4-213"><a href="#cb4-213"></a></span>
+<span id="cb4-214"><a href="#cb4-214"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb4-215"><a href="#cb4-215"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
+<span id="cb4-216"><a href="#cb4-216"></a>  <span class="fu">mutate</span>( <span class="at">para_fct_uncert_rank =</span> <span class="fu">min</span>(para_fct_uncert, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-217"><a href="#cb4-217"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb4-218"><a href="#cb4-218"></a></span>
+<span id="cb4-219"><a href="#cb4-219"></a><span class="co"># Now drop paragraphs within page</span></span>
+<span id="cb4-220"><a href="#cb4-220"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb4-221"><a href="#cb4-221"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
+<span id="cb4-222"><a href="#cb4-222"></a>  <span class="fu">filter</span>( ((rank <span class="sc">&lt;=</span> para_fct_uncert_rank) <span class="sc">&amp;</span> (doc_type <span class="sc">==</span> <span class="st">"SEP"</span>)) <span class="sc">|</span> (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-223"><a href="#cb4-223"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb4-224"><a href="#cb4-224"></a></span>
+<span id="cb4-225"><a href="#cb4-225"></a><span class="co"># Now clean up content in SEPS </span></span>
+<span id="cb4-226"><a href="#cb4-226"></a><span class="co"># Drop text after "Forecast Uncertainty" (inclusive)</span></span>
+<span id="cb4-227"><a href="#cb4-227"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb4-228"><a href="#cb4-228"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
+<span id="cb4-229"><a href="#cb4-229"></a>  <span class="fu">mutate</span>( </span>
+<span id="cb4-230"><a href="#cb4-230"></a>    <span class="at">text3 =</span> <span class="fu">case_when</span>( </span>
+<span id="cb4-231"><a href="#cb4-231"></a>      (para_fct_uncert <span class="sc">==</span> para_fct_uncert_rank) <span class="sc">&amp;</span> </span>
+<span id="cb4-232"><a href="#cb4-232"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_fct_uncert)) <span class="sc">&amp;</span> </span>
+<span id="cb4-233"><a href="#cb4-233"></a>        (<span class="sc">!</span><span class="fu">is.na</span>(para_fct_uncert_rank))  <span class="sc">~</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'Forecast Uncertainty.*'</span>, <span class="at">replacement =</span> <span class="st">''</span>, <span class="at">x =</span> text2),</span>
+<span id="cb4-234"><a href="#cb4-234"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> text2</span>
+<span id="cb4-235"><a href="#cb4-235"></a>    )</span>
+<span id="cb4-236"><a href="#cb4-236"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-237"><a href="#cb4-237"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-238"><a href="#cb4-238"></a>  <span class="fu">select</span>(id, doc_id, doc_type, page, text, text2, text3, <span class="fu">everything</span>())</span>
+<span id="cb4-239"><a href="#cb4-239"></a></span>
+<span id="cb4-240"><a href="#cb4-240"></a></span>
+<span id="cb4-241"><a href="#cb4-241"></a><span class="co"># Drop pages in the SEPs with small font size</span></span>
+<span id="cb4-242"><a href="#cb4-242"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb4-243"><a href="#cb4-243"></a>  <span class="fu">group_by</span>(doc_id, doc_type) <span class="sc">%&gt;%</span></span>
+<span id="cb4-244"><a href="#cb4-244"></a>  <span class="fu">filter</span>( (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) <span class="sc">|</span> (doc_type <span class="sc">==</span> <span class="st">"SEP"</span> <span class="sc">&amp;</span> avg_word_height <span class="sc">&gt;=</span> <span class="fl">11.5</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-245"><a href="#cb4-245"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb4-246"><a href="#cb4-246"></a></span>
+<span id="cb4-247"><a href="#cb4-247"></a></span>
+<span id="cb4-248"><a href="#cb4-248"></a><span class="co"># Drop paragraphs with no text</span></span>
+<span id="cb4-249"><a href="#cb4-249"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb4-250"><a href="#cb4-250"></a>  <span class="fu">filter</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text3, <span class="at">pattern =</span> <span class="st">'[a-zA-Z]+'</span>))</span>
+<span id="cb4-251"><a href="#cb4-251"></a></span>
+<span id="cb4-252"><a href="#cb4-252"></a></span>
+<span id="cb4-253"><a href="#cb4-253"></a><span class="co"># Drop paragraphs with small area, these is charts text</span></span>
+<span id="cb4-254"><a href="#cb4-254"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb4-255"><a href="#cb4-255"></a>  <span class="fu">filter</span>(area <span class="sc">&gt;=</span> <span class="fl">0.0001</span>)</span>
+<span id="cb4-256"><a href="#cb4-256"></a></span>
+<span id="cb4-257"><a href="#cb4-257"></a><span class="co"># Drop paragraphs in SEPs starting with "Chart" or "Figure" and have small number of characters</span></span>
+<span id="cb4-258"><a href="#cb4-258"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb4-259"><a href="#cb4-259"></a>  <span class="fu">filter</span>( (<span class="sc">!</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="at">string =</span> text3, <span class="at">pattern =</span> <span class="st">"^[ ]*(Chart|Figure)"</span>) <span class="sc">&amp;</span> chars <span class="sc">&lt;</span> <span class="dv">120</span>) <span class="sc">&amp;</span> doc_type <span class="sc">==</span> <span class="st">"SEP"</span>) <span class="sc">|</span> </span>
+<span id="cb4-260"><a href="#cb4-260"></a>          (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) </span>
+<span id="cb4-261"><a href="#cb4-261"></a>   )</span>
+<span id="cb4-262"><a href="#cb4-262"></a></span>
+<span id="cb4-263"><a href="#cb4-263"></a></span>
+<span id="cb4-264"><a href="#cb4-264"></a><span class="co"># Drop entire pages with small number of characters in "SEP"</span></span>
+<span id="cb4-265"><a href="#cb4-265"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb4-266"><a href="#cb4-266"></a>  <span class="fu">group_by</span>(doc_id, doc_type, page) <span class="sc">%&gt;%</span></span>
+<span id="cb4-267"><a href="#cb4-267"></a>  <span class="fu">mutate</span>( <span class="at">page_chars =</span> <span class="fu">sum</span>(chars) ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-268"><a href="#cb4-268"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb4-269"><a href="#cb4-269"></a></span>
+<span id="cb4-270"><a href="#cb4-270"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb4-271"><a href="#cb4-271"></a>  <span class="fu">filter</span>( (page_chars <span class="sc">&gt;</span> <span class="dv">40</span> <span class="sc">&amp;</span> doc_type <span class="sc">==</span> <span class="st">"SEP"</span>) <span class="sc">|</span> (doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) )</span>
+<span id="cb4-272"><a href="#cb4-272"></a></span>
+<span id="cb4-273"><a href="#cb4-273"></a><span class="co"># Drop paragraphs with small number of characters</span></span>
+<span id="cb4-274"><a href="#cb4-274"></a>ds <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb4-275"><a href="#cb4-275"></a>  <span class="fu">mutate</span>(<span class="at">text4 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-276"><a href="#cb4-276"></a>    doc_type <span class="sc">==</span> <span class="st">"SEP"</span> <span class="sc">&amp;</span> stringr<span class="sc">::</span><span class="fu">str_detect</span>(text3, <span class="st">"Summary of Economic Projections"</span>) <span class="sc">~</span> text3,</span>
+<span id="cb4-277"><a href="#cb4-277"></a>    doc_type <span class="sc">==</span> <span class="st">"SEP"</span> <span class="sc">&amp;</span> chars <span class="sc">&lt;</span> <span class="dv">40</span> <span class="sc">&amp;</span> <span class="sc">!</span>stringr<span class="sc">::</span><span class="fu">str_detect</span>(text3, <span class="st">"Summary of Economic Projections"</span>) <span class="sc">~</span> <span class="st">""</span>,</span>
+<span id="cb4-278"><a href="#cb4-278"></a>    doc_type <span class="sc">==</span> <span class="st">"Minutes"</span> <span class="sc">~</span> text3,</span>
+<span id="cb4-279"><a href="#cb4-279"></a>    <span class="cn">TRUE</span>                  <span class="sc">~</span> text3) </span>
+<span id="cb4-280"><a href="#cb4-280"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-281"><a href="#cb4-281"></a>  <span class="fu">select</span>(<span class="sc">-</span>text2, <span class="sc">-</span>text3) <span class="sc">%&gt;%</span></span>
+<span id="cb4-282"><a href="#cb4-282"></a><span class="fu">select</span>(id, doc_id, doc_type, page, text, text4, <span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb4-283"><a href="#cb4-283"></a>  <span class="fu">filter</span>(text4 <span class="sc">!=</span> <span class="st">""</span>)</span>
+<span id="cb4-284"><a href="#cb4-284"></a></span>
+<span id="cb4-285"><a href="#cb4-285"></a>}</span>
 <span id="cb4-286"><a href="#cb4-286"></a></span>
-<span id="cb4-287"><a href="#cb4-287"></a>}</span>
-<span id="cb4-288"><a href="#cb4-288"></a></span>
-<span id="cb4-289"><a href="#cb4-289"></a></span>
-<span id="cb4-290"><a href="#cb4-290"></a><span class="co"># Prepare text for analysis -----------------------------------------------</span></span>
-<span id="cb4-291"><a href="#cb4-291"></a><span class="co"># + Concatenate all the paragraphs in the Minutes and SEPs for each meeting.</span></span>
-<span id="cb4-292"><a href="#cb4-292"></a><span class="co"># + Tokenize into sentences</span></span>
-<span id="cb4-293"><a href="#cb4-293"></a><span class="co"># + Remove numerals</span></span>
-<span id="cb4-294"><a href="#cb4-294"></a><span class="co"># + Remove stop words</span></span>
-<span id="cb4-295"><a href="#cb4-295"></a><span class="co"># + Remove punctuation and symbols</span></span>
-<span id="cb4-296"><a href="#cb4-296"></a></span>
-<span id="cb4-297"><a href="#cb4-297"></a>minutes <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-298"><a href="#cb4-298"></a>  <span class="fu">filter</span>(doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb4-299"><a href="#cb4-299"></a>  <span class="fu">select</span>(doc_id, doc_type, page, rank, text4) <span class="sc">%&gt;%</span></span>
-<span id="cb4-300"><a href="#cb4-300"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
-<span id="cb4-301"><a href="#cb4-301"></a>  <span class="fu">summarise</span>(<span class="at">text =</span> <span class="fu">paste0</span>(text4, <span class="at">collapse =</span> <span class="st">""</span>) ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-302"><a href="#cb4-302"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-303"><a href="#cb4-303"></a></span>
-<span id="cb4-304"><a href="#cb4-304"></a>seps <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
-<span id="cb4-305"><a href="#cb4-305"></a>  <span class="fu">filter</span>(doc_type <span class="sc">==</span> <span class="st">"SEP"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb4-306"><a href="#cb4-306"></a>  <span class="fu">select</span>(doc_id, doc_type, page, rank, text4) <span class="sc">%&gt;%</span></span>
-<span id="cb4-307"><a href="#cb4-307"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
-<span id="cb4-308"><a href="#cb4-308"></a>  <span class="fu">summarise</span>(<span class="at">text =</span> <span class="fu">paste0</span>(text4, <span class="at">collapse =</span> <span class="st">""</span>) ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-309"><a href="#cb4-309"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-310"><a href="#cb4-310"></a></span>
-<span id="cb4-311"><a href="#cb4-311"></a></span>
-<span id="cb4-312"><a href="#cb4-312"></a><span class="co"># Tokenize into sentences, then into words, then remove stop words</span></span>
-<span id="cb4-313"><a href="#cb4-313"></a><span class="fu">data</span>(stop_words)</span>
-<span id="cb4-314"><a href="#cb4-314"></a></span>
-<span id="cb4-315"><a href="#cb4-315"></a>tidy_minutes <span class="ot">&lt;-</span> minutes <span class="sc">%&gt;%</span></span>
-<span id="cb4-316"><a href="#cb4-316"></a>  <span class="co"># Replace line feeds, newline characters</span></span>
-<span id="cb4-317"><a href="#cb4-317"></a>  <span class="fu">mutate</span>(<span class="at">text =</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'</span><span class="sc">\\</span><span class="st">r</span><span class="sc">\\</span><span class="st">n'</span>, <span class="at">replacement =</span> <span class="st">' '</span>, <span class="at">x =</span> text)) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-318"><a href="#cb4-318"></a>  <span class="fu">unnest_tokens</span>(<span class="at">token =</span> <span class="st">"sentences"</span>, <span class="at">input =</span> text, <span class="at">output =</span> sentence) <span class="sc">%&gt;%</span></span>
-<span id="cb4-319"><a href="#cb4-319"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
-<span id="cb4-320"><a href="#cb4-320"></a>  <span class="fu">mutate</span>( <span class="at">sentence_id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb4-321"><a href="#cb4-321"></a>  <span class="fu">unnest_tokens</span>(<span class="at">token =</span> <span class="st">"words"</span>, <span class="at">input =</span> sentence, <span class="at">output =</span> word) <span class="sc">%&gt;%</span></span>
-<span id="cb4-322"><a href="#cb4-322"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-323"><a href="#cb4-323"></a>  <span class="fu">anti_join</span>(stop_words)</span>
-<span id="cb4-324"><a href="#cb4-324"></a></span>
-<span id="cb4-325"><a href="#cb4-325"></a>tidy_seps <span class="ot">&lt;-</span> seps <span class="sc">%&gt;%</span></span>
-<span id="cb4-326"><a href="#cb4-326"></a>  <span class="co"># Replace line feeds, newline characters</span></span>
-<span id="cb4-327"><a href="#cb4-327"></a>  <span class="fu">mutate</span>(<span class="at">text =</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'</span><span class="sc">\\</span><span class="st">r</span><span class="sc">\\</span><span class="st">n'</span>, <span class="at">replacement =</span> <span class="st">' '</span>, <span class="at">x =</span> text)) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-328"><a href="#cb4-328"></a>  <span class="fu">unnest_tokens</span>(<span class="at">token =</span> <span class="st">"sentences"</span>, <span class="at">input =</span> text, <span class="at">output =</span> sentence) <span class="sc">%&gt;%</span></span>
-<span id="cb4-329"><a href="#cb4-329"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
-<span id="cb4-330"><a href="#cb4-330"></a>  <span class="fu">mutate</span>( <span class="at">sentence_id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb4-331"><a href="#cb4-331"></a>  <span class="fu">unnest_tokens</span>(<span class="at">token =</span> <span class="st">"words"</span>, <span class="at">input =</span> sentence, <span class="at">output =</span> word) <span class="sc">%&gt;%</span></span>
-<span id="cb4-332"><a href="#cb4-332"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-333"><a href="#cb4-333"></a>  <span class="fu">anti_join</span>(stop_words)</span>
-<span id="cb4-334"><a href="#cb4-334"></a></span>
-<span id="cb4-335"><a href="#cb4-335"></a><span class="co"># Remove numbers</span></span>
-<span id="cb4-336"><a href="#cb4-336"></a>tidy_minutes <span class="ot">&lt;-</span> tidy_minutes <span class="sc">%&gt;%</span></span>
+<span id="cb4-287"><a href="#cb4-287"></a></span>
+<span id="cb4-288"><a href="#cb4-288"></a><span class="co"># Prepare text for analysis -----------------------------------------------</span></span>
+<span id="cb4-289"><a href="#cb4-289"></a><span class="co"># + Concatenate all the paragraphs in the Minutes and SEPs for each meeting.</span></span>
+<span id="cb4-290"><a href="#cb4-290"></a><span class="co"># + Tokenize into sentences</span></span>
+<span id="cb4-291"><a href="#cb4-291"></a><span class="co"># + Remove numerals</span></span>
+<span id="cb4-292"><a href="#cb4-292"></a><span class="co"># + Remove stop words</span></span>
+<span id="cb4-293"><a href="#cb4-293"></a><span class="co"># + Remove punctuation and symbols</span></span>
+<span id="cb4-294"><a href="#cb4-294"></a></span>
+<span id="cb4-295"><a href="#cb4-295"></a>minutes <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb4-296"><a href="#cb4-296"></a>  <span class="fu">filter</span>(doc_type <span class="sc">==</span> <span class="st">"Minutes"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-297"><a href="#cb4-297"></a>  <span class="fu">select</span>(doc_id, doc_type, page, rank, text4) <span class="sc">%&gt;%</span></span>
+<span id="cb4-298"><a href="#cb4-298"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
+<span id="cb4-299"><a href="#cb4-299"></a>  <span class="fu">summarise</span>(<span class="at">text =</span> <span class="fu">paste0</span>(text4, <span class="at">collapse =</span> <span class="st">""</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-300"><a href="#cb4-300"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb4-301"><a href="#cb4-301"></a></span>
+<span id="cb4-302"><a href="#cb4-302"></a>seps <span class="ot">&lt;-</span> ds <span class="sc">%&gt;%</span></span>
+<span id="cb4-303"><a href="#cb4-303"></a>  <span class="fu">filter</span>(doc_type <span class="sc">==</span> <span class="st">"SEP"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-304"><a href="#cb4-304"></a>  <span class="fu">select</span>(doc_id, doc_type, page, rank, text4) <span class="sc">%&gt;%</span></span>
+<span id="cb4-305"><a href="#cb4-305"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
+<span id="cb4-306"><a href="#cb4-306"></a>  <span class="fu">summarise</span>(<span class="at">text =</span> <span class="fu">paste0</span>(text4, <span class="at">collapse =</span> <span class="st">""</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-307"><a href="#cb4-307"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb4-308"><a href="#cb4-308"></a></span>
+<span id="cb4-309"><a href="#cb4-309"></a></span>
+<span id="cb4-310"><a href="#cb4-310"></a><span class="co"># Tokenize into sentences, then into words, then remove stop words</span></span>
+<span id="cb4-311"><a href="#cb4-311"></a><span class="fu">data</span>(stop_words)</span>
+<span id="cb4-312"><a href="#cb4-312"></a></span>
+<span id="cb4-313"><a href="#cb4-313"></a>tidy_minutes <span class="ot">&lt;-</span> minutes <span class="sc">%&gt;%</span></span>
+<span id="cb4-314"><a href="#cb4-314"></a>  <span class="co"># Replace line feeds, newline characters</span></span>
+<span id="cb4-315"><a href="#cb4-315"></a>  <span class="fu">mutate</span>(<span class="at">text =</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'</span><span class="sc">\\</span><span class="st">r</span><span class="sc">\\</span><span class="st">n'</span>, <span class="at">replacement =</span> <span class="st">' '</span>, <span class="at">x =</span> text)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-316"><a href="#cb4-316"></a>  <span class="fu">unnest_tokens</span>(<span class="at">token =</span> <span class="st">"sentences"</span>, <span class="at">input =</span> text, <span class="at">output =</span> sentence) <span class="sc">%&gt;%</span></span>
+<span id="cb4-317"><a href="#cb4-317"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
+<span id="cb4-318"><a href="#cb4-318"></a>  <span class="fu">mutate</span>( <span class="at">sentence_id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb4-319"><a href="#cb4-319"></a>  <span class="fu">unnest_tokens</span>(<span class="at">token =</span> <span class="st">"words"</span>, <span class="at">input =</span> sentence, <span class="at">output =</span> word) <span class="sc">%&gt;%</span></span>
+<span id="cb4-320"><a href="#cb4-320"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-321"><a href="#cb4-321"></a>  <span class="fu">anti_join</span>(stop_words)</span>
+<span id="cb4-322"><a href="#cb4-322"></a></span>
+<span id="cb4-323"><a href="#cb4-323"></a>tidy_seps <span class="ot">&lt;-</span> seps <span class="sc">%&gt;%</span></span>
+<span id="cb4-324"><a href="#cb4-324"></a>  <span class="co"># Replace line feeds, newline characters</span></span>
+<span id="cb4-325"><a href="#cb4-325"></a>  <span class="fu">mutate</span>(<span class="at">text =</span> <span class="fu">sub</span>(<span class="at">pattern =</span> <span class="st">'</span><span class="sc">\\</span><span class="st">r</span><span class="sc">\\</span><span class="st">n'</span>, <span class="at">replacement =</span> <span class="st">' '</span>, <span class="at">x =</span> text)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-326"><a href="#cb4-326"></a>  <span class="fu">unnest_tokens</span>(<span class="at">token =</span> <span class="st">"sentences"</span>, <span class="at">input =</span> text, <span class="at">output =</span> sentence) <span class="sc">%&gt;%</span></span>
+<span id="cb4-327"><a href="#cb4-327"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">%&gt;%</span></span>
+<span id="cb4-328"><a href="#cb4-328"></a>  <span class="fu">mutate</span>( <span class="at">sentence_id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb4-329"><a href="#cb4-329"></a>  <span class="fu">unnest_tokens</span>(<span class="at">token =</span> <span class="st">"words"</span>, <span class="at">input =</span> sentence, <span class="at">output =</span> word) <span class="sc">%&gt;%</span></span>
+<span id="cb4-330"><a href="#cb4-330"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-331"><a href="#cb4-331"></a>  <span class="fu">anti_join</span>(stop_words)</span>
+<span id="cb4-332"><a href="#cb4-332"></a></span>
+<span id="cb4-333"><a href="#cb4-333"></a><span class="co"># Remove numbers</span></span>
+<span id="cb4-334"><a href="#cb4-334"></a>tidy_minutes <span class="ot">&lt;-</span> tidy_minutes <span class="sc">%&gt;%</span></span>
+<span id="cb4-335"><a href="#cb4-335"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="at">pattern =</span> <span class="st">'^[0-9</span><span class="sc">\\</span><span class="st">.+</span><span class="sc">\\</span><span class="st">-]+$'</span>, <span class="at">x =</span> word) )</span>
+<span id="cb4-336"><a href="#cb4-336"></a>tidy_seps <span class="ot">&lt;-</span> tidy_seps <span class="sc">%&gt;%</span></span>
 <span id="cb4-337"><a href="#cb4-337"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="at">pattern =</span> <span class="st">'^[0-9</span><span class="sc">\\</span><span class="st">.+</span><span class="sc">\\</span><span class="st">-]+$'</span>, <span class="at">x =</span> word) )</span>
-<span id="cb4-338"><a href="#cb4-338"></a>tidy_seps <span class="ot">&lt;-</span> tidy_seps <span class="sc">%&gt;%</span></span>
-<span id="cb4-339"><a href="#cb4-339"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="at">pattern =</span> <span class="st">'^[0-9</span><span class="sc">\\</span><span class="st">.+</span><span class="sc">\\</span><span class="st">-]+$'</span>, <span class="at">x =</span> word) )</span>
-<span id="cb4-340"><a href="#cb4-340"></a></span>
-<span id="cb4-341"><a href="#cb4-341"></a><span class="co"># Join back into sentences</span></span>
-<span id="cb4-342"><a href="#cb4-342"></a>sent_minutes <span class="ot">&lt;-</span> tidy_minutes <span class="sc">%&gt;%</span></span>
-<span id="cb4-343"><a href="#cb4-343"></a>  <span class="fu">group_by</span>(doc_id, sentence_id) <span class="sc">%&gt;%</span></span>
-<span id="cb4-344"><a href="#cb4-344"></a>  <span class="fu">summarise</span>(<span class="at">text =</span> <span class="fu">paste0</span>(word, <span class="at">collapse =</span> <span class="st">" "</span>) ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-345"><a href="#cb4-345"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-346"><a href="#cb4-346"></a></span>
-<span id="cb4-347"><a href="#cb4-347"></a>sent_seps <span class="ot">&lt;-</span> tidy_seps <span class="sc">%&gt;%</span></span>
-<span id="cb4-348"><a href="#cb4-348"></a>  <span class="fu">group_by</span>(doc_id, sentence_id) <span class="sc">%&gt;%</span></span>
-<span id="cb4-349"><a href="#cb4-349"></a>  <span class="fu">summarise</span>(<span class="at">text =</span> <span class="fu">paste0</span>(word, <span class="at">collapse =</span> <span class="st">" "</span>) ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-350"><a href="#cb4-350"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb4-351"><a href="#cb4-351"></a></span>
-<span id="cb4-352"><a href="#cb4-352"></a></span>
-<span id="cb4-353"><a href="#cb4-353"></a><span class="co"># Write data for python</span></span>
-<span id="cb4-354"><a href="#cb4-354"></a><span class="fu">py_save_object</span>(sent_minutes, <span class="at">filename =</span> <span class="st">'data/data-gen/sent_minutes.p'</span>)</span>
-<span id="cb4-355"><a href="#cb4-355"></a><span class="fu">py_save_object</span>(sent_seps, <span class="at">filename =</span> <span class="st">'data/data-gen/sent_seps.p'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-338"><a href="#cb4-338"></a></span>
+<span id="cb4-339"><a href="#cb4-339"></a><span class="co"># Join back into sentences</span></span>
+<span id="cb4-340"><a href="#cb4-340"></a>sent_minutes <span class="ot">&lt;-</span> tidy_minutes <span class="sc">%&gt;%</span></span>
+<span id="cb4-341"><a href="#cb4-341"></a>  <span class="fu">group_by</span>(doc_id, sentence_id) <span class="sc">%&gt;%</span></span>
+<span id="cb4-342"><a href="#cb4-342"></a>  <span class="fu">summarise</span>(<span class="at">text =</span> <span class="fu">paste0</span>(word, <span class="at">collapse =</span> <span class="st">" "</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-343"><a href="#cb4-343"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb4-344"><a href="#cb4-344"></a></span>
+<span id="cb4-345"><a href="#cb4-345"></a>sent_seps <span class="ot">&lt;-</span> tidy_seps <span class="sc">%&gt;%</span></span>
+<span id="cb4-346"><a href="#cb4-346"></a>  <span class="fu">group_by</span>(doc_id, sentence_id) <span class="sc">%&gt;%</span></span>
+<span id="cb4-347"><a href="#cb4-347"></a>  <span class="fu">summarise</span>(<span class="at">text =</span> <span class="fu">paste0</span>(word, <span class="at">collapse =</span> <span class="st">" "</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-348"><a href="#cb4-348"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb4-349"><a href="#cb4-349"></a></span>
+<span id="cb4-350"><a href="#cb4-350"></a></span>
+<span id="cb4-351"><a href="#cb4-351"></a><span class="co"># Write data for python</span></span>
+<span id="cb4-352"><a href="#cb4-352"></a><span class="fu">py_save_object</span>(sent_minutes, <span class="at">filename =</span> <span class="st">'data/data-gen/sent_minutes.p'</span>)</span>
+<span id="cb4-353"><a href="#cb4-353"></a><span class="fu">py_save_object</span>(sent_seps, <span class="at">filename =</span> <span class="st">'data/data-gen/sent_seps.p'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="calculate-similarity-python" class="slide level2 scrollable">
 <h2>Calculate similarity (<code>python</code>)</h2>
@@ -1170,145 +1306,160 @@ the <span style="color: firebrick;"><strong>Summary of Economic Projections</str
 <div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="fu">library</span>(tidyr)</span>
 <span id="cb5-3"><a href="#cb5-3"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="fu">library</span>(reticulate)</span>
-<span id="cb5-5"><a href="#cb5-5"></a></span>
-<span id="cb5-6"><a href="#cb5-6"></a></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co"># Select python environment</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="fu">use_condaenv</span>(<span class="at">condaenv =</span> <span class="st">'base'</span>, <span class="at">conda =</span> <span class="st">'C:</span><span class="sc">\\</span><span class="st">Users</span><span class="sc">\\</span><span class="st">ruben</span><span class="sc">\\</span><span class="st">anaconda3</span><span class="sc">\\</span><span class="st">Scripts</span><span class="sc">\\</span><span class="st">conda.exe'</span>)</span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#use_condaenv('gcloud')</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="co"># Read pickle files</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a>pd <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"pandas"</span>)</span>
-<span id="cb5-13"><a href="#cb5-13"></a>df_cosine <span class="ot">&lt;-</span> pd<span class="sc">$</span><span class="fu">read_pickle</span>(<span class="st">"data/df_cosine.p"</span>)</span>
-<span id="cb5-14"><a href="#cb5-14"></a></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="fu">library</span>(reticulate)</span>
+<span id="cb5-7"><a href="#cb5-7"></a></span>
+<span id="cb5-8"><a href="#cb5-8"></a></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co"># Select python environment</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="fu">use_condaenv</span>(<span class="at">condaenv =</span> <span class="st">'base'</span>, <span class="at">conda =</span> <span class="st">'C:</span><span class="sc">\\</span><span class="st">Users</span><span class="sc">\\</span><span class="st">ruben</span><span class="sc">\\</span><span class="st">anaconda3</span><span class="sc">\\</span><span class="st">Scripts</span><span class="sc">\\</span><span class="st">conda.exe'</span>)</span>
+<span id="cb5-11"><a href="#cb5-11"></a></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co"># Read pickle files</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a>pd <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"pandas"</span>)</span>
+<span id="cb5-14"><a href="#cb5-14"></a>df_cosine <span class="ot">&lt;-</span> pd<span class="sc">$</span><span class="fu">read_pickle</span>(<span class="st">"data/df_cosine.p"</span>)</span>
 <span id="cb5-15"><a href="#cb5-15"></a></span>
-<span id="cb5-16"><a href="#cb5-16"></a><span class="co"># Define chart theme ------------------------------------------------------</span></span>
-<span id="cb5-17"><a href="#cb5-17"></a>{</span>
-<span id="cb5-18"><a href="#cb5-18"></a>titlecolor <span class="ot">=</span> <span class="st">'#3a6f8f'</span> <span class="co"># RGB 58 111 143 (for font)</span></span>
-<span id="cb5-19"><a href="#cb5-19"></a>fontcolor <span class="ot">=</span> <span class="st">'#414B56'</span>  <span class="co"># RGB 65 75 86</span></span>
-<span id="cb5-20"><a href="#cb5-20"></a>top_left_chart_title_theme <span class="ot">=</span> <span class="cf">function</span>(<span class="at">font_size =</span> <span class="dv">18</span>, <span class="at">title_color =</span> titlecolor, <span class="at">font_color =</span> fontcolor) {</span>
-<span id="cb5-21"><a href="#cb5-21"></a>  ggplot2<span class="sc">::</span><span class="fu">theme</span>(<span class="at">plot.title =</span> ggplot2<span class="sc">::</span><span class="fu">element_text</span>(<span class="at">size =</span> font_size <span class="sc">+</span> <span class="dv">2</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">color =</span> titlecolor, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="dv">0</span>),</span>
-<span id="cb5-22"><a href="#cb5-22"></a>                 <span class="at">plot.subtitle =</span> ggplot2<span class="sc">::</span><span class="fu">element_text</span>(<span class="at">size =</span> font_size, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">color =</span> fontcolor, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="dv">0</span>),</span>
-<span id="cb5-23"><a href="#cb5-23"></a>                 <span class="at">plot.caption =</span> ggplot2<span class="sc">::</span><span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">'black'</span>, <span class="at">size =</span> font_size <span class="sc">-</span> <span class="dv">6</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="dv">0</span>),</span>
-<span id="cb5-24"><a href="#cb5-24"></a>                 <span class="at">plot.background =</span> ggplot2<span class="sc">::</span><span class="fu">element_blank</span>(),</span>
-<span id="cb5-25"><a href="#cb5-25"></a>                 <span class="at">panel.background =</span> ggplot2<span class="sc">::</span><span class="fu">element_blank</span>(),</span>
-<span id="cb5-26"><a href="#cb5-26"></a>                 <span class="at">legend.background =</span> ggplot2<span class="sc">::</span><span class="fu">element_blank</span>(),</span>
-<span id="cb5-27"><a href="#cb5-27"></a>                 <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> font_size),</span>
-<span id="cb5-28"><a href="#cb5-28"></a>                 <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> font_size <span class="sc">-</span> <span class="dv">4</span>),</span>
-<span id="cb5-29"><a href="#cb5-29"></a>                 <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> font_size)</span>
-<span id="cb5-30"><a href="#cb5-30"></a>  )</span>
-<span id="cb5-31"><a href="#cb5-31"></a>  }</span>
-<span id="cb5-32"><a href="#cb5-32"></a>}</span>
+<span id="cb5-16"><a href="#cb5-16"></a></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="co"># Define chart theme ------------------------------------------------------</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a>{</span>
+<span id="cb5-19"><a href="#cb5-19"></a>titlecolor <span class="ot">=</span> <span class="st">'#3a6f8f'</span> <span class="co"># RGB 58 111 143 (for font)</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a>fontcolor <span class="ot">=</span> <span class="st">'#414B56'</span>  <span class="co"># RGB 65 75 86</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a>top_left_chart_title_theme <span class="ot">=</span> <span class="cf">function</span>(<span class="at">font_size =</span> <span class="dv">18</span>, <span class="at">title_color =</span> titlecolor, <span class="at">font_color =</span> fontcolor) {</span>
+<span id="cb5-22"><a href="#cb5-22"></a>  ggplot2<span class="sc">::</span><span class="fu">theme</span>(<span class="at">plot.title =</span> ggplot2<span class="sc">::</span><span class="fu">element_text</span>(<span class="at">size =</span> font_size <span class="sc">+</span> <span class="dv">2</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">color =</span> titlecolor, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="dv">0</span>),</span>
+<span id="cb5-23"><a href="#cb5-23"></a>                 <span class="at">plot.subtitle =</span> ggplot2<span class="sc">::</span><span class="fu">element_text</span>(<span class="at">size =</span> font_size, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">color =</span> fontcolor, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="dv">0</span>),</span>
+<span id="cb5-24"><a href="#cb5-24"></a>                 <span class="at">plot.caption =</span> ggplot2<span class="sc">::</span><span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">'black'</span>, <span class="at">size =</span> font_size <span class="sc">-</span> <span class="dv">6</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="dv">0</span>),</span>
+<span id="cb5-25"><a href="#cb5-25"></a>                 <span class="at">plot.background =</span> ggplot2<span class="sc">::</span><span class="fu">element_blank</span>(),</span>
+<span id="cb5-26"><a href="#cb5-26"></a>                 <span class="at">panel.background =</span> ggplot2<span class="sc">::</span><span class="fu">element_blank</span>(),</span>
+<span id="cb5-27"><a href="#cb5-27"></a>                 <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> font_size <span class="sc">-</span> <span class="dv">4</span>),</span>
+<span id="cb5-28"><a href="#cb5-28"></a>                 <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> font_size)</span>
+<span id="cb5-29"><a href="#cb5-29"></a>  )</span>
+<span id="cb5-30"><a href="#cb5-30"></a>  }</span>
+<span id="cb5-31"><a href="#cb5-31"></a>}</span>
+<span id="cb5-32"><a href="#cb5-32"></a></span>
 <span id="cb5-33"><a href="#cb5-33"></a></span>
-<span id="cb5-34"><a href="#cb5-34"></a></span>
-<span id="cb5-35"><a href="#cb5-35"></a><span class="co"># Prepare data for charts -------------------------------------------------</span></span>
-<span id="cb5-36"><a href="#cb5-36"></a></span>
-<span id="cb5-37"><a href="#cb5-37"></a><span class="co"># Make date variable</span></span>
-<span id="cb5-38"><a href="#cb5-38"></a>df_cosine <span class="ot">&lt;-</span> df_cosine <span class="sc">%&gt;%</span></span>
-<span id="cb5-39"><a href="#cb5-39"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as.Date</span>(doc_id, <span class="at">format =</span> <span class="st">"%Y%m%d"</span>))</span>
-<span id="cb5-40"><a href="#cb5-40"></a></span>
-<span id="cb5-41"><a href="#cb5-41"></a><span class="co"># Make data long format</span></span>
-<span id="cb5-42"><a href="#cb5-42"></a>df_chart_cosine <span class="ot">&lt;-</span> df_cosine <span class="sc">%&gt;%</span></span>
-<span id="cb5-43"><a href="#cb5-43"></a>  <span class="fu">select</span>(<span class="sc">-</span>doc_id) <span class="sc">%&gt;%</span></span>
-<span id="cb5-44"><a href="#cb5-44"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(date), <span class="at">names_prefix =</span> <span class="st">"cosine_"</span>, <span class="at">values_to =</span> <span class="st">"similarity"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-45"><a href="#cb5-45"></a>  <span class="fu">mutate</span>( <span class="at">docs =</span> <span class="fu">case_when</span>(</span>
-<span id="cb5-46"><a href="#cb5-46"></a>    name <span class="sc">==</span> <span class="st">"min_sep"</span>  <span class="sc">~</span> <span class="st">"Minutes — SEPs"</span>,</span>
-<span id="cb5-47"><a href="#cb5-47"></a>    name <span class="sc">==</span> <span class="st">"min_beb"</span>  <span class="sc">~</span> <span class="st">"Minutes — Beige Book"</span>,</span>
-<span id="cb5-48"><a href="#cb5-48"></a>    name <span class="sc">==</span> <span class="st">"min_mov"</span>  <span class="sc">~</span> <span class="st">"Minutes — Movie Summaries"</span>,</span>
-<span id="cb5-49"><a href="#cb5-49"></a>    name <span class="sc">==</span> <span class="st">"sep_beb"</span>  <span class="sc">~</span> <span class="st">"SEPs — Beige Book"</span>,</span>
-<span id="cb5-50"><a href="#cb5-50"></a>    name <span class="sc">==</span> <span class="st">"sep_mov"</span>  <span class="sc">~</span> <span class="st">"SEPs — Movie Summaries"</span>,</span>
-<span id="cb5-51"><a href="#cb5-51"></a>    name <span class="sc">==</span> <span class="st">"beb_mov"</span>  <span class="sc">~</span> <span class="st">"Beige Book — Movie Summaries"</span></span>
-<span id="cb5-52"><a href="#cb5-52"></a>  )) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>name)</span>
+<span id="cb5-34"><a href="#cb5-34"></a><span class="co"># Prepare data for charts -------------------------------------------------</span></span>
+<span id="cb5-35"><a href="#cb5-35"></a></span>
+<span id="cb5-36"><a href="#cb5-36"></a><span class="co"># Make date variable</span></span>
+<span id="cb5-37"><a href="#cb5-37"></a>df_cosine <span class="ot">&lt;-</span> df_cosine <span class="sc">%&gt;%</span></span>
+<span id="cb5-38"><a href="#cb5-38"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as.Date</span>(doc_id, <span class="at">format =</span> <span class="st">"%Y%m%d"</span>))</span>
+<span id="cb5-39"><a href="#cb5-39"></a></span>
+<span id="cb5-40"><a href="#cb5-40"></a><span class="co"># Make data long format</span></span>
+<span id="cb5-41"><a href="#cb5-41"></a>df_chart_cosine <span class="ot">&lt;-</span> df_cosine <span class="sc">%&gt;%</span></span>
+<span id="cb5-42"><a href="#cb5-42"></a>  <span class="fu">select</span>(<span class="sc">-</span>doc_id) <span class="sc">%&gt;%</span></span>
+<span id="cb5-43"><a href="#cb5-43"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(date), <span class="at">names_prefix =</span> <span class="st">"cosine_"</span>, <span class="at">values_to =</span> <span class="st">"similarity"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-44"><a href="#cb5-44"></a>  <span class="fu">mutate</span>( <span class="at">docs =</span> <span class="fu">case_when</span>(</span>
+<span id="cb5-45"><a href="#cb5-45"></a>    name <span class="sc">==</span> <span class="st">"min_sep"</span>  <span class="sc">~</span> <span class="st">"Minutes — SEPs"</span>,</span>
+<span id="cb5-46"><a href="#cb5-46"></a>    name <span class="sc">==</span> <span class="st">"min_beb"</span>  <span class="sc">~</span> <span class="st">"Minutes — Beige Book"</span>,</span>
+<span id="cb5-47"><a href="#cb5-47"></a>    name <span class="sc">==</span> <span class="st">"min_mov"</span>  <span class="sc">~</span> <span class="st">"Minutes — Movie Summaries"</span>,</span>
+<span id="cb5-48"><a href="#cb5-48"></a>    name <span class="sc">==</span> <span class="st">"sep_beb"</span>  <span class="sc">~</span> <span class="st">"SEPs — Beige Book"</span>,</span>
+<span id="cb5-49"><a href="#cb5-49"></a>    name <span class="sc">==</span> <span class="st">"sep_mov"</span>  <span class="sc">~</span> <span class="st">"SEPs — Movie Summaries"</span>,</span>
+<span id="cb5-50"><a href="#cb5-50"></a>    name <span class="sc">==</span> <span class="st">"beb_mov"</span>  <span class="sc">~</span> <span class="st">"Beige Book — Movie Summaries"</span></span>
+<span id="cb5-51"><a href="#cb5-51"></a>  )) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>name)</span>
+<span id="cb5-52"><a href="#cb5-52"></a></span>
 <span id="cb5-53"><a href="#cb5-53"></a></span>
-<span id="cb5-54"><a href="#cb5-54"></a></span>
-<span id="cb5-55"><a href="#cb5-55"></a>short_fmt <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb5-56"><a href="#cb5-56"></a>  <span class="fu">sprintf</span>(<span class="st">"%3.2f"</span>,x)</span>
-<span id="cb5-57"><a href="#cb5-57"></a>}</span>
-<span id="cb5-58"><a href="#cb5-58"></a></span>
-<span id="cb5-59"><a href="#cb5-59"></a>date_fmt <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb5-60"><a href="#cb5-60"></a>  <span class="fu">format</span>(x,<span class="st">"%m/%d/%y"</span>)</span>
-<span id="cb5-61"><a href="#cb5-61"></a>}</span>
+<span id="cb5-54"><a href="#cb5-54"></a>short_fmt <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb5-55"><a href="#cb5-55"></a>  <span class="fu">sprintf</span>(<span class="st">"%3.2f"</span>,x)</span>
+<span id="cb5-56"><a href="#cb5-56"></a>}</span>
+<span id="cb5-57"><a href="#cb5-57"></a></span>
+<span id="cb5-58"><a href="#cb5-58"></a>date_fmt <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb5-59"><a href="#cb5-59"></a>  <span class="fu">format</span>(x,<span class="st">"%m/%d/%y"</span>)</span>
+<span id="cb5-60"><a href="#cb5-60"></a>}</span>
+<span id="cb5-61"><a href="#cb5-61"></a></span>
 <span id="cb5-62"><a href="#cb5-62"></a></span>
-<span id="cb5-63"><a href="#cb5-63"></a></span>
-<span id="cb5-64"><a href="#cb5-64"></a>dates <span class="ot">&lt;-</span> df_chart_cosine<span class="sc">$</span>date <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
-<span id="cb5-65"><a href="#cb5-65"></a></span>
-<span id="cb5-66"><a href="#cb5-66"></a></span>
-<span id="cb5-67"><a href="#cb5-67"></a><span class="co"># Cosine similarity -------------------------------------------------------</span></span>
-<span id="cb5-68"><a href="#cb5-68"></a></span>
-<span id="cb5-69"><a href="#cb5-69"></a>{</span>
-<span id="cb5-70"><a href="#cb5-70"></a>  </span>
-<span id="cb5-71"><a href="#cb5-71"></a>  p.cosine.fomc <span class="ot">&lt;-</span> df_chart_cosine <span class="sc">%&gt;%</span> </span>
-<span id="cb5-72"><a href="#cb5-72"></a>    <span class="fu">filter</span>( <span class="sc">!</span>stringr<span class="sc">::</span><span class="fu">str_detect</span>(docs,<span class="st">'Movie'</span>) ) <span class="sc">%&gt;%</span></span>
-<span id="cb5-73"><a href="#cb5-73"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> similarity, <span class="at">color =</span> docs)) <span class="sc">+</span></span>
-<span id="cb5-74"><a href="#cb5-74"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> docs),<span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb5-75"><a href="#cb5-75"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">group =</span> docs), <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb5-76"><a href="#cb5-76"></a>    <span class="fu">labs</span>(</span>
-<span id="cb5-77"><a href="#cb5-77"></a>      <span class="at">title =</span> <span class="st">"Semantic Similarity among the FOMC Minutes, Summary of Economic Projections, </span><span class="sc">\n</span><span class="st">and the Beige Book"</span>,</span>
-<span id="cb5-78"><a href="#cb5-78"></a>      <span class="at">subtitle =</span> <span class="st">"Cosine similarity between pairs of document embeddings"</span>,</span>
-<span id="cb5-79"><a href="#cb5-79"></a>      <span class="at">caption =</span> <span class="fu">paste0</span>(<span class="st">"Notes:"</span>, </span>
-<span id="cb5-80"><a href="#cb5-80"></a>                       <span class="st">"</span><span class="sc">\n</span><span class="st">• Document embeddings calculated with the Sentence-transformers library,"</span>,</span>
-<span id="cb5-81"><a href="#cb5-81"></a>                       <span class="st">"&lt;https://github.com/UKPLab/sentence-transformers&gt;."</span>,</span>
-<span id="cb5-82"><a href="#cb5-82"></a>                       <span class="st">"</span><span class="sc">\n</span><span class="st">• The Beige Book is released about two weeks before each FOMC meeting."</span>,</span>
-<span id="cb5-83"><a href="#cb5-83"></a>                       <span class="st">"</span><span class="sc">\n</span><span class="st">Sources:"</span>,</span>
-<span id="cb5-84"><a href="#cb5-84"></a>                       <span class="st">"</span><span class="sc">\n</span><span class="st">• Minutes and SEPs were collected from &lt;https://www.federalreserve.gov/monetarypolicy/fomc_historical.htm&gt;."</span>,</span>
-<span id="cb5-85"><a href="#cb5-85"></a>                       <span class="st">"</span><span class="sc">\n</span><span class="st">• Beige Books were collected from &lt;https://www.minneapolisfed.org/region-and-community/regional-economic-indicators/beige-book-archive&gt;."</span>,</span>
-<span id="cb5-86"><a href="#cb5-86"></a>                       <span class="st">"</span><span class="sc">\n</span><span class="st">• Movie summaries are for the movies that opened on the date of the FOMC meeting, "</span>,</span>
-<span id="cb5-87"><a href="#cb5-87"></a>                       <span class="st">" collected with the New York Times API &lt;https://developer.nytimes.com/&gt;."</span>),</span>
-<span id="cb5-88"><a href="#cb5-88"></a>      <span class="at">x =</span> <span class="st">"FOMC Meeting date"</span>,</span>
-<span id="cb5-89"><a href="#cb5-89"></a>      <span class="at">y =</span> <span class="st">""</span></span>
-<span id="cb5-90"><a href="#cb5-90"></a>    ) <span class="sc">+</span></span>
-<span id="cb5-91"><a href="#cb5-91"></a>    <span class="fu">scale_x_date</span>(<span class="at">breaks =</span> dates[<span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="dv">4</span>, <span class="at">to =</span> <span class="fu">NROW</span>(dates))], <span class="at">labels =</span> date_fmt) <span class="sc">+</span> </span>
-<span id="cb5-92"><a href="#cb5-92"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fl">0.0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>), </span>
-<span id="cb5-93"><a href="#cb5-93"></a>                       <span class="at">labels =</span> short_fmt, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb5-94"><a href="#cb5-94"></a>    <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb5-95"><a href="#cb5-95"></a>    <span class="fu">top_left_chart_title_theme</span>() <span class="sc">+</span></span>
-<span id="cb5-96"><a href="#cb5-96"></a>    <span class="fu">theme</span>(</span>
-<span id="cb5-97"><a href="#cb5-97"></a>      <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb5-98"><a href="#cb5-98"></a>      <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb5-99"><a href="#cb5-99"></a>      <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.35</span>),</span>
-<span id="cb5-100"><a href="#cb5-100"></a>      <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb5-101"><a href="#cb5-101"></a>    )</span>
-<span id="cb5-102"><a href="#cb5-102"></a>  </span>
-<span id="cb5-103"><a href="#cb5-103"></a>  <span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">'images/plot_cosine_fomc.png'</span>, <span class="at">plot =</span> p.cosine.fomc, <span class="at">width =</span> <span class="dv">16</span>, <span class="at">height =</span> <span class="dv">9</span>)</span>
-<span id="cb5-104"><a href="#cb5-104"></a></span>
-<span id="cb5-105"><a href="#cb5-105"></a>  p.cosine.movies <span class="ot">&lt;-</span> df_chart_cosine <span class="sc">%&gt;%</span> </span>
-<span id="cb5-106"><a href="#cb5-106"></a>    <span class="fu">filter</span>( stringr<span class="sc">::</span><span class="fu">str_detect</span>(docs,<span class="st">'Movie'</span>) ) <span class="sc">%&gt;%</span></span>
-<span id="cb5-107"><a href="#cb5-107"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> similarity, <span class="at">color =</span> docs)) <span class="sc">+</span></span>
-<span id="cb5-108"><a href="#cb5-108"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> docs),<span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb5-109"><a href="#cb5-109"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">group =</span> docs), <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb5-110"><a href="#cb5-110"></a>    <span class="fu">labs</span>(</span>
-<span id="cb5-111"><a href="#cb5-111"></a>      <span class="at">title =</span> <span class="st">"Semantic Similarity between the FOMC Minutes, Summary of Economic Projections, </span><span class="sc">\n</span><span class="st">the Beige Book, and Movie Summaries"</span>,</span>
-<span id="cb5-112"><a href="#cb5-112"></a>      <span class="at">subtitle =</span> <span class="st">"Cosine similarity between pairs of document embeddings"</span>,</span>
-<span id="cb5-113"><a href="#cb5-113"></a>      <span class="at">caption =</span> <span class="fu">paste0</span>(<span class="st">"Notes:"</span>, </span>
-<span id="cb5-114"><a href="#cb5-114"></a>                       <span class="st">"</span><span class="sc">\n</span><span class="st">• Document embeddings calculated with the Sentence-transformers library,"</span>,</span>
-<span id="cb5-115"><a href="#cb5-115"></a>                       <span class="st">"&lt;https://github.com/UKPLab/sentence-transformers&gt;."</span>,</span>
-<span id="cb5-116"><a href="#cb5-116"></a>                       <span class="st">"</span><span class="sc">\n</span><span class="st">• The Beige Book is released about two weeks before each FOMC meeting."</span>,</span>
-<span id="cb5-117"><a href="#cb5-117"></a>                       <span class="st">"</span><span class="sc">\n</span><span class="st">Sources:"</span>,</span>
-<span id="cb5-118"><a href="#cb5-118"></a>                       <span class="st">"</span><span class="sc">\n</span><span class="st">• Minutes and SEPs were collected from &lt;https://www.federalreserve.gov/monetarypolicy/fomc_historical.htm&gt;."</span>,</span>
-<span id="cb5-119"><a href="#cb5-119"></a>                       <span class="st">"</span><span class="sc">\n</span><span class="st">• Beige Books were collected from &lt;https://www.minneapolisfed.org/region-and-community/regional-economic-indicators/beige-book-archive&gt;."</span>,</span>
-<span id="cb5-120"><a href="#cb5-120"></a>                       <span class="st">"</span><span class="sc">\n</span><span class="st">• Movie summaries are for the movies that opened on the date of the FOMC meeting, "</span>,</span>
-<span id="cb5-121"><a href="#cb5-121"></a>                       <span class="st">" collected with the New York Times API &lt;https://developer.nytimes.com/&gt;."</span>),</span>
-<span id="cb5-122"><a href="#cb5-122"></a>      <span class="at">x =</span> <span class="st">"FOMC Meeting date"</span>,</span>
-<span id="cb5-123"><a href="#cb5-123"></a>      <span class="at">y =</span> <span class="st">""</span></span>
-<span id="cb5-124"><a href="#cb5-124"></a>    ) <span class="sc">+</span></span>
-<span id="cb5-125"><a href="#cb5-125"></a>    <span class="fu">scale_x_date</span>(<span class="at">breaks =</span> dates[<span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="dv">4</span>, <span class="at">to =</span> <span class="fu">NROW</span>(dates))], <span class="at">labels =</span> date_fmt) <span class="sc">+</span> </span>
-<span id="cb5-126"><a href="#cb5-126"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fl">0.0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>), </span>
-<span id="cb5-127"><a href="#cb5-127"></a>                       <span class="at">labels =</span> short_fmt, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb5-128"><a href="#cb5-128"></a>    <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb5-129"><a href="#cb5-129"></a>    <span class="fu">top_left_chart_title_theme</span>() <span class="sc">+</span></span>
-<span id="cb5-130"><a href="#cb5-130"></a>    <span class="fu">theme</span>(</span>
-<span id="cb5-131"><a href="#cb5-131"></a>      <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb5-132"><a href="#cb5-132"></a>      <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb5-133"><a href="#cb5-133"></a>      <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.8</span>),</span>
-<span id="cb5-134"><a href="#cb5-134"></a>      <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb5-135"><a href="#cb5-135"></a>    )</span>
-<span id="cb5-136"><a href="#cb5-136"></a>  </span>
-<span id="cb5-137"><a href="#cb5-137"></a>  <span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">'images/plot_cosine_movies.png'</span>, <span class="at">plot =</span> p.cosine.movies, <span class="at">width =</span> <span class="dv">16</span>, <span class="at">height =</span> <span class="dv">9</span>)</span>
-<span id="cb5-138"><a href="#cb5-138"></a>  </span>
-<span id="cb5-139"><a href="#cb5-139"></a>}</span>
-<span id="cb5-140"><a href="#cb5-140"></a></span>
-<span id="cb5-141"><a href="#cb5-141"></a></span>
-<span id="cb5-142"><a href="#cb5-142"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-63"><a href="#cb5-63"></a>dates <span class="ot">&lt;-</span> df_chart_cosine<span class="sc">$</span>date <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
+<span id="cb5-64"><a href="#cb5-64"></a></span>
+<span id="cb5-65"><a href="#cb5-65"></a><span class="co"># Labels</span></span>
+<span id="cb5-66"><a href="#cb5-66"></a>df_chart_cosine<span class="sc">$</span>docs <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_replace</span>(df_chart_cosine<span class="sc">$</span>docs, <span class="st">'e Summaries'</span>, <span class="st">'es'</span>)</span>
+<span id="cb5-67"><a href="#cb5-67"></a>df_chart_cosine <span class="ot">&lt;-</span> df_chart_cosine <span class="sc">%&gt;%</span> </span>
+<span id="cb5-68"><a href="#cb5-68"></a>  <span class="fu">group_by</span>(docs) <span class="sc">%&gt;%</span></span>
+<span id="cb5-69"><a href="#cb5-69"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-70"><a href="#cb5-70"></a>    <span class="at">label =</span> <span class="fu">ifelse</span>(date <span class="sc">==</span> <span class="fu">max</span>(date), docs, <span class="cn">NA_character_</span>)</span>
+<span id="cb5-71"><a href="#cb5-71"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb5-72"><a href="#cb5-72"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb5-73"><a href="#cb5-73"></a>  </span>
+<span id="cb5-74"><a href="#cb5-74"></a></span>
+<span id="cb5-75"><a href="#cb5-75"></a></span>
+<span id="cb5-76"><a href="#cb5-76"></a></span>
+<span id="cb5-77"><a href="#cb5-77"></a><span class="co"># Cosine similarity -------------------------------------------------------</span></span>
+<span id="cb5-78"><a href="#cb5-78"></a></span>
+<span id="cb5-79"><a href="#cb5-79"></a>{</span>
+<span id="cb5-80"><a href="#cb5-80"></a>  </span>
+<span id="cb5-81"><a href="#cb5-81"></a>  p.cosine.fomc <span class="ot">&lt;-</span> df_chart_cosine <span class="sc">%&gt;%</span> </span>
+<span id="cb5-82"><a href="#cb5-82"></a>    <span class="fu">filter</span>( <span class="sc">!</span>stringr<span class="sc">::</span><span class="fu">str_detect</span>(docs,<span class="st">'Movie'</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb5-83"><a href="#cb5-83"></a>  </span>
+<span id="cb5-84"><a href="#cb5-84"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> similarity, <span class="at">color =</span> docs)) <span class="sc">+</span></span>
+<span id="cb5-85"><a href="#cb5-85"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.50</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb5-86"><a href="#cb5-86"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> docs),<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb5-87"><a href="#cb5-87"></a>    <span class="fu">geom_label_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> label), </span>
+<span id="cb5-88"><a href="#cb5-88"></a>                     <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.5</span>,</span>
+<span id="cb5-89"><a href="#cb5-89"></a>                     <span class="at">fontface =</span> <span class="dv">2</span>,</span>
+<span id="cb5-90"><a href="#cb5-90"></a>                     <span class="at">label.size =</span> <span class="cn">NA</span>,</span>
+<span id="cb5-91"><a href="#cb5-91"></a>                     <span class="at">size =</span> <span class="dv">5</span>,</span>
+<span id="cb5-92"><a href="#cb5-92"></a>                     <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb5-93"><a href="#cb5-93"></a>    <span class="fu">labs</span>(</span>
+<span id="cb5-94"><a href="#cb5-94"></a>      <span class="at">title =</span> <span class="st">"Semantic Similarity among the FOMC Minutes, Summary of Economic Projections, </span><span class="sc">\n</span><span class="st">and the Beige Book"</span>,</span>
+<span id="cb5-95"><a href="#cb5-95"></a>      <span class="at">subtitle =</span> <span class="st">"Cosine similarity between pairs of document embeddings"</span>,</span>
+<span id="cb5-96"><a href="#cb5-96"></a>      <span class="at">x =</span> <span class="st">""</span>,</span>
+<span id="cb5-97"><a href="#cb5-97"></a>      <span class="at">y =</span> <span class="st">""</span></span>
+<span id="cb5-98"><a href="#cb5-98"></a>    ) <span class="sc">+</span></span>
+<span id="cb5-99"><a href="#cb5-99"></a>    <span class="fu">scale_x_date</span>(<span class="at">breaks =</span> dates[<span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="dv">4</span>, <span class="at">to =</span> <span class="fu">NROW</span>(dates))], </span>
+<span id="cb5-100"><a href="#cb5-100"></a>                 <span class="at">labels =</span> date_fmt,</span>
+<span id="cb5-101"><a href="#cb5-101"></a>                 <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>)) )<span class="sc">+</span> </span>
+<span id="cb5-102"><a href="#cb5-102"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fl">0.0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>), </span>
+<span id="cb5-103"><a href="#cb5-103"></a>                       <span class="at">labels =</span> short_fmt, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb5-104"><a href="#cb5-104"></a>    <span class="fu">scale_colour_tableau</span>(<span class="at">palette =</span> <span class="st">"Tableau 10"</span>) <span class="sc">+</span> </span>
+<span id="cb5-105"><a href="#cb5-105"></a>    <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb5-106"><a href="#cb5-106"></a>    <span class="fu">top_left_chart_title_theme</span>() <span class="sc">+</span></span>
+<span id="cb5-107"><a href="#cb5-107"></a>    <span class="fu">theme</span>(</span>
+<span id="cb5-108"><a href="#cb5-108"></a>      <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-109"><a href="#cb5-109"></a>      <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>() ,</span>
+<span id="cb5-110"><a href="#cb5-110"></a>      <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>() ,</span>
+<span id="cb5-111"><a href="#cb5-111"></a>      <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">linetype =</span> <span class="st">"dashed"</span>),</span>
+<span id="cb5-112"><a href="#cb5-112"></a>      <span class="at">panel.grid.minor.y =</span> <span class="fu">element_blank</span>() ,</span>
+<span id="cb5-113"><a href="#cb5-113"></a>      <span class="at">legend.position =</span> <span class="st">"none"</span></span>
+<span id="cb5-114"><a href="#cb5-114"></a>    ) </span>
+<span id="cb5-115"><a href="#cb5-115"></a>  </span>
+<span id="cb5-116"><a href="#cb5-116"></a>  <span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">'images/plot_cosine_fomc.png'</span>, <span class="at">plot =</span> p.cosine.fomc, <span class="at">width =</span> <span class="dv">16</span>, <span class="at">height =</span> <span class="dv">9</span>)</span>
+<span id="cb5-117"><a href="#cb5-117"></a></span>
+<span id="cb5-118"><a href="#cb5-118"></a>  p.cosine.movies <span class="ot">&lt;-</span> df_chart_cosine <span class="sc">%&gt;%</span> </span>
+<span id="cb5-119"><a href="#cb5-119"></a>    <span class="fu">filter</span>( stringr<span class="sc">::</span><span class="fu">str_detect</span>(docs,<span class="st">'Movie'</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb5-120"><a href="#cb5-120"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> similarity, <span class="at">color =</span> docs)) <span class="sc">+</span></span>
+<span id="cb5-121"><a href="#cb5-121"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.50</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb5-122"><a href="#cb5-122"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> docs),<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb5-123"><a href="#cb5-123"></a>    <span class="fu">geom_label_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> label), </span>
+<span id="cb5-124"><a href="#cb5-124"></a>                     <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.5</span>,</span>
+<span id="cb5-125"><a href="#cb5-125"></a>                     <span class="at">fontface =</span> <span class="dv">2</span>,</span>
+<span id="cb5-126"><a href="#cb5-126"></a>                     <span class="at">label.size =</span> <span class="cn">NA</span>,</span>
+<span id="cb5-127"><a href="#cb5-127"></a>                     <span class="at">size =</span> <span class="dv">5</span>,</span>
+<span id="cb5-128"><a href="#cb5-128"></a>                     <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb5-129"><a href="#cb5-129"></a>    <span class="fu">labs</span>(</span>
+<span id="cb5-130"><a href="#cb5-130"></a>      <span class="at">title =</span> <span class="st">"Semantic Similarity between the FOMC Minutes, Summary of Economic Projections, </span><span class="sc">\n</span><span class="st">the Beige Book, and Movie Summaries"</span>,</span>
+<span id="cb5-131"><a href="#cb5-131"></a>      <span class="at">subtitle =</span> <span class="st">"Cosine similarity between pairs of document embeddings"</span>,</span>
+<span id="cb5-132"><a href="#cb5-132"></a>      <span class="at">x =</span> <span class="st">""</span>,</span>
+<span id="cb5-133"><a href="#cb5-133"></a>      <span class="at">y =</span> <span class="st">""</span></span>
+<span id="cb5-134"><a href="#cb5-134"></a>    ) <span class="sc">+</span></span>
+<span id="cb5-135"><a href="#cb5-135"></a>    <span class="fu">scale_x_date</span>(<span class="at">breaks =</span> dates[<span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="dv">4</span>, <span class="at">to =</span> <span class="fu">NROW</span>(dates))], </span>
+<span id="cb5-136"><a href="#cb5-136"></a>                 <span class="at">labels =</span> date_fmt,</span>
+<span id="cb5-137"><a href="#cb5-137"></a>                 <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>)) ) <span class="sc">+</span> </span>
+<span id="cb5-138"><a href="#cb5-138"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fl">0.0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>), </span>
+<span id="cb5-139"><a href="#cb5-139"></a>                       <span class="at">labels =</span> short_fmt, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb5-140"><a href="#cb5-140"></a>    <span class="fu">scale_colour_tableau</span>(<span class="at">palette =</span> <span class="st">"Tableau 10"</span>) <span class="sc">+</span> </span>
+<span id="cb5-141"><a href="#cb5-141"></a>    <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb5-142"><a href="#cb5-142"></a>    <span class="fu">top_left_chart_title_theme</span>() <span class="sc">+</span></span>
+<span id="cb5-143"><a href="#cb5-143"></a>    <span class="fu">theme</span>(</span>
+<span id="cb5-144"><a href="#cb5-144"></a>      <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-145"><a href="#cb5-145"></a>      <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>() ,</span>
+<span id="cb5-146"><a href="#cb5-146"></a>      <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>() ,</span>
+<span id="cb5-147"><a href="#cb5-147"></a>      <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">linetype =</span> <span class="st">"dashed"</span>),</span>
+<span id="cb5-148"><a href="#cb5-148"></a>      <span class="at">panel.grid.minor.y =</span> <span class="fu">element_blank</span>() ,</span>
+<span id="cb5-149"><a href="#cb5-149"></a>      <span class="at">legend.position =</span> <span class="st">"none"</span></span>
+<span id="cb5-150"><a href="#cb5-150"></a>    ) </span>
+<span id="cb5-151"><a href="#cb5-151"></a>  </span>
+<span id="cb5-152"><a href="#cb5-152"></a>  <span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">'images/plot_cosine_movies.png'</span>, <span class="at">plot =</span> p.cosine.movies, <span class="at">width =</span> <span class="dv">16</span>, <span class="at">height =</span> <span class="dv">9</span>)</span>
+<span id="cb5-153"><a href="#cb5-153"></a>  </span>
+<span id="cb5-154"><a href="#cb5-154"></a>}</span>
+<span id="cb5-155"><a href="#cb5-155"></a></span>
+<span id="cb5-156"><a href="#cb5-156"></a></span>
+<span id="cb5-157"><a href="#cb5-157"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="results-fomc" class="slide level2">
 <h2>Results, FOMC</h2>
@@ -1321,16 +1472,12 @@ the <span style="color: firebrick;"><strong>Summary of Economic Projections</str
 <section id="to-do" class="slide level2">
 <h2>To Do</h2>
 <ol type="1">
-<li>Clean up code for presentation</li>
-<li>Add more about the FOMC and monetary policy</li>
-<li>Generate (Nicer) Charts with main results</li>
-<li>Generate (Nicer) Charts with robustness results</li>
 <li>Add Conclusions</li>
 </ol>
 <div class="footer footer-default">
 <p><a href="https://rubenhm.org/talks/fedcomms">rubenhm.org/talks/fedcomms</a></p>
 </div>
-</section>
+</section></section>
     </div>
   </div>
 
@@ -1488,7 +1635,7 @@ the <span style="color: firebrick;"><strong>Summary of Economic Projections</str
         hideCursorTime: 5000,
 
         // Opens links in an iframe preview overlay
-        previewLinks: true,
+        previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
         transition: 'none',
@@ -1511,7 +1658,7 @@ the <span style="color: firebrick;"><strong>Summary of Economic Projections</str
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1050,
+        width: 1200,
 
         height: 700,
 

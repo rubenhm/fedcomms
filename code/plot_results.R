@@ -1,12 +1,13 @@
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(ggrepel)
+library(ggthemes)
 library(reticulate)
 
 
 # Select python environment
 use_condaenv(condaenv = 'base', conda = 'C:\\Users\\ruben\\anaconda3\\Scripts\\conda.exe')
-#use_condaenv('gcloud')
 
 # Read pickle files
 pd <- import("pandas")
@@ -23,8 +24,6 @@ top_left_chart_title_theme = function(font_size = 18, title_color = titlecolor, 
                  plot.caption = ggplot2::element_text(color = 'black', size = font_size - 6, hjust = 0, vjust = 0),
                  plot.background = ggplot2::element_blank(),
                  panel.background = ggplot2::element_blank(),
-                 legend.background = ggplot2::element_blank(),
-                 legend.text = element_text(size = font_size),
                  axis.text.x = element_text(size = font_size - 4),
                  axis.text.y = element_text(size = font_size)
   )
@@ -63,6 +62,17 @@ date_fmt <- function(x) {
 
 dates <- df_chart_cosine$date %>% unique()
 
+# Labels
+df_chart_cosine$docs <- stringr::str_replace(df_chart_cosine$docs, 'e Summaries', 'es')
+df_chart_cosine <- df_chart_cosine %>% 
+  group_by(docs) %>%
+  mutate(
+    label = ifelse(date == max(date), docs, NA_character_)
+  ) %>%
+  ungroup()
+  
+
+
 
 # Cosine similarity -------------------------------------------------------
 
@@ -70,69 +80,74 @@ dates <- df_chart_cosine$date %>% unique()
   
   p.cosine.fomc <- df_chart_cosine %>% 
     filter( !stringr::str_detect(docs,'Movie') ) %>%
+  
     ggplot(aes(x = date, y = similarity, color = docs)) +
-    geom_line(aes(group = docs),size = 1.2) +
-    geom_point(aes(group = docs), size = 2) +
+    geom_hline(yintercept = 0.50, linetype = "dashed", color = "black", size = 1.5) +
+    geom_line(aes(group = docs),size = 3) +
+    geom_label_repel(aes(label = label), 
+                     hjust = -0.5,
+                     fontface = 2,
+                     label.size = NA,
+                     size = 5,
+                     na.rm = TRUE) +
     labs(
       title = "Semantic Similarity among the FOMC Minutes, Summary of Economic Projections, \nand the Beige Book",
       subtitle = "Cosine similarity between pairs of document embeddings",
-      caption = paste0("Notes:", 
-                       "\n• Document embeddings calculated with the Sentence-transformers library,",
-                       "<https://github.com/UKPLab/sentence-transformers>.",
-                       "\n• The Beige Book is released about two weeks before each FOMC meeting.",
-                       "\nSources:",
-                       "\n• Minutes and SEPs were collected from <https://www.federalreserve.gov/monetarypolicy/fomc_historical.htm>.",
-                       "\n• Beige Books were collected from <https://www.minneapolisfed.org/region-and-community/regional-economic-indicators/beige-book-archive>.",
-                       "\n• Movie summaries are for the movies that opened on the date of the FOMC meeting, ",
-                       " collected with the New York Times API <https://developer.nytimes.com/>."),
-      x = "FOMC Meeting date",
+      x = "",
       y = ""
     ) +
-    scale_x_date(breaks = dates[seq(from = 1, by = 4, to = NROW(dates))], labels = date_fmt) + 
+    scale_x_date(breaks = dates[seq(from = 1, by = 4, to = NROW(dates))], 
+                 labels = date_fmt,
+                 expand = expansion(mult = c(0, 0.2)) )+ 
     scale_y_continuous(breaks = seq(from = 0.0, to = 1, by = 0.1), 
-                       labels = short_fmt, limits = c(0,1)) +
+                       labels = short_fmt, limits = c(0, 1)) +
+    scale_colour_tableau(palette = "Tableau 10") + 
     theme_light() +
     top_left_chart_title_theme() +
     theme(
       panel.border = element_blank(),
-      legend.title = element_blank(),
-      legend.position = c(0.8, 0.35),
-      panel.grid.minor.x = element_blank()
-    )
+      panel.grid.major.x = element_blank() ,
+      panel.grid.minor.x = element_blank() ,
+      panel.grid.major.y = element_line(linetype = "dashed"),
+      panel.grid.minor.y = element_blank() ,
+      legend.position = "none"
+    ) 
   
   ggsave(filename = 'images/plot_cosine_fomc.png', plot = p.cosine.fomc, width = 16, height = 9)
 
   p.cosine.movies <- df_chart_cosine %>% 
     filter( stringr::str_detect(docs,'Movie') ) %>%
     ggplot(aes(x = date, y = similarity, color = docs)) +
-    geom_line(aes(group = docs),size = 1.2) +
-    geom_point(aes(group = docs), size = 2) +
+    geom_hline(yintercept = 0.50, linetype = "dashed", color = "black", size = 1.5) +
+    geom_line(aes(group = docs),size = 3) +
+    geom_label_repel(aes(label = label), 
+                     hjust = -0.5,
+                     fontface = 2,
+                     label.size = NA,
+                     size = 5,
+                     na.rm = TRUE) +
     labs(
       title = "Semantic Similarity between the FOMC Minutes, Summary of Economic Projections, \nthe Beige Book, and Movie Summaries",
       subtitle = "Cosine similarity between pairs of document embeddings",
-      caption = paste0("Notes:", 
-                       "\n• Document embeddings calculated with the Sentence-transformers library,",
-                       "<https://github.com/UKPLab/sentence-transformers>.",
-                       "\n• The Beige Book is released about two weeks before each FOMC meeting.",
-                       "\nSources:",
-                       "\n• Minutes and SEPs were collected from <https://www.federalreserve.gov/monetarypolicy/fomc_historical.htm>.",
-                       "\n• Beige Books were collected from <https://www.minneapolisfed.org/region-and-community/regional-economic-indicators/beige-book-archive>.",
-                       "\n• Movie summaries are for the movies that opened on the date of the FOMC meeting, ",
-                       " collected with the New York Times API <https://developer.nytimes.com/>."),
-      x = "FOMC Meeting date",
+      x = "",
       y = ""
     ) +
-    scale_x_date(breaks = dates[seq(from = 1, by = 4, to = NROW(dates))], labels = date_fmt) + 
+    scale_x_date(breaks = dates[seq(from = 1, by = 4, to = NROW(dates))], 
+                 labels = date_fmt,
+                 expand = expansion(mult = c(0, 0.2)) ) + 
     scale_y_continuous(breaks = seq(from = 0.0, to = 1, by = 0.1), 
                        labels = short_fmt, limits = c(0,1)) +
+    scale_colour_tableau(palette = "Tableau 10") + 
     theme_light() +
     top_left_chart_title_theme() +
     theme(
       panel.border = element_blank(),
-      legend.title = element_blank(),
-      legend.position = c(0.8, 0.8),
-      panel.grid.minor.x = element_blank()
-    )
+      panel.grid.major.x = element_blank() ,
+      panel.grid.minor.x = element_blank() ,
+      panel.grid.major.y = element_line(linetype = "dashed"),
+      panel.grid.minor.y = element_blank() ,
+      legend.position = "none"
+    ) 
   
   ggsave(filename = 'images/plot_cosine_movies.png', plot = p.cosine.movies, width = 16, height = 9)
   
