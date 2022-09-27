@@ -8,6 +8,7 @@ format:
   revealjs:
     footer: "[rubenhm.org/talks/fedcomms](https://rubenhm.org/talks/fedcomms)"
     scrollable: false
+    controls: true
     code-fold: true
     css: custom.css
     highlight-style: solarized
@@ -15,12 +16,13 @@ format:
       boardmarker-width: 5
     show-slide-number: all
     slide-number: c/t
-    width: 1200
+    width: 1100
     revealjs-plugins:
       - reveald3
 from: markdown+emoji
 filters:
   - pandoc/include-code-files.lua
+bibliography: bibliography.bib
 ---
 
 ## This talk
@@ -49,6 +51,9 @@ The Fed produces a lot of communications:
 + Payments systems
 + Economic research
 
+:::{.notes}
+Communications are written publications, press conferences, interviews, or speeches.
+:::
 
 ##  Monetary Policy Communications
 
@@ -56,17 +61,22 @@ The Fed produces a lot of communications:
 - Post-meeting press conference
 - Semiannual Report to Congress by Fed Chair
 - [Minutes of the FOMC meeting]{.fragment fragment-index=3 .highlight-red}
-- [Summary of Economic Projections (SEPs)]{.fragment fragment-index=3 .highlight-red}
+- [Summary of Economic Projections (SEP)]{.fragment fragment-index=3 .highlight-red}
 - Congressional testimony by Fed governors
 - Speeches by Fed governors
   
+:::{.notes}
++ The Fed Chair and Vice Chair are governors.
+:::
+
+
 ## Other Fed Communications  
   
 - [The Beige Book](https://www.federalreserve.gov/monetarypolicy/beige-book-default.htm)
 - Speeches by regional bank presidents   
   <https://www.stlouisfed.org/fomcspeak>
 
-## SEPs: The Dotplot
+## SEP: The Dotplot
 
 <style>
     #dotplot { width: 1600px; height: 600px; position:relative; left:15px; top:0px; }
@@ -75,7 +85,7 @@ The Fed produces a lot of communications:
 
 <div id="dotplot" class="fig-container" data-file="d3charts/dotplot.html" width="100%"></div>
 
-## SEPs: PCE Inflation
+## SEP: PCE Inflation
 
 <style>
     #pce { width: 1600px; height: 600px; position:relative; left:15px; top:0px; }
@@ -89,13 +99,13 @@ The Fed produces a lot of communications:
 ## FOMC Communications
 
 -   FOMC communications are drafted strategically
--   The Fed takes into account market reactions
+    -   The Fed takes into account market reactions
 -   Tension between:
     -   promoting [**transparency**]{.highlight-red}
     -   minimizing [**disruptions**]{.highlight-red}
 -   Goals:
-    + Convey that policies are _**data-driven**_
-    + To be _'N-sync_ with the markets
+    +   To be _'N-sync_ with the markets  
+       (conveying that policies are _**data-driven**_)
 
 
 ## Fed Communications
@@ -132,7 +142,7 @@ Part II: <br>Numerical Exercise
 -   The similarity measures provide a notion of the\
     **correlation of ideas** across the two documents
 
-## Minutes and SEPs {.column-page}
+## Minutes and SEP {.column-page}
 
 <iframe src="attachments/fomcminutes20180613.pdf" width="150%" height="80%"></iframe>
 
@@ -143,12 +153,26 @@ Part II: <br>Numerical Exercise
 -   Compare with **movie reviews**
 
 
+
 ## Strategy
 
-+ Use _word embeddings_ of the texts:
-  - [SentenceTransformers](https://www.sbert.net/)
++ Use _sentence embeddings_ of the documents:
+  - [SentenceTransformers](https://www.sbert.net/)  [[@reimers-2019-sentence-bert]]{style="font-size:0.75em;"}
   - [PyTorch](https://pytorch.org/) with CUDA support
 
++ Embedding
+  - Mapping of sentences to high-dimensional vectors  
+    in an inner product space
+
+
+
+:::{#refs}
+
+:::
+
+:::{.notes}
++ These are python libraries.
+:::
 
 ## Measures of similarity
 
@@ -198,7 +222,7 @@ Part II: <br>Numerical Exercise
 
 ## Download data (`R`)
 
--   [FOMC Minutes and SEPs](https://www.federalreserve.gov/monetarypolicy/fomchistorical2010.htm) available as `PDF` files
+-   [FOMC Minutes and SEP](https://www.federalreserve.gov/monetarypolicy/fomchistorical2010.htm) available as `PDF` files
 -   [Beige Book reports](https://www.minneapolisfed.org/region-and-community/regional-economic-indicators/beige-book-archive) available as `HTML` files
 -   [Movie reviews](https://developer.nytimes.com/docs/movie-reviews-api/1/overview) available from the NYT API as `JSON` files
 
@@ -207,7 +231,7 @@ Part II: <br>Numerical Exercise
 ```{.r include="code/download_and_process_movies.R"}
 ```
 
-## Download Minutes and SEPs (`R`) 
+## Download Minutes and SEP (`R`) 
 
 ``` {.r include="code/download_fomc_minutes.R"}
 ```
@@ -233,14 +257,9 @@ Part II: <br>Numerical Exercise
 
 ## Process OCR results (`python`) {.scrollable}
 
-<style>
-    #wrap { width: 1620px; height: 1000px; padding: 0; position:relative; left:-100px; top:0px; overflow: hidden; }
-    #frame { width: 1620px; height: 375px; position:relative; left:-65px; top:0px; }
-    #frame { -ms-zoom: 1.5; -moz-transform: scale(1.5); -moz-transform-origin: 0px 0; -o-transform: scale(1.5); -o-transform-origin: 0 0; -webkit-transform: scale(1.5); -webkit-transform-origin: 0 0; }
-</style>
 
 <div>
-<iframe id="frame" src="code/Process_ocr_results.html">
+<iframe class="frame-ipynb" src="code/Process_ocr_results.html">
 </iframe>
 </div>
 
@@ -257,14 +276,9 @@ Part II: <br>Numerical Exercise
 <!-- https://stackoverflow.com/questions/166160/how-can-i-scale-the-content-of-an-iframe -->
 
 
-<style>
-    #wrap { width: 1620px; height: 1000px; padding: 0; position:relative; left:-100px; top:0px; overflow: hidden; }
-    #frame { width: 1620px; height: 375px; position:relative; left:-65px; top:0px; }
-    #frame { -ms-zoom: 1.5; -moz-transform: scale(1.5); -moz-transform-origin: 0px 0; -o-transform: scale(1.5); -o-transform-origin: 0 0; -webkit-transform: scale(1.5); -webkit-transform-origin: 0 0; }
-</style>
 
 <div>
-<iframe id="frame" src="code/Calculate_similarities.html">
+<iframe class="frame-ipynb" src="code/Calculate_similarities.html">
 </iframe>
 </div>
 
@@ -286,11 +300,42 @@ Part II: <br>Numerical Exercise
 
 ![](images/plot_cosine_movies.png){.absolute top="10%" left="0%" width="100%"}
 
+## Discussion 
 
 
-## To Do
++ Minutes and SEP are very _similar_
++ The Beige Book is more similar to the Minutes than to the SEPs:
+  - The Beige Book reports on **current conditions**
+  - The Minutes discusses both **current conditions** and **the outlook**
+  - The SEP discusses only **forecasts** (i.e. the outlook)
 
 
-1. Add Conclusions
+## Discussion (contd)
+
+The Beige Book changed format in 2017
+
+- More concise
+- More standardized
+- Similar themes as the FOMC meeting
+- Less colloquial 
 
 
+#
+
+:::{style="text-align:left; font-size:100px; font-weight: bold; margin-top:100px;"}
+Conclusion
+:::
+
+## Take aways
+
++ The Minutes and SEP are different animals
+  + The SEP is a complex document 
+  + The Minutes are more readable
++ It is interesting they are _semantically similar_
+  + But perhaps not surprising
+
+## Additional applications
+
+- banking and finance-specific embeddings 
+- financial news and forecasting
+- sentiment analysis of financial reports

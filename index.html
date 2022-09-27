@@ -87,6 +87,25 @@
     code span.va { color: #268bd2; } /* Variable */
     code span.vs { color: #2aa198; } /* VerbatimString */
     code span.wa { color: #cb4b16; } /* Warning */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
   </style>
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto.css" id="theme">
   <link rel="stylesheet" href="custom.css">
@@ -419,6 +438,19 @@
 <li>Payments systems</li>
 <li>Economic research</li>
 </ul>
+<aside class="notes">
+<p>Communications are written publications, press conferences, interviews, or speeches.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="monetary-policy-communications" class="slide level2">
 <h2>Monetary Policy Communications</h2>
@@ -427,10 +459,25 @@
 <li>Post-meeting press conference</li>
 <li>Semiannual Report to Congress by Fed Chair</li>
 <li><span class="fragment highlight-red" data-fragment-index="3">Minutes of the FOMC meeting</span></li>
-<li><span class="fragment highlight-red" data-fragment-index="3">Summary of Economic Projections (SEPs)</span></li>
+<li><span class="fragment highlight-red" data-fragment-index="3">Summary of Economic Projections (SEP)</span></li>
 <li>Congressional testimony by Fed governors</li>
 <li>Speeches by Fed governors</li>
 </ul>
+<aside class="notes">
+<ul>
+<li>The Fed Chair and Vice Chair are governors.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="other-fed-communications" class="slide level2">
 <h2>Other Fed Communications</h2>
@@ -440,8 +487,8 @@
 <a href="https://www.stlouisfed.org/fomcspeak" class="uri">https://www.stlouisfed.org/fomcspeak</a></li>
 </ul>
 </section>
-<section id="seps-the-dotplot" class="slide level2">
-<h2>SEPs: The Dotplot</h2>
+<section id="sep-the-dotplot" class="slide level2">
+<h2>SEP: The Dotplot</h2>
 <style>
     #dotplot { width: 1600px; height: 600px; position:relative; left:15px; top:0px; }
     #dotplot { -ms-zoom: 1.3; -moz-transform: scale(1.3); -moz-transform-origin: 0px 0; -o-transform: scale(1.3); -o-transform-origin: 0 0; -webkit-transform: scale(1.3); -webkit-transform-origin: 0 0; }
@@ -450,8 +497,8 @@
 
 </div>
 </section>
-<section id="seps-pce-inflation" class="slide level2">
-<h2>SEPs: PCE Inflation</h2>
+<section id="sep-pce-inflation" class="slide level2">
+<h2>SEP: PCE Inflation</h2>
 <style>
     #pce { width: 1600px; height: 600px; position:relative; left:15px; top:0px; }
     #pce { -ms-zoom: 1.3; -moz-transform: scale(1.3); -moz-transform-origin: 0px 0; -o-transform: scale(1.3); -o-transform-origin: 0 0; -webkit-transform: scale(1.3); -webkit-transform-origin: 0 0; }
@@ -463,8 +510,10 @@
 <section id="fomc-communications" class="slide level2">
 <h2>FOMC Communications</h2>
 <ul>
-<li>FOMC communications are drafted strategically</li>
+<li>FOMC communications are drafted strategically
+<ul>
 <li>The Fed takes into account market reactions</li>
+</ul></li>
 <li>Tension between:
 <ul>
 <li>promoting <span class="highlight-red"><strong>transparency</strong></span></li>
@@ -472,8 +521,8 @@
 </ul></li>
 <li>Goals:
 <ul>
-<li>Convey that policies are <em><strong>data-driven</strong></em></li>
-<li>To be <em>’N-sync</em> with the markets</li>
+<li>To be <em>’N-sync</em> with the markets<br>
+(conveying that policies are <em><strong>data-driven</strong></em>)</li>
 </ul></li>
 </ul>
 </section>
@@ -514,8 +563,8 @@ reported in the <span style="color: firebrick;"><strong>Summary of Economic Proj
 <strong>correlation of ideas</strong> across the two documents</li>
 </ul>
 </section>
-<section id="minutes-and-seps" class="slide level2 column-page">
-<h2>Minutes and SEPs</h2>
+<section id="minutes-and-sep" class="slide level2 column-page">
+<h2>Minutes and SEP</h2>
 <iframe src="attachments/fomcminutes20180613.pdf" width="150%" height="80%">
 </iframe>
 </section>
@@ -526,15 +575,40 @@ reported in the <span style="color: firebrick;"><strong>Summary of Economic Proj
 <li>Compare with <strong>movie reviews</strong></li>
 </ul>
 </section>
-<section id="strategy" class="slide level2">
+<section id="strategy" class="slide level2 smaller scrollable">
 <h2>Strategy</h2>
 <ul>
-<li>Use <em>word embeddings</em> of the texts:
+<li>Use <em>sentence embeddings</em> of the documents:
 <ul>
-<li><a href="https://www.sbert.net/">SentenceTransformers</a></li>
+<li><a href="https://www.sbert.net/">SentenceTransformers</a> <span style="font-size:0.75em;"><span class="citation" data-cites="reimers-2019-sentence-bert">(<a href="#/ref-reimers-2019-sentence-bert" role="doc-biblioref" onclick="return false;">Reimers and Gurevych 2019</a>)</span></span></li>
 <li><a href="https://pytorch.org/">PyTorch</a> with CUDA support</li>
 </ul></li>
+<li>Embedding
+<ul>
+<li>Mapping of sentences to high-dimensional vectors<br>
+in an inner product space</li>
+</ul></li>
 </ul>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-reimers-2019-sentence-bert" class="csl-entry" role="doc-biblioentry">
+Reimers, Nils, and Iryna Gurevych. 2019. <span>“Sentence-BERT: Sentence Embeddings Using Siamese BERT-Networks.”</span> In <em>Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing</em>. Association for Computational Linguistics. <a href="https://arxiv.org/abs/1908.10084">https://arxiv.org/abs/1908.10084</a>.
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>These are python libraries.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="measures-of-similarity" class="slide level2">
 <h2>Measures of similarity</h2>
@@ -576,7 +650,7 @@ reported in the <span style="color: firebrick;"><strong>Summary of Economic Proj
 <section id="download-data-r" class="slide level2">
 <h2>Download data (<code>R</code>)</h2>
 <ul>
-<li><a href="https://www.federalreserve.gov/monetarypolicy/fomchistorical2010.htm">FOMC Minutes and SEPs</a> available as <code>PDF</code> files</li>
+<li><a href="https://www.federalreserve.gov/monetarypolicy/fomchistorical2010.htm">FOMC Minutes and SEP</a> available as <code>PDF</code> files</li>
 <li><a href="https://www.minneapolisfed.org/region-and-community/regional-economic-indicators/beige-book-archive">Beige Book reports</a> available as <code>HTML</code> files</li>
 <li><a href="https://developer.nytimes.com/docs/movie-reviews-api/1/overview">Movie reviews</a> available from the NYT API as <code>JSON</code> files</li>
 </ul>
@@ -740,8 +814,8 @@ reported in the <span style="color: firebrick;"><strong>Summary of Economic Proj
 <span id="cb1-155"><a href="#cb1-155"></a><span class="fu">py_save_object</span>(sent_movies, <span class="at">filename =</span> <span class="st">'data/data-gen/sent_movies.p'</span>)</span>
 <span id="cb1-156"><a href="#cb1-156"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="download-minutes-and-seps-r" class="slide level2">
-<h2>Download Minutes and SEPs (<code>R</code>)</h2>
+<section id="download-minutes-and-sep-r" class="slide level2">
+<h2>Download Minutes and SEP (<code>R</code>)</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Download FOMC documents</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
 <span id="cb2-3"><a href="#cb2-3"></a><span class="fu">library</span>(httr)</span>
@@ -922,13 +996,8 @@ reported in the <span style="color: firebrick;"><strong>Summary of Economic Proj
 </section>
 <section id="process-ocr-results-python-1" class="slide level2 scrollable">
 <h2>Process OCR results (<code>python</code>)</h2>
-<style>
-    #wrap { width: 1620px; height: 1000px; padding: 0; position:relative; left:-100px; top:0px; overflow: hidden; }
-    #frame { width: 1620px; height: 375px; position:relative; left:-65px; top:0px; }
-    #frame { -ms-zoom: 1.5; -moz-transform: scale(1.5); -moz-transform-origin: 0px 0; -o-transform: scale(1.5); -o-transform-origin: 0 0; -webkit-transform: scale(1.5); -webkit-transform-origin: 0 0; }
-</style>
 <div>
-<iframe id="frame" src="code/Process_ocr_results.html">
+<iframe class="frame-ipynb" src="code/Process_ocr_results.html">
 </iframe>
 </div>
 </section>
@@ -1291,13 +1360,8 @@ reported in the <span style="color: firebrick;"><strong>Summary of Economic Proj
 <section id="calculate-similarity-python" class="slide level2 scrollable">
 <h2>Calculate similarity (<code>python</code>)</h2>
 <!-- https://stackoverflow.com/questions/166160/how-can-i-scale-the-content-of-an-iframe -->
-<style>
-    #wrap { width: 1620px; height: 1000px; padding: 0; position:relative; left:-100px; top:0px; overflow: hidden; }
-    #frame { width: 1620px; height: 375px; position:relative; left:-65px; top:0px; }
-    #frame { -ms-zoom: 1.5; -moz-transform: scale(1.5); -moz-transform-origin: 0px 0; -o-transform: scale(1.5); -o-transform-origin: 0 0; -webkit-transform: scale(1.5); -webkit-transform-origin: 0 0; }
-</style>
 <div>
-<iframe id="frame" src="code/Calculate_similarities.html">
+<iframe class="frame-ipynb" src="code/Calculate_similarities.html">
 </iframe>
 </div>
 </section>
@@ -1469,11 +1533,56 @@ reported in the <span style="color: firebrick;"><strong>Summary of Economic Proj
 <h2>Results, Movie Reviews</h2>
 <p><img data-src="images/plot_cosine_movies.png" class="absolute" style="top: 10%; left: 0%; width: 100%; "></p>
 </section>
-<section id="to-do" class="slide level2">
-<h2>To Do</h2>
-<ol type="1">
-<li>Add Conclusions</li>
-</ol>
+<section id="discussion" class="slide level2">
+<h2>Discussion</h2>
+<ul>
+<li>Minutes and SEP are very <em>similar</em></li>
+<li>The Beige Book is more similar to the Minutes than to the SEPs:
+<ul>
+<li>The Beige Book reports on <strong>current conditions</strong></li>
+<li>The Minutes discusses both <strong>current conditions</strong> and <strong>the outlook</strong></li>
+<li>The SEP discusses only <strong>forecasts</strong> (i.e.&nbsp;the outlook)</li>
+</ul></li>
+</ul>
+</section>
+<section id="discussion-contd" class="slide level2">
+<h2>Discussion (contd)</h2>
+<p>The Beige Book changed format in 2017</p>
+<ul>
+<li>More concise</li>
+<li>More standardized</li>
+<li>Similar themes as the FOMC meeting</li>
+<li>Less colloquial</li>
+</ul>
+</section></section>
+<section>
+<section id="section-2" class="title-slide slide level1 center">
+<h1></h1>
+<div style="text-align:left; font-size:100px; font-weight: bold; margin-top:100px;">
+<p>Conclusion</p>
+</div>
+</section>
+<section id="take-aways" class="slide level2">
+<h2>Take aways</h2>
+<ul>
+<li>The Minutes and SEP are different animals
+<ul>
+<li>The SEP is a complex document</li>
+<li>The Minutes are more readable</li>
+</ul></li>
+<li>It is interesting they are <em>semantically similar</em>
+<ul>
+<li>But perhaps not surprising</li>
+</ul></li>
+</ul>
+</section>
+<section id="additional-applications" class="slide level2">
+<h2>Additional applications</h2>
+<ul>
+<li>banking and finance-specific embeddings</li>
+<li>financial news and forecasting</li>
+<li>sentiment analysis of financial reports</li>
+</ul>
 <div class="footer footer-default">
 <p><a href="https://rubenhm.org/talks/fedcomms">rubenhm.org/talks/fedcomms</a></p>
 </div>
@@ -1504,7 +1613,7 @@ reported in the <span style="color: firebrick;"><strong>Summary of Economic Proj
       // Full list of configuration options available at:
       // https://revealjs.com/config/
       Reveal.initialize({
-'controlsAuto': true,
+'controlsAuto': false,
 'previewLinksAuto': false,
 'smaller': false,
 'pdfSeparateFragments': false,
@@ -1516,7 +1625,7 @@ reported in the <span style="color: firebrick;"><strong>Summary of Economic Proj
 'smaller': false,
  
         // Display controls in the bottom right corner
-        controls: false,
+        controls: true,
 
         // Help the user learn the controls by providing hints, for example by
         // bouncing the down arrow when they first encounter a vertical slide
@@ -1658,7 +1767,7 @@ reported in the <span style="color: firebrick;"><strong>Summary of Economic Proj
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1200,
+        width: 1100,
 
         height: 700,
 
