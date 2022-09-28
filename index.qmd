@@ -186,9 +186,9 @@ Part II: <br>Numerical Exercise
 + Measure of similarity between two vectors, $A$ and $B$
   
 
-+ $\mathrm{cosine~similarity}~(A,B) = cos(\theta) = \frac{A \cdot B}{\lVert A \rVert \lVert B \rVert}$
++ Cosine similarity $(A,B) = cos(\theta) = \frac{A \cdot B}{\lVert A \rVert \lVert B \rVert}$
 
-+ Measure ranges from $-1$ to $1$
++ Measure ranges in $[-1, 1]$
 \begin{align*}
   {\scriptsize\bullet}~ A &\perp B                    &\implies cos(\theta) &= 0 &\\ 
   {\scriptsize\bullet}~ B &= c A \mathrm{, with~} c>0 &\implies cos(\theta) &= 1 &\\
