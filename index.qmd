@@ -18,8 +18,12 @@ format:
     slide-number: c/t
     width: 1100
     revealjs-plugins:
-      - reveald3
-from: markdown+emoji
+    - reveald3
+    link-external-icon: true
+    link-external-newwindow: true
+    reference-location: margin
+    self-contained: false
+from: markdown+footnotes+emoji
 filters:
   - pandoc/include-code-files.lua
 bibliography: bibliography.bib
@@ -30,15 +34,12 @@ bibliography: bibliography.bib
 <!-- FontAwesome -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" crossorigin="anonymous">
 
+
 - Presentation website: [rubenhm.org/talks/fedcomms](https://rubenhm.org/talks/fedcomms)
 - Slides repository: [github.com/rubenhm/fedcomms](https://github.com/rubenhm/fedcomms)
 - Project repository: [github.com/rubenhm/text-similarities](https://github.com/rubenhm/text-similarities)
 
-# 
-
-:::{style="text-align:left; font-size:100px; font-weight: bold; margin-top:100px;"}
-Part I: <br>Fed Communications
-:::
+# Part I: <br>Fed Communications
 
 ## Motivation
 
@@ -52,29 +53,44 @@ The Fed produces a lot of communications:
 + Economic research
 
 :::{.notes}
-Communications are written publications, press conferences, interviews, or speeches.
+Communications are: 
++ written publications, 
++ press conferences, 
++ interviews, or 
++ speeches.
 :::
 
 ##  Monetary Policy Communications
 
-- FOMC post-meeting statement
+- FOMC post-meeting statement^[[✝]](#references)^
 - Post-meeting press conference
 - Semiannual Report to Congress by Fed Chair
 - [Minutes of the FOMC meeting]{.fragment fragment-index=3 .highlight-red}
 - [Summary of Economic Projections (SEP)]{.fragment fragment-index=3 .highlight-red}
 - Congressional testimony by Fed governors
 - Speeches by Fed governors
-  
+
+
 :::{.notes}
 + The Fed Chair and Vice Chair are governors.
 :::
 
+::: aside
+✝ @fedles2014n23.
+:::
+
+
 
 ## Other Fed Communications  
   
-- [The Beige Book](https://www.federalreserve.gov/monetarypolicy/beige-book-default.htm)
+- [The Beige Book](https://www.federalreserve.gov/monetarypolicy/beige-book-default.htm)^[[✝]](#references)^
 - Speeches by regional bank presidents   
   <https://www.stlouisfed.org/fomcspeak>
+
+
+::: aside
+✝ @jmoncb2009.
+:::
 
 ## SEP: The Dotplot
 
@@ -98,14 +114,14 @@ Communications are written publications, press conferences, interviews, or speec
 
 ## FOMC Communications
 
--   FOMC communications are drafted strategically
-    -   The Fed takes into account market reactions
--   Tension between:
-    -   promoting [**transparency**]{.highlight-red}
-    -   minimizing [**disruptions**]{.highlight-red}
--   Goals:
-    +   To be _'N-sync_ with the markets  
-       (conveying that policies are _**data-driven**_)
+- FOMC communications are drafted strategically
+  - The Fed takes into account market reactions
+- Tension between:
+  - promoting [**transparency**]{.highlight-red}
+  - minimizing [**disruptions**]{.highlight-red}
+- Goals:
+  - To be _'N-sync_ with the markets  
+    (conveying that policies are _**data-driven**_)
 
 
 ## Fed Communications
@@ -125,54 +141,51 @@ Communications are written publications, press conferences, interviews, or speec
 :::
 
 
-# 
-
-:::{style="text-align:left; font-size:100px; font-weight: bold; margin-top:100px;"}
-Part II: <br>Numerical Exercise
-:::
+# Part II: <br>Numerical Exercise
 
 
 ## Exercise
 
--   Calculate measures of *semantic similarity* between:
-    -   the discussion on [**current conditions and the outlook**]{style="color: steelblue;"} \
-        reported in the [**Minutes**]{style="color: firebrick;"} and
-    -   the discussion on [**the forecasts**]{style="color: steelblue;"} \
-        reported in the [**Summary of Economic Projections**]{style="color: firebrick;"}.
--   The similarity measures provide a notion of the\
-    **correlation of ideas** across the two documents
+- Calculate measures of *semantic similarity* between:
+  - the discussion on [**current conditions and the outlook**]{style="color: steelblue;"} \
+    reported in the [**Minutes**]{style="color: firebrick;"} and
+  - the discussion on [**the forecasts**]{style="color: steelblue;"} \
+    reported in the [**Summary of Economic Projections**]{style="color: firebrick;"}.
+- The similarity measures provide a notion of the\
+  **correlation of ideas** across the two documents
 
 ## Minutes and SEP {.column-page}
 
-<iframe src="attachments/fomcminutes20180613.pdf" width="150%" height="80%"></iframe>
 
+<!-- https://pdfobject.com/static/ -->
+
+<embed src="attachments/fomcminutes20180613.pdf"  type="application/pdf" width="85%" height="85%">
+</embed>
 
 ## Robustness tests
 
--   Compare with the **Beige Book**
--   Compare with **movie reviews**
+- Compare with the **Beige Book**
+- Compare with **movie reviews**
 
 
 
 ## Strategy
 
--   Use _sentence embeddings_ of the documents
-    -   [SentenceTransformers](https://www.sbert.net/)  
-        [[@reimers-2019-sentence-bert]]{style="font-size:0.75em;"}
-    -   [PyTorch](https://pytorch.org/) with CUDA support
+- Use _sentence embeddings_ of the documents
+  - [SentenceTransformers](https://www.sbert.net/)^[[✝]](#references)^
+  - [PyTorch](https://pytorch.org/) with CUDA support
 
--   Embedding
-    -   Mapping of sentences to high-dimensional vectors  
-        in an inner product space
-
-
-
-:::{#refs}
-
-:::
+- _Embedding_
+  - Mapping of sentences to high-dimensional vectors  
+    in an inner product space
 
 :::{.notes}
 + These are python libraries.
+:::
+
+
+::: aside
+✝ @reimers-2019-sentence-bert.
 :::
 
 ## Measures of similarity
@@ -184,7 +197,6 @@ Part II: <br>Numerical Exercise
 ## Cosine similarity 
 
 + Measure of similarity between two vectors, $A$ and $B$
-  
 
 + Cosine similarity $(A,B) = cos(\theta) = \frac{A \cdot B}{\lVert A \rVert \lVert B \rVert}$
 
@@ -213,8 +225,9 @@ Part II: <br>Numerical Exercise
 <!-- https://github.com/ranr01/reveal-inline-svg/ -->
 
 :::{.absolute left="10%"}
-<object type="image/svg+xml" data="images/code-network.svg" width="85%">
-</object>
+
+<object type="image/svg+xml" data="images/code-network.svg" width="85%"></object>
+
 :::
 
 <!-- ![](images/code-network.svg){.absolute left="10%" width="80%"} -->
@@ -223,26 +236,54 @@ Part II: <br>Numerical Exercise
 
 ## Download data (`R`)
 
--   [FOMC Minutes and SEP](https://www.federalreserve.gov/monetarypolicy/fomchistorical2010.htm) available as `PDF` files
--   [Beige Book reports](https://www.minneapolisfed.org/region-and-community/regional-economic-indicators/beige-book-archive) available as `HTML` files
--   [Movie reviews](https://developer.nytimes.com/docs/movie-reviews-api/1/overview) available from the NYT API as `JSON` files
+- [FOMC Minutes and SEP](https://www.federalreserve.gov/monetarypolicy/fomchistorical2010.htm) available as `PDF` files
+- [Beige Book reports](https://www.minneapolisfed.org/region-and-community/regional-economic-indicators/beige-book-archive) available as `HTML` files
+- [Movie reviews](https://developer.nytimes.com/docs/movie-reviews-api/1/overview) available from the NYT API as `JSON` files
+
+
+:::{.notes}
++ Downloading data from an API is easier than web scraping.  
++ Movies: API calls  
++ Minutes, SEP, Beige Book: web scrapping
+:::
 
 ## Download Movie Reviews (`R`)
 
 ```{.r include="code/download_and_process_movies.R"}
 ```
 
+
+:::{.notes}
++ Python environment. 
++ API Key from environmental variable.  
++ `download_movies` is a wrapper function.
++ The command is `jsonlite::fromJSON`
++ API entry point in `link` variable. 
+
+Preparing data into sentences
+
++ Starts on line 128.
++ Tokenize into sentences -> words 
++ (remove stopwords, numbers) 
++ words -> back to sentences
++ Write to python pickle file.
+:::
+
 ## Download Minutes and SEP (`R`) 
 
-``` {.r include="code/download_fomc_minutes.R"}
+``` {.r include="code/download_fomc_minutes.R" code-line-numbers="|74-83"}
 ```
 
+:::{.notes}
++ Downloaded Minutes from 2007 which had PDF with images only.
++ Web scraping uses CSS selectors or XPath.
+:::
 
 ## Google Cloud (CLI via `Bash`)
 
--   Upload `PDF` files to storage bucket
--   Run each `PDF` file through the [`Vision API`](https://cloud.google.com/vision)
--   Retrieve `JSON` output
+- Upload `PDF` files to storage bucket
+- Run each `PDF` file through the [`Vision API`](https://cloud.google.com/vision)
+- Retrieve `JSON` output
 
 ## Google Cloud (CLI via `Bash`)
 
@@ -251,10 +292,14 @@ Part II: <br>Numerical Exercise
 
 ## Process OCR results (`python`)
 
--   Read `JSON`
--   Calculate various `positional features`
--   Save as `pickle` file
+- Read `JSON`
+- Calculate various `positional features`
+- Save as `pickle` file
 
+:::{.notes}
++ Pickle is a python-specific data format.
++ Serialize/de-serialize python objects to save them to file.
+:::
 
 ## Process OCR results (`python`) {.scrollable}
 
@@ -265,17 +310,24 @@ Part II: <br>Numerical Exercise
 </div>
 
 
+:::{.notes}
++ The Google API produces JSON output
++ The main function extracts the paragraph features
++ Uses the coordinates of the bounding boxes and breaks
++ Calculates width, height, position, and size, etc.
++ Writes to a dictionary
++ Converts dictionary to CSV string
++ Write to pandas dataframe
++ Write dataframe to pickle
+:::
+
 ## Process text into sentences (`R`)
 
 ``` {.r include="code/organize_paragraphs.R"}
 ```
 
 
-
 ## Calculate similarity (`python`) {.scrollable}
-
-<!-- https://stackoverflow.com/questions/166160/how-can-i-scale-the-content-of-an-iframe -->
-
 
 
 <div>
@@ -322,13 +374,12 @@ The Beige Book changed format in 2017
 - Less colloquial 
 
 
-#
+# Conclusion
 
-:::{style="text-align:left; font-size:100px; font-weight: bold; margin-top:100px;"}
-Conclusion
-:::
+<!-- :::{.bigsection}
+::: -->
 
-## Take aways
+## Takeaways
 
 + The Minutes and SEP are different animals
   + The SEP is a complex document 
@@ -342,3 +393,11 @@ Conclusion
 - banking- and finance-specific embeddings 
 - financial news and forecasting
 - sentiment analysis of financial reports
+
+## References
+
+:::{#refs}
+
+:::
+
+
