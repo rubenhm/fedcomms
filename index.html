@@ -578,9 +578,10 @@ reported in the <span style="color: firebrick;"><strong>Summary of Economic Proj
 <section id="strategy" class="slide level2 smaller scrollable">
 <h2>Strategy</h2>
 <ul>
-<li>Use <em>sentence embeddings</em> of the documents:
+<li>Use <em>sentence embeddings</em> of the documents
 <ul>
-<li><a href="https://www.sbert.net/">SentenceTransformers</a> <span style="font-size:0.75em;"><span class="citation" data-cites="reimers-2019-sentence-bert">(<a href="#/ref-reimers-2019-sentence-bert" role="doc-biblioref" onclick="return false;">Reimers and Gurevych 2019</a>)</span></span></li>
+<li><a href="https://www.sbert.net/">SentenceTransformers</a><br>
+<span style="font-size:0.75em;"><span class="citation" data-cites="reimers-2019-sentence-bert">(<a href="#/ref-reimers-2019-sentence-bert" role="doc-biblioref" onclick="return false;">Reimers and Gurevych 2019</a>)</span></span></li>
 <li><a href="https://pytorch.org/">PyTorch</a> with CUDA support</li>
 </ul></li>
 <li>Embedding
@@ -1411,11 +1412,11 @@ Reimers, Nils, and Iryna Gurevych. 2019. <span>“Sentence-BERT: Sentence Embedd
 <span id="cb5-42"><a href="#cb5-42"></a>  <span class="fu">select</span>(<span class="sc">-</span>doc_id) <span class="sc">%&gt;%</span></span>
 <span id="cb5-43"><a href="#cb5-43"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(date), <span class="at">names_prefix =</span> <span class="st">"cosine_"</span>, <span class="at">values_to =</span> <span class="st">"similarity"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb5-44"><a href="#cb5-44"></a>  <span class="fu">mutate</span>( <span class="at">docs =</span> <span class="fu">case_when</span>(</span>
-<span id="cb5-45"><a href="#cb5-45"></a>    name <span class="sc">==</span> <span class="st">"min_sep"</span>  <span class="sc">~</span> <span class="st">"Minutes — SEPs"</span>,</span>
+<span id="cb5-45"><a href="#cb5-45"></a>    name <span class="sc">==</span> <span class="st">"min_sep"</span>  <span class="sc">~</span> <span class="st">"Minutes — SEP"</span>,</span>
 <span id="cb5-46"><a href="#cb5-46"></a>    name <span class="sc">==</span> <span class="st">"min_beb"</span>  <span class="sc">~</span> <span class="st">"Minutes — Beige Book"</span>,</span>
 <span id="cb5-47"><a href="#cb5-47"></a>    name <span class="sc">==</span> <span class="st">"min_mov"</span>  <span class="sc">~</span> <span class="st">"Minutes — Movie Summaries"</span>,</span>
-<span id="cb5-48"><a href="#cb5-48"></a>    name <span class="sc">==</span> <span class="st">"sep_beb"</span>  <span class="sc">~</span> <span class="st">"SEPs — Beige Book"</span>,</span>
-<span id="cb5-49"><a href="#cb5-49"></a>    name <span class="sc">==</span> <span class="st">"sep_mov"</span>  <span class="sc">~</span> <span class="st">"SEPs — Movie Summaries"</span>,</span>
+<span id="cb5-48"><a href="#cb5-48"></a>    name <span class="sc">==</span> <span class="st">"sep_beb"</span>  <span class="sc">~</span> <span class="st">"SEP — Beige Book"</span>,</span>
+<span id="cb5-49"><a href="#cb5-49"></a>    name <span class="sc">==</span> <span class="st">"sep_mov"</span>  <span class="sc">~</span> <span class="st">"SEP — Movie Summaries"</span>,</span>
 <span id="cb5-50"><a href="#cb5-50"></a>    name <span class="sc">==</span> <span class="st">"beb_mov"</span>  <span class="sc">~</span> <span class="st">"Beige Book — Movie Summaries"</span></span>
 <span id="cb5-51"><a href="#cb5-51"></a>  )) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>name)</span>
 <span id="cb5-52"><a href="#cb5-52"></a></span>
@@ -1537,10 +1538,11 @@ Reimers, Nils, and Iryna Gurevych. 2019. <span>“Sentence-BERT: Sentence Embedd
 <h2>Discussion</h2>
 <ul>
 <li>Minutes and SEP are very <em>similar</em></li>
-<li>The Beige Book is more similar to the Minutes than to the SEPs:
+<li>The Beige Book is more similar to the Minutes than to the SEP:
 <ul>
 <li>The Beige Book reports on <strong>current conditions</strong></li>
-<li>The Minutes discusses both <strong>current conditions</strong> and <strong>the outlook</strong></li>
+<li>The Minutes discusses both<br>
+<strong>current conditions</strong> and <strong>the outlook</strong></li>
 <li>The SEP discusses only <strong>forecasts</strong> (i.e.&nbsp;the outlook)</li>
 </ul></li>
 </ul>
@@ -1574,12 +1576,13 @@ Reimers, Nils, and Iryna Gurevych. 2019. <span>“Sentence-BERT: Sentence Embedd
 <ul>
 <li>But perhaps not surprising</li>
 </ul></li>
+<li>The Beige Book is still my favorite</li>
 </ul>
 </section>
 <section id="additional-applications" class="slide level2">
 <h2>Additional applications</h2>
 <ul>
-<li>banking and finance-specific embeddings</li>
+<li>banking- and finance-specific embeddings</li>
 <li>financial news and forecasting</li>
 <li>sentiment analysis of financial reports</li>
 </ul>

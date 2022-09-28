@@ -156,13 +156,14 @@ Part II: <br>Numerical Exercise
 
 ## Strategy
 
-+ Use _sentence embeddings_ of the documents:
-  - [SentenceTransformers](https://www.sbert.net/)  [[@reimers-2019-sentence-bert]]{style="font-size:0.75em;"}
-  - [PyTorch](https://pytorch.org/) with CUDA support
+-   Use _sentence embeddings_ of the documents
+    -   [SentenceTransformers](https://www.sbert.net/)  
+        [[@reimers-2019-sentence-bert]]{style="font-size:0.75em;"}
+    -   [PyTorch](https://pytorch.org/) with CUDA support
 
-+ Embedding
-  - Mapping of sentences to high-dimensional vectors  
-    in an inner product space
+-   Embedding
+    -   Mapping of sentences to high-dimensional vectors  
+        in an inner product space
 
 
 
@@ -304,9 +305,10 @@ Part II: <br>Numerical Exercise
 
 
 + Minutes and SEP are very _similar_
-+ The Beige Book is more similar to the Minutes than to the SEPs:
++ The Beige Book is more similar to the Minutes than to the SEP:
   - The Beige Book reports on **current conditions**
-  - The Minutes discusses both **current conditions** and **the outlook**
+  - The Minutes discusses both   
+    **current conditions** and **the outlook**
   - The SEP discusses only **forecasts** (i.e. the outlook)
 
 
@@ -333,9 +335,10 @@ Conclusion
   + The Minutes are more readable
 + It is interesting they are _semantically similar_
   + But perhaps not surprising
++ The Beige Book is still my favorite
 
 ## Additional applications
 
-- banking and finance-specific embeddings 
+- banking- and finance-specific embeddings 
 - financial news and forecasting
 - sentiment analysis of financial reports

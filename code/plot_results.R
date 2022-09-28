@@ -42,11 +42,11 @@ df_chart_cosine <- df_cosine %>%
   select(-doc_id) %>%
   pivot_longer(cols = -c(date), names_prefix = "cosine_", values_to = "similarity") %>%
   mutate( docs = case_when(
-    name == "min_sep"  ~ "Minutes — SEPs",
+    name == "min_sep"  ~ "Minutes — SEP",
     name == "min_beb"  ~ "Minutes — Beige Book",
     name == "min_mov"  ~ "Minutes — Movie Summaries",
-    name == "sep_beb"  ~ "SEPs — Beige Book",
-    name == "sep_mov"  ~ "SEPs — Movie Summaries",
+    name == "sep_beb"  ~ "SEP — Beige Book",
+    name == "sep_mov"  ~ "SEP — Movie Summaries",
     name == "beb_mov"  ~ "Beige Book — Movie Summaries"
   )) %>% select(-name)
 
