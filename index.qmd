@@ -1,9 +1,9 @@
 ---
 title: "Semantic Similarity of Fed Communications"
 author: "Rubén Hernández Murillo"
-location: "Model Risk Seminar"
-date: "KeyBank — October, 2022"
-institute: "Model Risk"
+location: "Model Risk"
+date: "KeyBank — November 10, 2022"
+institute: "Model Risk Seminar"
 format: 
   revealjs:
     footer: "[rubenhm.org/talks/fedcomms](https://rubenhm.org/talks/fedcomms)"
@@ -39,26 +39,25 @@ bibliography: bibliography.bib
 - Slides repository: [github.com/rubenhm/fedcomms](https://github.com/rubenhm/fedcomms)
 - Project repository: [github.com/rubenhm/text-similarities](https://github.com/rubenhm/text-similarities)
 
+:::{.notes}
++ Thanks
++ Seminar's goals
++ First part: motivate Fed Comms
++ Second part: walk-through of code 
+:::
+
+
 # Part I: <br>Fed Communications
 
 ## Motivation
 
 The Fed produces a lot of communications:
 
-
 + [Monetary policy]{.fragment fragment-index=3 .highlight-red}
 + Banking supervision and regulation
 + Financial stability
 + Payments systems
 + Economic research
-
-:::{.notes}
-Communications are: 
-+ written publications, 
-+ press conferences, 
-+ interviews, or 
-+ speeches.
-:::
 
 ##  Monetary Policy Communications
 
@@ -72,6 +71,12 @@ Communications are:
 
 
 :::{.notes}
+Communications take many forms: 
++ written publications, 
++ press conferences, 
++ interviews, or 
++ speeches.
+Note:
 + The Fed Chair and Vice Chair are governors.
 :::
 
@@ -79,10 +84,8 @@ Communications are:
 ✝ @fedles2014n23.
 :::
 
+## Other Fed Communications
 
-
-## Other Fed Communications  
-  
 - [The Beige Book](https://www.federalreserve.gov/monetarypolicy/beige-book-default.htm)^[[✝]](#references)^
 - Speeches by regional bank presidents   
   <https://www.stlouisfed.org/fomcspeak>
@@ -95,8 +98,8 @@ Communications are:
 ## SEP: The Dotplot
 
 <style>
-    #dotplot { width: 1600px; height: 600px; position:relative; left:15px; top:0px; }
-    #dotplot { -ms-zoom: 1.3; -moz-transform: scale(1.3); -moz-transform-origin: 0px 0; -o-transform: scale(1.3); -o-transform-origin: 0 0; -webkit-transform: scale(1.3); -webkit-transform-origin: 0 0; }
+    #dotplot { width: 1400px; height: 600px; position:relative; left:15px; top:0px; }
+    #dotplot { -ms-zoom: 1.2; -moz-transform: scale(1.2); -moz-transform-origin: 0px 0; -o-transform: scale(1.2); -o-transform-origin: 0 0; -webkit-transform: scale(1.2); -webkit-transform-origin: 0 0; }
 </style>
 
 <div id="dotplot" class="fig-container" data-file="d3charts/dotplot.html" width="100%"></div>
@@ -104,17 +107,16 @@ Communications are:
 ## SEP: PCE Inflation
 
 <style>
-    #pce { width: 1600px; height: 600px; position:relative; left:15px; top:0px; }
-    #pce { -ms-zoom: 1.3; -moz-transform: scale(1.3); -moz-transform-origin: 0px 0; -o-transform: scale(1.3); -o-transform-origin: 0 0; -webkit-transform: scale(1.3); -webkit-transform-origin: 0 0; }
+    #pce { width: 1400px; height: 600px; position:relative; left:15px; top:0px; }
+    #pce { -ms-zoom: 1.2; -moz-transform: scale(1.2); -moz-transform-origin: 0px 0; -o-transform: scale(1.2); -o-transform-origin: 0 0; -webkit-transform: scale(1.2); -webkit-transform-origin: 0 0; }
 </style>
 
-<div id="pce" class="fig-container" data-file="d3charts/fomc_pce_box.html"></div>
-
+<div id="pce" class="fig-container" data-file="d3charts/fomc_pce_box.html" width="100%"></div>
 
 
 ## FOMC Communications
 
-- FOMC communications are drafted strategically
+- FOMC communications are drafted _strategically_
   - The Fed takes into account market reactions
 - Tension between:
   - promoting [**transparency**]{.highlight-red}
@@ -123,6 +125,17 @@ Communications are:
   - To be _'N-sync_ with the markets  
     (conveying that policies are _**data-driven**_)
 
+
+:::{.notes}
++ The Fed has made efforts to increase _transparency_
+  + By _educating_ market participants to _anticipate policy actions_
+  + This was easier before the Great Recession
+    when the main policy tool was **the fed funds rate**:
+    - Taylor Rule
+  + It became increasingly complicated afterwards 
+    when the main policy tool was **the balance sheet**:
+    - ???
+:::
 
 ## Fed Communications
 
@@ -134,7 +147,7 @@ Communications are:
 > then market interest rates will tend to move   
 > in a way that reinforces the expected actions,  
 > effectively supporting the goals of the central bank._ [<i class="fas fa-quote-right"></i>]{style="color:gray;"}
-> 
+>
 :::{style="text-align:right;"}
 > — Ben S. Bernanke  
 > November 14, 2007
@@ -210,15 +223,36 @@ Communications are:
 
 ## Multiple tools and languages
 
-![](images/Rlogo.svg){.absolute top="10%" left="5%" width="150px"}
+![](images/Rlogo.svg "R"){.absolute top="10%" left="5%" width="150px"}
 
-![](images/jupyter.svg){.absolute top="10%" left="80%" width="150px"}
+![](images/jupyter.svg "Jupyter"){.absolute top="10%" left="80%" width="150px"}
 
-![](images/python.svg){.absolute top="40%" left="40%" width="150px"}
+![](images/python.svg "Python"){.absolute top="40%" left="40%" width="150px"}
 
-![](images/bash.svg){.absolute top="70%" left="5%" width="150px"}
+![](images/bash.svg "Bash"){.absolute top="70%" left="5%" width="150px"}
 
-![](images/google-cloud.svg){.absolute top="70%" left="80%" width="150px"}
+![](images/google-cloud.svg "Cloud"){.absolute top="70%" left="80%" width="150px"}
+
+## Multiple tools and languages
+
+![](images/Rlogo.svg "R"){.absolute top="10%" left="5%" width="150px"}
+
+![](images/git-logo.svg "Git"){.absolute top="10%" left="40%" width="150px"}
+
+![](images/jupyter.svg "Jupyter"){.absolute top="10%" left="80%" width="150px"}
+
+![](images/markdown-logo.svg "Markdown"){.absolute top="40%" left="5%" width="150px"}
+
+![](images/python.svg "Python"){.absolute top="40%" left="40%" width="150px"}
+
+![](images/quarto.svg "Quarto"){.absolute top="40%" left="80%" width="150px"}
+
+![](images/bash.svg "Bash"){.absolute top="70%" left="5%" width="150px"}
+
+![](images/d3-logo.svg "D3.js"){.absolute top="70%" left="40%" width="150px"}
+
+![](images/google-cloud.svg "Cloud"){.absolute top="70%" left="80%" width="150px"}
+
 
 ## Code dependencies
 
@@ -247,7 +281,28 @@ Communications are:
 + Minutes, SEP, Beige Book: web scrapping
 :::
 
-## Download Movie Reviews (`R`)
+## Download the Minutes and SEP (`R`) 
+
+``` {.r include="code/download_fomc_minutes.R" code-line-numbers="|74-83"}
+```
+
+:::{.notes}
++ Downloaded Minutes from 2007 which had PDF with images only.
++ Web scraping uses CSS selectors or XPath.
+:::
+
+## Download the Beige Book (`R`)
+
+```{.r include="code/download_beige_book.R" code-line-numbers="|99-109"}
+```
+
+:::{.notes}
++ Downloaded Beige Book reports for the same dates as the Minutes/SEP
++ Web scraping downloads entire reports as an html page
++ Later use css selectors to extract text 
+:::
+
+## Download the Movie Reviews (`R`)
 
 ```{.r include="code/download_and_process_movies.R"}
 ```
@@ -269,28 +324,18 @@ Preparing data into sentences
 + Write to python pickle file.
 :::
 
-## Download Minutes and SEP (`R`) 
-
-``` {.r include="code/download_fomc_minutes.R" code-line-numbers="|74-83"}
-```
-
-:::{.notes}
-+ Downloaded Minutes from 2007 which had PDF with images only.
-+ Web scraping uses CSS selectors or XPath.
-:::
-
-## Google Cloud (CLI via `Bash`)
+## Google Cloud (`Bash`)
 
 - Upload `PDF` files to storage bucket
 - Run each `PDF` file through the [`Vision API`](https://cloud.google.com/vision)
 - Retrieve `JSON` output
 
-## Google Cloud (CLI via `Bash`)
+## Google Cloud (`Bash`)
 
 ``` {.bash include="code/gcompfiles.sh" code-line-numbers="|22"}
 ```
 
-## Process OCR results (`python`)
+## Process OCR results (`Python`)
 
 - Read `JSON`
 - Calculate various `positional features`
@@ -301,7 +346,7 @@ Preparing data into sentences
 + Serialize/de-serialize python objects to save them to file.
 :::
 
-## Process OCR results (`python`) {.scrollable}
+## Process OCR results (`Python`) {.scrollable}
 
 
 <div>
@@ -321,13 +366,17 @@ Preparing data into sentences
 + Write dataframe to pickle
 :::
 
-## Process text into sentences (`R`)
+## Process Minutes/SEP text <br>into sentences (`R`)
 
 ``` {.r include="code/organize_paragraphs.R"}
 ```
 
+## Process Beige Book text <br>into sentences (`R`)
 
-## Calculate similarity (`python`) {.scrollable}
+``` {.r include="code/organize_beige_book.R"}
+```
+
+## Calculate similarity (`Python`) {.scrollable}
 
 
 <div>

@@ -94,7 +94,7 @@ invisible(lapply(filepaths, function(flink) {
   # Read link
   siteYear <- xml2::read_html(flink)
   minutesPdfLinks <- siteYear %>%
-      rvest::html_nodes(listCssA[[year]])  %>%
+    rvest::html_nodes(listCssA[[year]])  %>%
     rvest::html_attr('href')
   url = XML::parseURI(flink)$server %>% paste0('https://', .)
   # Download files in list of links
