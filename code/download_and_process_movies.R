@@ -66,7 +66,7 @@ dates.seps <- c('20071031',
                 '20200610',
                 '20200916') %>% as.Date(format = '%Y%m%d')
 
-# Test API
+# Tutorial
 # https://www.storybench.org/working-with-the-new-york-times-api-in-r/
 
 download_movies <- function(date_sep) {

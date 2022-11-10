@@ -72,12 +72,17 @@ The Fed produces a lot of communications:
 
 :::{.notes}
 Communications take many forms: 
+
 + written publications, 
++ press releases,
 + press conferences, 
 + interviews, or 
-+ speeches.
++ speeches
+
 Note:
-+ The Fed Chair and Vice Chair are governors.
+
++ The Fed Chair and Vice Chair are **governors**.
++ The article cited looked at the reading complexity of the _Policy Statement_.
 :::
 
 ::: aside
@@ -95,6 +100,40 @@ Note:
 ✝ @jmoncb2009.
 :::
 
+:::{.notes}
++ The Beige Book is a survey of anecdotal information from business contacts
++ It is written for the public at large
++ The language is non-technical
++ The article cited reported that the net _optimism_ (a measure of sentiment)
+  in the report helped predict employment and gdp growth
++ Show Beige Book **website**
+:::
+
+## Minutes and SEP {.column-page}
+
+<!-- https://pdfobject.com/static/ -->
+
+<embed src="attachments/fomcminutes20180613.pdf"  type="application/pdf" width="85%" height="85%">
+</embed>
+
+
+:::{.notes}
++ The Minutes are released about 3 weeks after the FOMC Meeting
++ The FOMC members discuss _current economic conditions_, the _economic outlook_, 
+  and _appropriate polciy actions_
++ The Minutes also include comments from the Board staff on 
+  _financial markets_ and _economic conditions_
++ The language is non-technical
++ The SEP discuss the _economic outlook_
++ The public is most familiar with the _projection charts_
+  but there is also discussion on the _economic outlook_
+
+**Note:** 
+
++ Before 2020, the Minutes and SEP appeared in the same PDF file. 
++ Starting on 202, the Minutes and SEP appear in separate PDF files. 
+:::
+
 ## SEP: The Dotplot
 
 <style>
@@ -103,6 +142,11 @@ Note:
 </style>
 
 <div id="dotplot" class="fig-container" data-file="d3charts/dotplot.html" width="100%"></div>
+
+:::{.notes}
++ Highlight **diversity** of views among FOMC members
+:::
+
 
 ## SEP: PCE Inflation
 
@@ -127,11 +171,11 @@ Note:
 
 
 :::{.notes}
-+ The Fed has made efforts to increase _transparency_
-  + By _educating_ market participants to _anticipate policy actions_
++ The Fed has made great efforts to increase _transparency_
+  + Primarily by _educating_ market participants to _anticipate policy actions_
   + This was easier before the Great Recession
     when the main policy tool was **the fed funds rate**:
-    - Taylor Rule
+    - e.g., everyone knew about the _Taylor Rule_
   + It became increasingly complicated afterwards 
     when the main policy tool was **the balance sheet**:
     - ???
@@ -159,27 +203,19 @@ Note:
 
 ## Exercise
 
-- Calculate measures of *semantic similarity* between:
+- Calculate measures of <span style="background-color:yellow">*semantic similarity*</span> between:
   - the discussion on [**current conditions and the outlook**]{style="color: steelblue;"} \
     reported in the [**Minutes**]{style="color: firebrick;"} and
   - the discussion on [**the forecasts**]{style="color: steelblue;"} \
     reported in the [**Summary of Economic Projections**]{style="color: firebrick;"}.
 - The similarity measures provide a notion of the\
-  **correlation of ideas** across the two documents
+  <span style="background-color:yellow">*correlation of ideas*</span> across the two documents
 
-## Minutes and SEP {.column-page}
-
-
-<!-- https://pdfobject.com/static/ -->
-
-<embed src="attachments/fomcminutes20180613.pdf"  type="application/pdf" width="85%" height="85%">
-</embed>
 
 ## Robustness tests
 
 - Compare with the **Beige Book**
 - Compare with **movie reviews**
-
 
 
 ## Strategy
@@ -193,7 +229,7 @@ Note:
     in an inner product space
 
 :::{.notes}
-+ These are python libraries.
++ `SentenceTransformers` and `PyTorch` are python libraries.
 :::
 
 
@@ -233,6 +269,11 @@ Note:
 
 ![](images/google-cloud.svg "Cloud"){.absolute top="70%" left="80%" width="150px"}
 
+
+:::{.notes}
++ These are the tools used in the project
+:::
+
 ## Multiple tools and languages
 
 ![](images/Rlogo.svg "R"){.absolute top="10%" left="5%" width="150px"}
@@ -253,6 +294,9 @@ Note:
 
 ![](images/google-cloud.svg "Cloud"){.absolute top="70%" left="80%" width="150px"}
 
+:::{.notes}
++ The additional tools were used in this presentation
+:::
 
 ## Code dependencies
 
@@ -266,40 +310,37 @@ Note:
 
 <!-- ![](images/code-network.svg){.absolute left="10%" width="80%"} -->
 
+:::{.notes}
+Project organization
+
++ Download data
+  + Data is text documents
++ Process text: clean up, break into sentences
++ Minutes/SEP have added complication: PDF source
+  + two-columns
+  + lots of figures
+  + footnotes, headers
++ Calculate embeddings for documents, from sentences
++ Calculate correlations
++ Generate charts
++ Interpret results
+:::
 
 
 ## Download data (`R`)
 
-- [FOMC Minutes and SEP](https://www.federalreserve.gov/monetarypolicy/fomchistorical2010.htm) available as `PDF` files
+- [Movie reviews](https://developer.nytimes.com/docs/movie-reviews-api/1/overview) available from the `New York Times API` as `JSON` files
 - [Beige Book reports](https://www.minneapolisfed.org/region-and-community/regional-economic-indicators/beige-book-archive) available as `HTML` files
-- [Movie reviews](https://developer.nytimes.com/docs/movie-reviews-api/1/overview) available from the NYT API as `JSON` files
+- [FOMC Minutes and SEP](https://www.federalreserve.gov/monetarypolicy/fomchistorical2010.htm) available as `PDF` files
 
 
 :::{.notes}
-+ Downloading data from an API is easier than web scraping.  
++ Downloading data from an API is easier than web scraping
 + Movies: API calls  
-+ Minutes, SEP, Beige Book: web scrapping
-:::
-
-## Download the Minutes and SEP (`R`) 
-
-``` {.r include="code/download_fomc_minutes.R" code-line-numbers="|74-83"}
-```
-
-:::{.notes}
-+ Downloaded Minutes from 2007 which had PDF with images only.
-+ Web scraping uses CSS selectors or XPath.
-:::
-
-## Download the Beige Book (`R`)
-
-```{.r include="code/download_beige_book.R" code-line-numbers="|99-109"}
-```
-
-:::{.notes}
-+ Downloaded Beige Book reports for the same dates as the Minutes/SEP
-+ Web scraping downloads entire reports as an html page
-+ Later use css selectors to extract text 
++ Minutes, SEP, Beige Book: web scraping
+  + Beige Book, download html files
+  + Minutes/SEP, downlad PDF files
++ API: _Application Programming Interface_
 :::
 
 ## Download the Movie Reviews (`R`)
@@ -309,11 +350,13 @@ Note:
 
 
 :::{.notes}
-+ Python environment. 
-+ API Key from environmental variable.  
-+ `download_movies` is a wrapper function.
++ Python environment for saving to `pickle` file
++ API Key from environmental variable 
++ `download_movies` is a wrapper function
 + The command is `jsonlite::fromJSON`
 + API entry point in `link` variable. 
++ The API call uses various **parameters**
++ Show NYT API **website**
 
 Preparing data into sentences
 
@@ -324,16 +367,70 @@ Preparing data into sentences
 + Write to python pickle file.
 :::
 
+
+## Download the Beige Book (`R`)
+
+```{.r include="code/download_beige_book.R"}
+```
+
+:::{.notes}
+Webscraping is easy
+
++ Download Beige Book reports for the same dates as the Minutes/SEP
++ The Beige Book is published about 2 weeks before the FOMC meeting
++ The `url` of each report follows a pattern
++ Download entire report as an `html` file
++ Later use `CSS` selectors to extract text 
+:::
+
+## Download the Minutes and SEP (`R`) 
+
+``` {.r include="code/download_fomc_minutes.R"}
+```
+
+:::{.notes}
+Webscraping is more difficult
+
++ Identify links to documents by year using `CSS` selectors
++ Identify links to individual PDF files using `CSS` selectors
++ Download PDF files
++ Web scraping uses CSS selectors or XPath.
+
+Notes
+
++ Downloaded Minutes/SEP as PDF files because
+  early documents were PDF only
++ Used the Google Vision API because 
+  early PDFs were image only, with no embedded text
+:::
+
+
 ## Google Cloud (`Bash`)
 
 - Upload `PDF` files to storage bucket
 - Run each `PDF` file through the [`Vision API`](https://cloud.google.com/vision)
 - Retrieve `JSON` output
 
+:::{.notes}
++ Install Google Cloud CLI
++ Use in Bash script
++ Easier than using the web interface
+:::
+
 ## Google Cloud (`Bash`)
 
-``` {.bash include="code/gcompfiles.sh" code-line-numbers="|22"}
+``` {.bash include="code/gcompfiles.sh"}
 ```
+
+:::{.notes}
+Bash commands
+
++ `awk`
++ `sed`
++ These commands act on files or text streams
++ They are very efficient at handling large files
++ Easier than loading an entire `CSV` file into `Excel`
+:::
 
 ## Process OCR results (`Python`)
 
@@ -342,7 +439,7 @@ Preparing data into sentences
 - Save as `pickle` file
 
 :::{.notes}
-+ Pickle is a python-specific data format.
++ `Pickle` is a python-specific data format.
 + Serialize/de-serialize python objects to save them to file.
 :::
 
@@ -371,10 +468,27 @@ Preparing data into sentences
 ``` {.r include="code/organize_paragraphs.R"}
 ```
 
+:::{.notes}
++ Use Position to order columns
++ Extract text, sort into Minutes and SEPs
++ Using bounding paragraphs
++ Drop text with small font size
++ Drop text with small number of characters
++ Break into sentences
++ Remove stop words
+:::
+
 ## Process Beige Book text <br>into sentences (`R`)
 
 ``` {.r include="code/organize_beige_book.R"}
 ```
+
+:::{.notes}
++ Use `CSS` selectors to extract text
++ Use `regex` to clean up date
++ Break into sentences
++ Remove stop words
+:::
 
 ## Calculate similarity (`Python`) {.scrollable}
 
@@ -385,12 +499,26 @@ Preparing data into sentences
 </div>
 
 
+:::{.notes}
++ Use library to embed sentences
++ Average across sentences in document to embed entire document
++ Calculate similarity with pairs of documents
++ Use CUDA for parallel processing
++ Save to pickle file
+:::
+
+
 ## Generate plots (`R`)
 
 ``` {.r include="code/plot_results.R"}
 ```
 
-
+:::{.notes}
++ Can use system python executable, no need for Anaconda
++ Python is used only for reading pickle files
++ `ggplot` is a nice library for charts in `R`
++ Alternative in python: `seaborn` or `matplotlib`
+:::
 
 ## Results, FOMC
 
@@ -398,9 +526,29 @@ Preparing data into sentences
 ![](images/plot_cosine_fomc.png){.absolute top="10%" left="0%" width="100%"}
 
 
+:::{.notes}
+Highlights
+
++ High correlation (in excess of 60%)
++ Highest correlation between Minutes and SEP
++ Then Minutes and Beige Book
++ Finally SEP and Beige Book
++ Break indicates a change in the Beige Book format
+:::
+
 ## Results, Movie Reviews
 
 ![](images/plot_cosine_movies.png){.absolute top="10%" left="0%" width="100%"}
+
+:::{.notes}
+Highlights
+
++ Low correlation (less than 50%)
++ Highest for Beige Book and Movies
++ They both use more colloquial language
++ Minutes and SEP have more technical language
+:::
+
 
 ## Discussion 
 
@@ -443,10 +591,23 @@ The Beige Book changed format in 2017
 - financial news and forecasting
 - sentiment analysis of financial reports
 
+:::{.notes}
++ If you find any of the topics reviewed today interesting
++ Or if you think any of tools or techniques might be useful 
+  in a project
++ Let me know, we could have a conversation afterwards
+:::
+
+
 ## References
 
 :::{#refs}
 
 :::
 
-
+:::{.notes}
++ Previous works on Fed Communications
++ There have been lots of advances in the literature
++ e.g., using audio and machine learning to 
+  extract sentiment from speech recordings
+:::
